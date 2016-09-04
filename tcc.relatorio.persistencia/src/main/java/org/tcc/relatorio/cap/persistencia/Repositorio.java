@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class Repositorio extends org.tcc.relatorio.hammer.persistencia.Repositorio {
 
     private static final Logger log = LoggerFactory.getLogger(Repositorio.class);
-    @PersistenceContext(unitName = "prodesp.cap.persistenciaPU") // <<--- persistence.xml
+    @PersistenceContext(unitName = "org.tcc.relatorio.cap.persistenciaPU") // <<--- persistence.xml
     protected EntityManager eManager;
 
     /**

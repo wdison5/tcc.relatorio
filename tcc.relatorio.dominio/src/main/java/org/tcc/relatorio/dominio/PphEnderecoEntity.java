@@ -216,7 +216,7 @@ public class PphEnderecoEntity extends BaseEntity implements IDadosUsuario, IDad
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphEndereco[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphEndereco[ id=" + getId() + " ]";
     }
     
 }

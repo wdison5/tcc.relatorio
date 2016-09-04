@@ -1,4 +1,4 @@
-package prodesp.cap.dominio;
+package org.tcc.relatorio.cap.dominio;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

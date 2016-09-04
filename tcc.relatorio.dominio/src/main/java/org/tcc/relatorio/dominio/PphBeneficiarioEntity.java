@@ -342,7 +342,7 @@ public class PphBeneficiarioEntity extends BaseEntity implements IDadosUsuario, 
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphBeneficiario[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphBeneficiario[ id=" + getId() + " ]";
     }
 
     @Override

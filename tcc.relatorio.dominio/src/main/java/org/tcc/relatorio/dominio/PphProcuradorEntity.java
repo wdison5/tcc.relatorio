@@ -164,7 +164,7 @@ public class PphProcuradorEntity extends BaseEntity implements IDadosUsuario, ID
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphProcurador[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphProcurador[ id=" + getId() + " ]";
     }
     
 }

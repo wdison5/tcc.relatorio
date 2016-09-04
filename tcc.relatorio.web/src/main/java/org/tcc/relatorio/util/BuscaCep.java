@@ -27,7 +27,7 @@ public class BuscaCep {
         Cep c = null;
         try {
             String resourceBundleName = "configuracao";
-            String resourceBundleKey = "url.cep.prodesp";
+            String resourceBundleKey = "url.cep.org.tcc.relatorio";
 //            String resourceBundleKey = "url.cep";
             String urlBase;
             FacesContext facesContext = FacesContext.getCurrentInstance();

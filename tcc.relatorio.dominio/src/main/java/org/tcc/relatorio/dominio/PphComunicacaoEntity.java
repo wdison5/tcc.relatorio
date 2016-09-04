@@ -171,7 +171,7 @@ public class PphComunicacaoEntity extends BaseEntity implements IDadosUsuario, I
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphComunicacao[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphComunicacao[ id=" + getId() + " ]";
     }
     
 }

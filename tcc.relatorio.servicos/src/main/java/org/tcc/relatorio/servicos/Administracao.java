@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author jfascio
  */
-@WebService(endpointInterface = "prodesp.s4sp.indicadores.contratos.Administracao", serviceName = "AdministracaoService")
+@WebService(endpointInterface = "org.tcc.relatorio.s4sp.indicadores.contratos.Administracao", serviceName = "AdministracaoService")
 public class Administracao implements org.tcc.relatorio.contratos.Administracao {
 
     private static final Logger logger = LoggerFactory.getLogger(Administracao.class);

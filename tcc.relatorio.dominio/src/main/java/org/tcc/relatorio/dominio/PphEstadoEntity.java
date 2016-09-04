@@ -129,7 +129,7 @@ public class PphEstadoEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphEstado[ cdUf=" + cdUf + "; id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphEstado[ cdUf=" + cdUf + "; id=" + getId() + " ]";
     }
     
 }

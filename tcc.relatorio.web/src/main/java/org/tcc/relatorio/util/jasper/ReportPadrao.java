@@ -324,7 +324,7 @@ public class ReportPadrao {
 
             ServletContext scontext = (ServletContext) fc.getExternalContext().getContext();
             String caminho = scontext.getRealPath(separador + "img");
-            logo = Image.getInstance(caminho + separador + "logo_prodesp2.png");
+            logo = Image.getInstance(caminho + separador + "logo_org.tcc.relatorio2.png");
             logo.scalePercent(80, 80);
 
             HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();

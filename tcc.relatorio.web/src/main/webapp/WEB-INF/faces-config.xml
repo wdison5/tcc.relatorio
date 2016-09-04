@@ -22,7 +22,7 @@
     </application>
      
     <lifecycle>
-        <phase-listener>prodesp.sipph.listener.UACompatibleHeaderPhaseListener</phase-listener>
+        <phase-listener>org.tcc.relatorio.listener.UACompatibleHeaderPhaseListener</phase-listener>
     </lifecycle>
      
 </faces-config>

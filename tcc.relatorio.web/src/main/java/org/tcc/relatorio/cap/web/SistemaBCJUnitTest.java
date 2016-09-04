@@ -5,8 +5,8 @@
 package org.tcc.relatorio.cap.web;
 
 import org.slf4j.LoggerFactory;
-//import prodesp.cap.dominio.ModuloEntity;
-//import prodesp.cap.dominio.SistemaEntity;
+//import org.tcc.relatorio.cap.dominio.ModuloEntity;
+//import org.tcc.relatorio.cap.dominio.SistemaEntity;
 
 /**
  *

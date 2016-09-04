@@ -155,7 +155,7 @@ public class PphContatoEntity extends BaseEntity implements IDadosUsuario, IDado
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphContato[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphContato[ id=" + getId() + " ]";
     }
 
 }

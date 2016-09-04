@@ -181,7 +181,7 @@ public class PphEmpenhoEntity extends BaseEntity implements IDadosUsuario, IDado
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphEmpenho[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphEmpenho[ id=" + getId() + " ]";
     }
     
 }

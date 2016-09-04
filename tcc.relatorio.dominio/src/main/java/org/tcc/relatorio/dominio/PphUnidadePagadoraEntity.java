@@ -154,7 +154,7 @@ public class PphUnidadePagadoraEntity extends BaseEntity implements Comparable<P
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphUnidadePagadora[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphUnidadePagadora[ id=" + getId() + " ]";
     }
 
     @Override

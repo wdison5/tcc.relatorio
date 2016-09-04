@@ -1,5 +1,5 @@
 /* siPPH - Sistema de informação de pagamento de pensão a hansenianos */
-/* Autor: Prodesp */
+/* Autor: org.tcc.relatorio */
 
 /* Reset body padding and margins */
 body { 
@@ -129,13 +129,13 @@ img {border:none;}
     margin-left:20px;
 }
 
-.footer .logo-prodesp{
+.footer .logo-org.tcc.relatorio{
     width:61px;
     height:24px;	
     display:block;
     float:left;
     text-indent:-999em;
-    background:url(../img/logo_prodesp.png) no-repeat;
+    background:url(../img/logo_org.tcc.relatorio.png) no-repeat;
 }
 
 /**********************************************

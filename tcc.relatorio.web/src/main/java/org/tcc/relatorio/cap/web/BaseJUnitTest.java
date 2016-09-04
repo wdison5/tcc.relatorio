@@ -10,7 +10,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import junit.framework.TestCase;
 import org.slf4j.LoggerFactory;
-//import prodesp.cap.negocio.SistemaBC;
+//import org.tcc.relatorio.cap.negocio.SistemaBC;
 import org.tcc.relatorio.cap.negocio.UsuarioBC;
 import org.tcc.relatorio.cap.dominio.FuncionalidadeEntity;
 import org.tcc.relatorio.cap.dominio.GrupoEntity;

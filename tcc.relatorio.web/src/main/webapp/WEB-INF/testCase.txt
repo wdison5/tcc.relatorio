@@ -1,2 +1,2 @@
-prodesp.cap.web.UsuarioBCJUnitTest
-prodesp.cap.web.SistemaBCJUnitTest
+org.tcc.relatorio.cap.web.UsuarioBCJUnitTest
+org.tcc.relatorio.cap.web.SistemaBCJUnitTest

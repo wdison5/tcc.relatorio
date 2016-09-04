@@ -23,7 +23,7 @@ public class Repositorio extends org.tcc.relatorio.hammer.persistencia.Repositor
     private static final Logger log = LoggerFactory.getLogger(Repositorio.class);
     private final int nivel = 2;
 
-    @PersistenceContext(unitName = "prodesp.cap.persistenciaPU")
+    @PersistenceContext(unitName = "org.tcc.relatorio.cap.persistenciaPU")
     protected EntityManager eManager;
     
     @Override

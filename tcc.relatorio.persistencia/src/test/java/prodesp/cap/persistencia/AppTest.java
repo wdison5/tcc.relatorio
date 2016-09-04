@@ -1,4 +1,4 @@
-package prodesp.cap.persistencia;
+package org.tcc.relatorio.cap.persistencia;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

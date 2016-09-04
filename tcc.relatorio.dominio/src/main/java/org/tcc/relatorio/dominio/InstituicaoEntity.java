@@ -118,7 +118,7 @@ public class InstituicaoEntity extends BaseEntity implements Comparable<Institui
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.Instituicao[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.Instituicao[ id=" + getId() + " ]";
     }
 
     @Override

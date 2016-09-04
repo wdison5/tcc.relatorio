@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="prodesp.cap.persistenciaPU" transaction-type="JTA">
+  <persistence-unit name="org.tcc.relatorio.cap.persistenciaPU" transaction-type="JTA">
     <!--        <jta-data-source>jdbc/s4spindDS</jta-data-source>-->
     <jta-data-source>jdbc/sipphDS</jta-data-source>
-    <class>prodesp.cap.dominio.FuncionalidadeEntity</class>
-    <class>prodesp.cap.dominio.GrupoEntity</class>
-    <class>prodesp.cap.dominio.UsuarioEntity</class>
-    <class>prodesp.sipph.dominio.InstituicaoEntity</class>
-    <class>prodesp.sipph.dominio.PphAgenciaBancariaEntity</class>
-    <class>prodesp.sipph.dominio.PphAtestadoVidaEntity</class>
-    <class>prodesp.sipph.dominio.PphBancoEntity</class>
-    <class>prodesp.sipph.dominio.PphBeneficiarioEntity</class>
-    <class>prodesp.sipph.dominio.PphComunicacaoEntity</class>
-    <class>prodesp.sipph.dominio.PphContatoEntity</class>
-    <class>prodesp.sipph.dominio.PphEmpenhoEntity</class>
-    <class>prodesp.sipph.dominio.PphEnderecoEntity</class>
-    <class>prodesp.sipph.dominio.PphEstadoEntity</class>
-    <class>prodesp.sipph.dominio.PphMunicipioEntity</class>
-    <class>prodesp.sipph.dominio.PphProcuradorEntity</class>
-    <class>prodesp.sipph.dominio.PphUnidadePagadoraEntity</class>
-    <class>prodesp.sipph.dominio.PphUnidSaudeEntity</class>
+    <class>org.tcc.relatorio.cap.dominio.FuncionalidadeEntity</class>
+    <class>org.tcc.relatorio.cap.dominio.GrupoEntity</class>
+    <class>org.tcc.relatorio.cap.dominio.UsuarioEntity</class>
+    <class>org.tcc.relatorio.dominio.InstituicaoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphAgenciaBancariaEntity</class>
+    <class>org.tcc.relatorio.dominio.PphAtestadoVidaEntity</class>
+    <class>org.tcc.relatorio.dominio.PphBancoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphBeneficiarioEntity</class>
+    <class>org.tcc.relatorio.dominio.PphComunicacaoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphContatoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphEmpenhoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphEnderecoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphEstadoEntity</class>
+    <class>org.tcc.relatorio.dominio.PphMunicipioEntity</class>
+    <class>org.tcc.relatorio.dominio.PphProcuradorEntity</class>
+    <class>org.tcc.relatorio.dominio.PphUnidadePagadoraEntity</class>
+    <class>org.tcc.relatorio.dominio.PphUnidSaudeEntity</class>
     <properties>
       <!-- Atenção: Não subir no starteam com o valor "update" -->
       <!--<property name="hib1ernate.hbm2ddl.auto" value="update" />-->

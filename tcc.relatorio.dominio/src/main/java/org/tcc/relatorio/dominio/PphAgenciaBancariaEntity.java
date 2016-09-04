@@ -173,7 +173,7 @@ public class PphAgenciaBancariaEntity extends BaseEntity implements IDadosUsuari
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphAgenciaBancaria[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphAgenciaBancaria[ id=" + getId() + " ]";
     }
     
 }

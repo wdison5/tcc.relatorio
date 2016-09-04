@@ -129,7 +129,7 @@ public class PphBancoEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return "prodesp.sipph.dominio.PphBanco[ id=" + getId() + " ]";
+        return "org.tcc.relatorio.dominio.PphBanco[ id=" + getId() + " ]";
     }
     
 }
