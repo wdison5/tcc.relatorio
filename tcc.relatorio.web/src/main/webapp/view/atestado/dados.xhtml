@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <script type="text/javascript">
+
+    </script>
+
+    <p:panel id="panel_atestado" styleClass="panel_atestado" >
+        <p:commandButton value="Incluir Atestado de Vida"
+                         id="botaoIncluirAtestado"
+                         immediate="true"
+                         type="button"
+                         icon="ui-icon-plus" 
+                         onmouseup="PF('atestado_incluir').show();
+                                 return false;"
+                         oncomplete="PF('atestado_incluir').show();"
+                         rendered="#{request.isUserInRole('AdminAtestados') and empty beneficiarioMBean.item.dtObito}">
+            <p:ajax event="click" listener="#{atestadoVidaMBean.preparaItem(null, beneficiarioMBean.item, false)}" update=":formulario2:panel_atestado_incluir"/>
+        </p:commandButton>
+        <br /><br />
+        <p:dataTable 
+            var="atestado" 
+            id="dataTableAtestado"
+            value="#{beneficiarioMBean.lstAtestadoVida}" 
+            sortBy="#{atestado.dtAtestado}" 
+            scrollable="true"
+            resizableColumns="true"
+            paginator="#{beneficiarioMBean.lstAtestadoVida.size() == 0 ? false : true}"
+            disabledSelection="false"
+            selectionMode="single"
+            rowKey="#{atestado.id}"
+            paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+            paginatorPosition="both"
+            rows="10"
+            styleClass="com_grade"
+            emptyMessage="Nenhum registro encontrado."
+            sortOrder="descending" >
+            <f:facet name="header">#{beneficiarioGrade.mensagemCabecalho(beneficiarioMBean.lstAtestadoVida)}</f:facet>
+            <p:column headerText="Data da Atestação" sortBy="#{atestado.dtAtestado}" style="text-align: center;" rendered="#{beneficiarioMBean.lstAtestadoVida.size() > 0}">
+                <h:outputText id="idDtAtestado" value="#{atestado.dtAtestado}" >
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+                <p:tooltip for="idDtAtestado" trackMouse="true" value="Data da Atestação: #{atestado.dtAtestado}" />
+            </p:column>  
+
+            <p:column headerText="Responsável" sortBy="#{atestado.nmMedicoResp}" rendered="#{beneficiarioMBean.lstAtestadoVida.size() > 0}">
+                <h:outputText id="idResponsavel" value="#{atestado.nmMedicoResp}" />
+                <p:tooltip for="idResponsavel" trackMouse="true" value="Responsável: #{atestado.nmMedicoResp}" />
+            </p:column>
+
+            <p:column headerText="CRM" sortBy="#{atestado.cdCrm}" style="text-align: center;" rendered="#{beneficiarioMBean.lstAtestadoVida.size() > 0}">
+                <h:outputText id="idCrm" value="#{atestado.cdCrm}" />
+                <p:tooltip for="idCrm" trackMouse="true" value="CRM: #{atestado.cdCrm}" />
+            </p:column>
+            
+            <p:column style="text-align:center; width: 12%;" headerText="AÇÕES" rendered="#{beneficiarioMBean.lstAtestadoVida.size() > 0}">
+                <p:commandButton icon="ui-icon-pencil"
+                                 id="btnEditarAtestado"
+                                 rendered="#{request.isUserInRole('AdminAtestados')}"
+                                 immediate="true" actionListener="#{atestadoVidaMBean.preparaItem(atestado, beneficiarioMBean.item, false)}" oncomplete="PF('atestado_incluir').show();" update=":formulario2:panel_atestado_incluir">
+                </p:commandButton>
+                <p:tooltip for="btnEditarAtestado" value="Editar" />
+
+                <p:commandButton icon="ui-icon-trash"
+                                 id="btnExcluirAtestado"
+                                 rendered="#{request.isUserInRole('AdminAtestados')}"
+                                 ajax="true">
+                      <p:confirm header="Confirmação"
+                                 message="Você tem certeza que deseja excluir este registro?"
+                                 icon="ui-icon-alert" />
+                      <p:ajax id="ajx1Atestado" listener="#{atestadoVidaMBean.preparaItem(atestado, beneficiarioMBean.item, false)}"/>
+                      <p:ajax id="ajx1Atestado" listener="#{atestadoVidaMBean.excluir()}" update="dataTableAtestado"/>
+                </p:commandButton>
+                <p:tooltip for="btnExcluirAtestado" value="Excluir" />
+
+                <p:commandButton icon="ui-icon-search"
+                                 async="false"
+                                 immediate="true"
+                                 id="btnDetalharAtestado"
+                                 ignoreAutoUpdate="false"
+                                 rendered="#{request.isUserInRole('ConsultaAtestados') or request.isUserInRole('AdminAtestados')}" 
+                                 actionListener="#{atestadoVidaMBean.preparaItem(atestado, beneficiarioMBean.item, true)}" oncomplete="PF('atestado_incluir').show();" update=":formulario2:panel_atestado_incluir">
+                </p:commandButton>
+                <p:tooltip for="btnDetalharAtestado" value="Detalhar" />
+            </p:column>
+            
+        </p:dataTable>
+    </p:panel>
+
+</ui:composition>

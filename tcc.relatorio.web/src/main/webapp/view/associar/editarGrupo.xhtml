@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+
+    <f:metadata>  
+        <f:viewParam name="id" value="#{grpFuncMBean.id}" />  
+    </f:metadata>  
+
+    <ui:define name="content">
+        <p:panel id="panel" header="Associar Grupo/Funcionalidade">
+            
+            <h:panelGroup>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="nome" value="Nome:" />
+                    <h:inputText id="nome" value="#{grpFuncMBean.item.nome}" required="true" disabled="true" />
+                </h:panelGrid>
+            </h:panelGroup>
+
+            <h:panelGrid columns="2"  columnClasses="label,value" styleClass="grid">
+
+                <h:outputText value=""/>
+
+                <h:panelGroup>
+                    <p:selectManyCheckbox value="#{grpFuncMBean.funcionalidadesSelecionadas}"  layout="pageDirection">
+                        <f:selectItems value="#{grpFuncMBean.funcionalidades}" var="func"
+                                       itemValue="#{func.nome}"
+                                       itemLabel="#{func.descricao}"/>
+                    </p:selectManyCheckbox>
+                </h:panelGroup>
+
+                <h:outputText value=""/>
+                <h:panelGroup>
+                    <h:panelGrid columns="2">
+                        <p:button value="Voltar" outcome="consultarGrupo" icon="ui-icon-arrowreturnthick-1-w" /> 
+                        <p:commandButton value="Salvar" actionListener="#{grpFuncMBean.associar}" icon="ui-icon-disk" async="true" update="panel" />
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:panel>
+    </ui:define>
+</ui:composition>

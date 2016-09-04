@@ -1,0 +1,326 @@
+/* siPPH - Sistema de informação de pagamento de pensão a hansenianos */
+/* Autor: Prodesp */
+
+/* Reset body padding and margins */
+body { 
+    margin: 0 auto; 
+    padding: 0;
+    width:100%;
+}
+
+img {border:none;}
+
+/* Default font */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* header base */
+.header_container {
+    width:100%;	
+    height:90px;
+    background-color:#F5F5F5;
+    border-bottom:1px solid #DDD;
+    margin-bottom:20px;
+}
+.header{  	
+    width:960px;
+    height:80px;
+    margin:0 auto;	
+}
+.logo {	
+    display:block;
+    float: left;
+    text-indent:-999em;
+    height: 57px;
+    width: 512px;
+    background: url("../img/logo.png") no-repeat;
+    margin-top:20px;	
+}
+.user {
+    display: block;
+    float: right;
+    font-size:12px;
+    color:#666;
+    margin-top:35px;
+}
+.user li{
+    list-style-type:none;
+    display:inline-block;
+    margin-left:10px;
+    padding-left:10px;
+    border-left:1px solid #666;
+}
+.user .icon-user, .user .icon-lock, .user .icon-off{
+    margin-right:4px;	
+}
+.user li:first-child{
+    border-left:none;
+}
+.user li a{
+    text-decoration:none;
+    color:#666;
+}
+.user li a:hover{
+    text-decoration:underline;
+}
+
+/* CSS for the content of page. I am giving top and bottom padding of 80px to make sure the header and footer do not overlap the content.*/
+.container { 
+    margin: 0 auto 20px; 
+    overflow: auto; 
+    width: 100%;
+    min-height: 430px;
+    height: auto !important;
+    height: 430px;
+}
+.menubar {
+    margin: 0 auto;
+    width:960px;
+    margin:0 auto;
+    margin-bottom:10px;
+}
+.content {
+    margin:0 auto;
+    width:960px;
+    margin:0 auto;
+}
+
+/* Make Footer Sticky */
+.footer_container { 
+    width:100%;
+    background:url(../img/bg_footer.gif) left bottom repeat-x;
+    height:70px;
+    position:fixed;
+    bottom:0;
+}
+.footer {
+    background:url(../img/bandeira.png) left bottom no-repeat;
+    height:70px;
+}
+
+.footer .logo{
+    width:230px;
+    height:27px;
+    text-indent:-999em;
+    display:block;
+    float:left;
+    background:url(../img/logo_rodape.png) no-repeat;
+    margin:33px 0 0 90px;
+}
+
+.footer .links{
+    display:block;
+    float:right;
+    margin:33px 20px 0 0;
+}
+
+.footer .links li{
+    display:inline;
+}
+
+.footer .logo-governo{
+    width:115px;
+    height:24px;
+    display:block;
+    float:left;
+    text-indent:-999em;
+    background:url(../img/logo_governo.png) no-repeat;
+    margin-left:20px;
+}
+
+.footer .logo-prodesp{
+    width:61px;
+    height:24px;	
+    display:block;
+    float:left;
+    text-indent:-999em;
+    background:url(../img/logo_prodesp.png) no-repeat;
+}
+
+/**********************************************
+ Home
+ **********************************************/
+.header_container.home{
+    height:117px;
+    margin-bottom:60px;
+}
+
+.home .logo {		
+    height: 50px;
+    width: 400px;
+    background: url("../img/logo_home.png") no-repeat;
+    margin-top:30px;
+}
+
+.foto-home{
+    display:block;
+    float:left;	
+}
+
+/* Login */
+#login{
+    float:right;
+    background-color:#F2F2F2;
+    border-radius:8px;
+    border:1px solid #DDD;
+    min-height:310px;	
+}
+
+#login .form-login{
+    width:314px;
+    margin:30px 36px;	
+}
+
+#login h1{
+    font-size:24px;
+    color:#333;
+    margin-bottom:30px;
+}
+
+#login label {
+    display:block;
+    color:#666;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:5px;
+    cursor:pointer;
+}
+
+#login input[type="text"], #login input[type="password"]{
+    padding:4px;
+    font-size:14px;
+    width:96%;
+    border:1px solid #CCC;
+    margin-bottom:17px;
+    height:22px;
+    cursor:pointer;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#login input[type="text"]:focus, #login input[type="password"]:focus{
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    /* IE6-9 */
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);	
+}
+
+#login .ui-button-text-only .ui-button-text {
+    padding: .3em 1em;
+    font-size:14px;
+}
+
+
+/* icones */
+[class^="icon-"],
+[class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+
+.icon-user {
+    background-position: -168px 0;
+}
+
+.icon-off {
+    background-position: -384px 0;
+}
+
+.icon-lock {
+    background-position: -287px -24px;
+}
+
+/**********************************************
+ CONFIGURAÇÕES DO PRIMEFACES
+ **********************************************/
+/* Tamanho da fonte dos componentes */
+.ui-widget {
+    font-size: 12px !important;
+}
+
+/* Largura do menu */
+.ui-menu .ui-menu-parent .ui-menu-child {
+    width: 200px;
+}
+
+.ui-datatable thead th{
+    white-space:normal;
+    text-transform:uppercase;
+    font-weight:bold;
+}
+
+.menubar{
+    margin-bottom:20px;	
+}
+
+.container{
+    margin:0 auto 100px;	
+}
+
+
+
+
+
+
+/*utilizados em GRID*/
+.label {
+    width:20%;
+    padding:2px;
+}
+
+.value {
+    width:80%;
+    padding:2px;
+}
+
+.grid {
+    width:100%;
+}
+.content .ui-widget-content{
+    border: white;
+}
+.com_grade .ui-widget-content, [id$='grade'] .ui-widget-content{
+    border: 1px solid #a6a6ac;
+}
+.sem_grade, .sem_grade .ui-widget-content{
+    border: white;
+}
+.ui-outputlabel.ui-widget.ui-state-error{
+    color: #222222;
+}
+.ui-accordion-header.ui-helper-reset.ui-state-default {
+    font-weight: bold;
+}
+.selectOneMenuCheio {
+    width: 100%;
+}
+.selectOneMenuCheio label {
+    width: 96%;
+}
+
+.cheioWidth{
+    width: 100%;
+}
+
+

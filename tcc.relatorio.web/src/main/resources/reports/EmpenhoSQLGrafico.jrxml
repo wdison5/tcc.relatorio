@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
+<!-- 2016-05-09T08:08:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0c43e21-a095-4852-97da-32feb99bbcf9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SIPPH"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<subDataset name="PagoPorIdade" uuid="95e263a4-fe09-4cee-95b9-8dfa70c2b1bc">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SIPPH"/>
+		<parameter name="periodoInicial" class="java.lang.String"/>
+		<parameter name="periodoFinal" class="java.lang.String"/>
+		<parameter name="unidadeSaude" class="java.lang.Long"/>
+		<parameter name="unidadePagadora" class="java.lang.Long"/>
+		<parameter name="nrEmpenho" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[with faixa_etaria as (
+select e.id, NVL(trunc((months_between(sysdate, b.dt_nascimento))/12),0) AS idade, vl_empenho valor
+from pph_empenho e
+inner join pph_beneficiario b on b.id = e.ID_BENEFICIARIO
+where e.NR_EMPENHO = nvl($P{nrEmpenho},e.NR_EMPENHO)
+and b.ID_UNID_SAUDE = nvl($P{unidadeSaude}, b.ID_UNID_SAUDE)
+and b.ID_UNIDADE_PAGADORA = nvl($P{unidadePagadora}, b.ID_UNIDADE_PAGADORA)
+and DT_EMPENHO 
+between to_date( nvl($P{periodoInicial},to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 00:00:00','dd/MM/yyyy hh24:mi:ss') 
+          and to_date( nvl($P{periodoFinal}  ,to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 23:59:59','dd/MM/yyyy hh24:mi:ss')
+) 
+select 'Criança - R$ '    || trim(to_char(sum(valor), '9,999,999.99')) faixa, nvl(sum(valor),0) valor from faixa_etaria where idade <= 11 union all
+select 'Adolescente - R$ '|| trim(to_char(sum(valor), '9,999,999.99'))      , nvl(sum(valor),0) from faixa_etaria where IDADE BETWEEN 12 AND 18 union all
+select 'Adulto - R$ '     || trim(to_char(sum(valor), '9,999,999.99'))      , nvl(sum(valor),0) from faixa_etaria where IDADE BETWEEN 19 AND 59 union all
+select 'Idoso - R$ '      || trim(to_char(sum(valor), '9,999,999.99'))      , nvl(sum(valor),0) from faixa_etaria where IDADE >= 60]]>
+		</queryString>
+		<field name="FAIXA" class="java.lang.String"/>
+		<field name="VALOR" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="PgtosPorPeriodoIdade" uuid="03f442e5-99d8-40fe-b115-3d426e0e6edf">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SIPPH"/>
+		<parameter name="periodoInicial" class="java.lang.String"/>
+		<parameter name="periodoFinal" class="java.lang.String"/>
+		<parameter name="nrEmpenho" class="java.lang.String"/>
+		<parameter name="unidadeSaude" class="java.lang.Long"/>
+		<parameter name="unidadePagadora" class="java.lang.Long"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT decode(MES,1,'JAN',2,'FEV',3,'MAR',4,'ABR',5,'MAI',6,'JUN',7,'JUL',8,'AGO',9,'SET',10,'OUT',11,'NOV',12,'DEZ',' ')||'/'||ANO PERIODO, 
+SUM(CRIANCA) CRIANCA, SUM(ADOLESCENTE) ADOLESCENTE, SUM(ADULTO) ADULTO, SUM(IDOSO) IDOSO FROM (
+SELECT ID, DT_NASCIMENTO, IDADE, extract(month from dt_empenho) MES, extract(year from dt_empenho) ANO,
+CASE WHEN IDADE <= 11             THEN VALOR ELSE 0 END AS CRIANCA,
+CASE WHEN IDADE BETWEEN 12 AND 18 THEN VALOR ELSE 0 END AS ADOLESCENTE,
+CASE WHEN IDADE BETWEEN 19 AND 59 THEN VALOR ELSE 0 END AS ADULTO,
+CASE WHEN IDADE >= 60             THEN VALOR ELSE 0 END AS IDOSO
+FROM (
+select e.id, b.DT_NASCIMENTO,
+NVL(trunc((months_between(sysdate, b.dt_nascimento))/12),0) AS idade,
+dt_empenho,
+vl_empenho valor
+from pph_empenho e
+inner join pph_beneficiario b on b.id = e.ID_BENEFICIARIO
+where e.NR_EMPENHO = nvl($P{nrEmpenho},e.NR_EMPENHO)
+and b.ID_UNID_SAUDE = nvl($P{unidadeSaude}, b.ID_UNID_SAUDE)
+and b.ID_UNIDADE_PAGADORA = nvl($P{unidadePagadora}, b.ID_UNIDADE_PAGADORA)
+and DT_EMPENHO 
+between to_date( nvl($P{periodoInicial},to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 00:00:00','dd/MM/yyyy hh24:mi:ss') 
+          and to_date( nvl($P{periodoFinal}  ,to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 23:59:59','dd/MM/yyyy hh24:mi:ss')
+))
+GROUP BY ANO, MES
+order by ANO, MES]]>
+		</queryString>
+		<field name="PERIODO" class="java.lang.String"/>
+		<field name="CRIANCA" class="java.math.BigDecimal"/>
+		<field name="ADOLESCENTE" class="java.math.BigDecimal"/>
+		<field name="ADULTO" class="java.math.BigDecimal"/>
+		<field name="IDOSO" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="PgtosPorUnidSaude" uuid="9b48615e-d7d1-456a-9f1f-6c474bf1ab52">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SIPPH"/>
+		<parameter name="periodoInicial" class="java.lang.String"/>
+		<parameter name="periodoFinal" class="java.lang.String"/>
+		<parameter name="nrEmpenho" class="java.lang.String"/>
+		<parameter name="unidadeSaude" class="java.lang.Long"/>
+		<parameter name="unidadePagadora" class="java.lang.Long"/>
+		<queryString language="SQL">
+			<![CDATA[with unidsaude as (
+select id_unid_saude, nome, valor, nr_col from (
+  select id_unid_saude, nome, valor, rownum nr_col from (
+        select b.ID_UNID_SAUDE, i.NM_RAZAO_SOCIAL nome, sum(e.vl_empenho) valor
+        from pph_empenho e
+        inner join pph_beneficiario b on b.id = e.ID_BENEFICIARIO
+        inner join instituicao i on i.id = b.ID_UNID_SAUDE
+		where e.NR_EMPENHO = nvl($P{nrEmpenho},e.NR_EMPENHO)
+		and b.ID_UNID_SAUDE = nvl($P{unidadeSaude}, b.ID_UNID_SAUDE)
+		and b.ID_UNIDADE_PAGADORA = nvl($P{unidadePagadora}, b.ID_UNIDADE_PAGADORA)
+        and DT_EMPENHO 
+        between to_date( nvl($P{periodoInicial},to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 00:00:00','dd/MM/yyyy hh24:mi:ss') 
+                  and to_date( nvl($P{periodoFinal}  ,to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 23:59:59','dd/MM/yyyy hh24:mi:ss')
+        group by id_unid_saude, nm_razao_social
+        order by 2 desc
+  ) where rownum <= 5
+))
+
+select decode(MES,1,'JAN',2,'FEV',3,'MAR',4,'ABR',5,'MAI',6,'JUN',7,'JUL',8,'AGO',9,'SET',10,'OUT',11,'NOV',12,'DEZ',' ')||'/'||ANO PERIODO, 
+                 coalesce((select sum(xe.vl_empenho) 
+                  from pph_empenho xe 
+                  inner join pph_beneficiario xb on xb.id = xe.ID_BENEFICIARIO
+                  where xb.ID_UNID_SAUDE = (select id_unid_saude from unidsaude where nr_col = 1)
+                  and extract(year from xe.DT_EMPENHO) = y.ano
+                  and extract(month from xe.dt_empenho) = y.mes),0) valor1,
+                 coalesce((select sum(xe.vl_empenho) 
+                  from pph_empenho xe 
+                  inner join pph_beneficiario xb on xb.id = xe.ID_BENEFICIARIO
+                  where xb.ID_UNID_SAUDE = (select id_unid_saude from unidsaude where nr_col = 2)
+                  and extract(year from xe.DT_EMPENHO) = y.ano
+                  and extract(month from xe.dt_empenho) = y.mes),0) valor2,
+                 coalesce((select sum(xe.vl_empenho) 
+                  from pph_empenho xe 
+                  inner join pph_beneficiario xb on xb.id = xe.ID_BENEFICIARIO
+                  where xb.ID_UNID_SAUDE = (select id_unid_saude from unidsaude where nr_col = 3)
+                  and extract(year from xe.DT_EMPENHO) = y.ano
+                  and extract(month from xe.dt_empenho) = y.mes),0) valor3,
+                 coalesce((select sum(xe.vl_empenho) 
+                  from pph_empenho xe 
+                  inner join pph_beneficiario xb on xb.id = xe.ID_BENEFICIARIO
+                  where xb.ID_UNID_SAUDE = (select id_unid_saude from unidsaude where nr_col = 4)
+                  and extract(year from xe.DT_EMPENHO) = y.ano
+                  and extract(month from xe.dt_empenho) = y.mes),0) valor4,
+                 coalesce((select sum(xe.vl_empenho) 
+                  from pph_empenho xe 
+                  inner join pph_beneficiario xb on xb.id = xe.ID_BENEFICIARIO
+                  where xb.ID_UNID_SAUDE = (select id_unid_saude from unidsaude where nr_col = 5)
+                  and extract(year from xe.DT_EMPENHO) = y.ano
+                  and extract(month from xe.dt_empenho) = y.mes),0) valor5,
+                  
+                 nvl((select nome from unidsaude where nr_col = 1),' ') inst1,
+                 nvl((select nome from unidsaude where nr_col = 2),' ') inst2,
+                 nvl((select nome from unidsaude where nr_col = 3),' ') inst3,
+                 nvl((select nome from unidsaude where nr_col = 4),' ') inst4,
+                 nvl((select nome from unidsaude where nr_col = 5),' ') inst5
+from (
+  select e.id, extract(month from e.dt_empenho) MES, extract(year from e.dt_empenho) ANO
+  from pph_empenho e
+  inner join pph_beneficiario b on b.id = e.ID_BENEFICIARIO
+  inner join instituicao i on i.id = b.ID_UNID_SAUDE
+	where e.NR_EMPENHO = nvl($P{nrEmpenho},e.NR_EMPENHO)
+	and b.ID_UNID_SAUDE = nvl($P{unidadeSaude}, b.ID_UNID_SAUDE)
+	and b.ID_UNIDADE_PAGADORA = nvl($P{unidadePagadora}, b.ID_UNIDADE_PAGADORA)
+	and DT_EMPENHO 
+  between to_date( nvl($P{periodoInicial},to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 00:00:00','dd/MM/yyyy hh24:mi:ss') 
+            and to_date( nvl($P{periodoFinal}  ,to_char(e.DT_EMPENHO, 'dd/mm/yyyy'))  || ' 23:59:59','dd/MM/yyyy hh24:mi:ss')
+) y group by mes, ano
+order by ano, mes]]>
+		</queryString>
+		<field name="VALOR1" class="java.math.BigDecimal"/>
+		<field name="VALOR2" class="java.math.BigDecimal"/>
+		<field name="VALOR3" class="java.math.BigDecimal"/>
+		<field name="VALOR4" class="java.math.BigDecimal"/>
+		<field name="VALOR5" class="java.math.BigDecimal"/>
+		<field name="INST1" class="java.lang.String"/>
+		<field name="INST2" class="java.lang.String"/>
+		<field name="INST3" class="java.lang.String"/>
+		<field name="INST4" class="java.lang.String"/>
+		<field name="INST5" class="java.lang.String"/>
+		<field name="PERIODO" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="funcionario" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="filtro" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PATH_IMAGE_LOGO" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="nrEmpenho" class="java.lang.String"/>
+	<parameter name="unidadePagadora" class="java.lang.Long"/>
+	<parameter name="unidadeSaude" class="java.lang.Long"/>
+	<parameter name="periodoInicial" class="java.lang.String"/>
+	<parameter name="periodoFinal" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select * from dual]]>
+	</queryString>
+	<field name="DUMMY" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="89" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="801" height="59" uuid="4000ae48-dda9-417c-9d44-2a2d01c500e1">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="62" width="801" height="27" uuid="f7f0c376-9f9f-4166-9f97-44ca13c1ad4b"/>
+				<textElement>
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filtro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="801" height="15" uuid="b0c86510-e4f6-40a8-9e80-d13a0ad34bdc">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Pensão Hansenianos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="41" width="802" height="15" uuid="bb3db2cd-f43b-46c7-99da-fa88d7302dff">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="21" width="801" height="15" uuid="d9eae5ba-c699-4379-89ad-91bdf80231da">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gráficos"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="10" y="4" width="106" height="50" uuid="02402f0a-ab7d-4312-92d8-d92194cf99ca"/>
+				<imageExpression><![CDATA[$P{PATH_IMAGE_LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy  HH:mm">
+				<reportElement x="0" y="4" width="279" height="12" uuid="e3da86ca-eafd-4e13-a13b-76aa62b9c775">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="2" width="802" height="3" uuid="8bc01b49-34b6-4743-9241-2aedd1b28275">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement mode="Transparent" x="692" y="5" width="48" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="8c5c9bdb-d110-4e1f-8f2f-9ab23e5dd4ee"/>
+				<box padding="0" topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="1.0" firstLineIndent="0" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0" tabStopWidth="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pág " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="741" y="5" width="46" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="7c36e8de-b0e2-451a-9ed6-523b7cdfb37a"/>
+				<box padding="0" topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="1.0" firstLineIndent="0" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0" tabStopWidth="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="441">
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="550" y="0" width="251" height="210" uuid="34bf588b-485d-4402-8f75-818976716811"/>
+					<chartTitle>
+						<titleExpression><![CDATA["Pagamentos por Faixa Etária"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="PagoPorIdade" uuid="429a068e-a3d3-481a-a7d0-fecf137d0db7">
+							<datasetParameter name="periodoInicial">
+								<datasetParameterExpression><![CDATA[$P{periodoInicial}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="periodoFinal">
+								<datasetParameterExpression><![CDATA[$P{periodoFinal}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="unidadeSaude">
+								<datasetParameterExpression><![CDATA[$P{unidadeSaude}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="unidadePagadora">
+								<datasetParameterExpression><![CDATA[$P{unidadePagadora}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="nrEmpenho">
+								<datasetParameterExpression><![CDATA[$P{nrEmpenho}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<keyExpression><![CDATA[$F{FAIXA}]]></keyExpression>
+					<valueExpression><![CDATA[$F{VALOR}]]></valueExpression>
+					<labelExpression><![CDATA[$F{FAIXA}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot isShowLabels="false" isCircular="true">
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<lineChart>
+				<chart isShowLegend="true" evaluationTime="Report">
+					<reportElement x="0" y="0" width="550" height="210" uuid="ce4db27c-37c2-40e2-a361-774eced8bb4b">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<chartTitle>
+						<titleExpression><![CDATA["Pagamentos por Período"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="PgtosPorPeriodoIdade" uuid="dbe3ca2f-76b5-4190-88c2-925f7bb537ca">
+							<datasetParameter name="periodoInicial">
+								<datasetParameterExpression><![CDATA[$P{periodoInicial}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="periodoFinal">
+								<datasetParameterExpression><![CDATA[$P{periodoFinal}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="nrEmpenho">
+								<datasetParameterExpression><![CDATA[$P{nrEmpenho}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="unidadeSaude">
+								<datasetParameterExpression><![CDATA[$P{unidadeSaude}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="unidadePagadora">
+								<datasetParameterExpression><![CDATA[$P{unidadePagadora}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Criança até 11 anos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{CRIANCA}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Adolescente de 12 à 18 anos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{ADOLESCENTE}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Adulto de 19 à 59 anos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{ADULTO}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Idoso 60 anos ou mais"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{IDOSO}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot labelRotation="30.0"/>
+					<categoryAxisFormat labelRotation="30.0">
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+			<bar3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="210" width="801" height="231" uuid="21a58f69-409d-4289-8447-175b40fe0dd2"/>
+					<chartTitle>
+						<titleExpression><![CDATA["Pagamentos por Unidade de Saúde"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="PgtosPorUnidSaude" uuid="dd16ff93-2f74-4426-88fb-74858c38c2ee">
+							<datasetParameter name="periodoInicial">
+								<datasetParameterExpression><![CDATA[$P{periodoInicial}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="periodoFinal">
+								<datasetParameterExpression><![CDATA[$P{periodoFinal}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="nrEmpenho">
+								<datasetParameterExpression><![CDATA[$P{nrEmpenho}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="unidadeSaude">
+								<datasetParameterExpression><![CDATA[$P{unidadeSaude}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="unidadePagadora">
+								<datasetParameterExpression><![CDATA[$P{unidadePagadora}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{INST1}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{VALOR1}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{INST2}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{VALOR2}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{INST3}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{VALOR3}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{INST4}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{VALOR4}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{INST5}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PERIODO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{VALOR5}]]></valueExpression>
+						<labelExpression><![CDATA[$F{PERIODO}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot labelRotation="30.0"/>
+					<itemLabel/>
+					<categoryAxisFormat labelRotation="30.0">
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>

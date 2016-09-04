@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+    <ui:define name="content">
+        <h:body onload="$('#dataPeriodoDe_input').focus();">
+            <p:panel header="#{instituicaoMBean.tituloTela()}" id="painelPesquisa"> 
+                <h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+                    <h:outputLabel id="_tipoUnidade" for="tipoUnidade" value="Tipo de Instituição:" />
+                    <h:panelGroup>
+                        <h:panelGrid>
+                            <p:selectOneRadio id="tipoUnidade" value="#{instituicaoMBean.item.tpUnid}" onchange="sipph.onChangeToggle(this, [{'US': 'panelUnidSaude'}, {'UP': 'panelUnidPagadora'}])">
+                                <f:selectItem itemLabel="Pagadora"  itemValue="UP"/>
+                                <f:selectItem itemLabel="Saúde"     itemValue="US"/>
+                                <f:selectItem itemLabel="Ambas"     itemValue="99"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <p:panel widgetVar="panelUnidPagadora" id="panelUnidPagadora" visible="#{instituicaoMBean.item.tpUnid eq 'UP'}">
+                    <h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+                        <p:outputLabel id="_unidPagadoraNome" for="unidPagadoraNome">Unidade Pagadora:</p:outputLabel>
+                        <p:inputText id="unidPagadoraNome" value="#{instituicaoMBean.nomeUnidPagadoraSelecionada}"/>
+                        <p:outputLabel id="_unidPagadoraCod" for="unidPagadoraCod">Código:</p:outputLabel>
+                        <p:inputText id="unidPagadoraCod" value="#{instituicaoMBean.codigoUnidPagadora}" onkeyup="sipph.numero(this);"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel widgetVar="panelUnidSaude" id="panelUnidSaude" visible="#{instituicaoMBean.item.tpUnid eq 'US'}">
+                    <h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+                        <p:outputLabel id="_unidSaudeNome" for="unidSaudeNome">Unidade de Saúde:</p:outputLabel>
+                        <p:inputText id="unidSaudeNome" value="#{instituicaoMBean.nomeUnidSaudeSelecionada}"/>
+                        <p:outputLabel id="_unidSaudeCodigo" for="unidSaudeCodigo">Código:</p:outputLabel>
+                        <p:inputText id="unidSaudeCodigo" value="#{instituicaoMBean.codigoUnidSaude}" onkeyup="sipph.numero(this);"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+                    <p:outputLabel/>
+                    <h:panelGrid columns="2" width="100%">
+                        <h:panelGrid columns="3" >
+                            <p:commandButton value="Pesquisar" 
+                                             id="botaoPesquisar"
+                                             ajax="true" 
+                                             update="painelPesquisa,grade"
+                                             actionListener="#{instituicaoMBean.listar}">
+                            </p:commandButton>
+
+                            <p:commandButton value="Limpar"
+                                             id="botaoLimpar"
+                                             immediate="true"
+                                             update="painelPesquisa,grade">
+                                <p:ajax listener="#{instituicaoMBean.inicializaRelatorio(instituicaoMBean.complementoRelatorio)}" update="painelPesquisa"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+
+            <ui:include src="/public/grade.xhtml" >
+                <ui:param name="grade" value="#{instituicaoGrade}"/>
+                <ui:param name="MBean" value="#{instituicaoMBean}"/>
+                <ui:param name="relat" value="#{false}"/>
+                <ui:param name="aux"   value="#{null}"/>
+            </ui:include>
+
+        </h:body>
+    </ui:define>
+
+</ui:composition>

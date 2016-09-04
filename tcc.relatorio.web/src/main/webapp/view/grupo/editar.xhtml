@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+
+    <f:metadata>  
+        <f:viewParam name="id" value="#{grupoMBean.id}" />  
+    </f:metadata>  
+
+    <ui:define name="content">
+
+        <p:panel id="panel" header="Editar grupo">
+
+            <h:panelGrid columns="2"  columnClasses="label,value" styleClass="grid">
+                <h:outputLabel for="nome" value="Nome" />
+                <h:inputText id="nome" value="#{grupoMBean.item.nome}" required="true" 
+                             requiredMessage="O Nome do grupo é obrigatório"
+                             validatorMessage="Tamanho máximo do Nome é 25" disabled="#{not usuarioLogado.isAcessoGeral()}">
+                    <f:validateLength maximum="25" />
+                </h:inputText>
+
+                <h:outputLabel for="descricao" value="Descrição" />
+                <h:inputTextarea id="descricao" value="#{grupoMBean.item.descricao}" cols="50" rows="5" validatorMessage="A Descricao tem no máximo 150 caracters">
+                    <f:validateLength maximum="150" />
+                </h:inputTextarea>
+
+                <h:outputText />
+                <h:panelGroup>
+                    <h:panelGrid columns="3">
+                        <p:button value="Voltar" outcome="consultar" icon="ui-icon-arrowreturnthick-1-w" /> 
+                        <p:commandButton value="Salvar" actionListener="#{grupoMBean.atualizar}" icon="ui-icon-disk" async="true" update="panel" />
+                    </h:panelGrid>
+                </h:panelGroup>
+
+            </h:panelGrid>
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>

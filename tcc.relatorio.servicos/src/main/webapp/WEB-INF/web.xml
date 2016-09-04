@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <!-- welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list -->
+
+    <!-- ============================================================================================= -->   
+    <!-- CONFIGURAÇÕES DE SEGURANÇA -->
+    <!-- ============================================================================================= -->   
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>relatorioRealm</realm-name>
+    </login-config>
+    <security-role>
+        <role-name>ConsultarRelatorio</role-name>
+    </security-role>
+    <security-role>
+        <role-name>ExecutarConsolidacao</role-name>
+    </security-role>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Web service de relatórios</web-resource-name>
+            <url-pattern>/RelatorioService</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ConsultarRelatorio</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Web service de administração</web-resource-name>
+            <url-pattern>/AdministracaoService</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <!-- role-name>Authenticated</role-name> -->
+            <role-name>ExecutarConsolidacao</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!-- ============================================================================================= -->   
+    
+</web-app>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.tcc.relatorio</groupId>
+        <artifactId>tcc.relatorio</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <groupId>org.tcc.relatorio</groupId>
+    <artifactId>tcc.relatorio.persistencia</artifactId>
+    <name>tcc.relatorio.persistencia</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.tcc.relatorio</groupId>
+            <artifactId>tcc.relatorio.hammer</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.tcc.relatorio</groupId>
+            <artifactId>tcc.relatorio.dominio</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

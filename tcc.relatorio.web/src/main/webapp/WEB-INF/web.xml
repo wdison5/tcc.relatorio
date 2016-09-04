@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    
+    <display-name>SIPPH</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!--servlet>
+        <servlet-name>JUnitEETestServlet</servlet-name>
+        <description>JUnitEE test runner</description>
+        <servlet-class>org.junitee.servlet.JUnitEEServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JUnitEETestServlet</servlet-name>
+        <url-pattern>/t/*</url-pattern>
+    </servlet-mapping-->
+      
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    
+    <context-param>
+        <param-name>com.sun.faces.allowTextChildren</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>delta</param-value>  
+    </context-param>
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    
+    <!-- ============================================================================================= -->   
+    <!-- CONFIGURAÇÕES DE SEGURANÇA -->
+    <!-- ============================================================================================= -->   
+    <security-role>
+        <role-name>Authenticated</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>AdminGrupos</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>ConsultarGrupos</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>AdminUsuarios</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>ConsultarUsuarios</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>Faturamento</role-name>
+    </security-role>    
+    <security-role>
+        <role-name>Online</role-name>
+    </security-role>
+     <security-role>
+        <role-name>Log</role-name>
+    </security-role>
+    <!--   Inicio Hanceniase Regras -->
+    <security-role>
+        <role-name>AdminBeneficiarios</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>ConsultarBeneficiarios</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>AdminEmpenhos</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>ConsultarEmpenhos</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>AdminAtestados</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>ConsultaAtestados</role-name>
+    </security-role>
+    <security-role>
+        <role-name>AdminInstituicoes</role-name>
+    </security-role>  
+    <security-role>
+        <role-name>ConsultarInstituicoes</role-name>
+    </security-role>
+    <!--   Termino Hanceniase Regras -->
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>s4spRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/public/login.jsf</form-login-page>
+            <form-error-page>/public/login.jsf</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-constraint>
+        <display-name>Restrict direct access to XHTML files</display-name>
+        <web-resource-collection>
+            <web-resource-name>XHTML files</web-resource-name>
+            <url-pattern>*.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>   
+    <security-constraint>
+        <display-name>Restrict access to application pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>All</web-resource-name>
+            <url-pattern>/view/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <!-- role-name>Authenticated</role-name -->
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Restrict access to home page to authenticated users</display-name>
+        <web-resource-collection>
+            <web-resource-name>All</web-resource-name>
+            <url-pattern>/view/home.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Free access to images</display-name>
+        <web-resource-collection>
+            <web-resource-name>img</web-resource-name>
+            <url-pattern>/img/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Free access to style</display-name>
+        <web-resource-collection>
+            <web-resource-name>style</web-resource-name>
+            <url-pattern>/style/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Free access to plublic folder</display-name>
+        <web-resource-collection>
+            <web-resource-name>public</web-resource-name>
+            <url-pattern>/public/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de consultas de grupos</web-resource-name>
+            <url-pattern>/view/grupo/consultar.jsf</url-pattern>
+            <url-pattern>/view/grupo/detalhar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ConsultarGrupos</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de administração de grupos</web-resource-name>
+            <url-pattern>/view/grupo/criar.jsf</url-pattern>
+            <url-pattern>/view/grupo/editar.jsf</url-pattern>
+            <url-pattern>/view/associar/consultarGrupo.jsf</url-pattern>
+            <url-pattern>/view/associar/editarGrupo.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AdminGrupos</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de consultas de usuários</web-resource-name>
+            <url-pattern>/view/usuario/consultar.jsf</url-pattern>
+            <url-pattern>/view/usuario/detalhar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ConsultarUsuarios</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de administração de usuários</web-resource-name>
+            <url-pattern>/view/usuario/criar.jsf</url-pattern>
+            <url-pattern>/view/usuario/editar.jsf</url-pattern>
+            <url-pattern>/view/associar/consultar.jsf</url-pattern>
+            <url-pattern>/view/associar/editar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AdminUsuarios</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+     <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de administração de instituições</web-resource-name>
+            <url-pattern>/view/instituicao/criar.jsf</url-pattern>
+            <url-pattern>/view/instituicao/consultar.jsf</url-pattern>
+            <url-pattern>/view/instituicao/detalhar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AdminInstituicoes</role-name>
+        </auth-constraint>
+    </security-constraint>
+     <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de consulta de instituições</web-resource-name>
+            <url-pattern>/view/instituicao/consultar.jsf</url-pattern>
+            <url-pattern>/view/instituicao/detalhar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ConsultarInstituicoes</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+   <!--   Inicio Hanceniase Segurança -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de administração de beneficiários</web-resource-name>
+            <url-pattern>/view/beneficiario/manter.jsf</url-pattern>
+            <url-pattern>/view/beneficiario/consultar.jsf</url-pattern>
+            <url-pattern>/view/beneficiario/detalhar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AdminBeneficiarios</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de administração de empenhos</web-resource-name>
+            <url-pattern>/view/empenho/manter.jsf</url-pattern>
+            <url-pattern>/view/empenho/consultar.jsf</url-pattern>
+            <url-pattern>/view/empenho/detalhar.jsf</url-pattern>
+            <url-pattern>/view/empenho/pesquisar.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AdminEmpenhos</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de administração de atestados de vida</web-resource-name>
+            <url-pattern>/view/atestado/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AdminAtestados</role-name>
+        </auth-constraint>
+    </security-constraint>
+   <!--   Termino Hanceniase Segurança -->
+    
+                
+    <!-- ============================================================================================= -->   
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <error-page>
+        <!-- Missing login -->
+        <error-code>401</error-code>
+        <location>/public/erro-geral.jsf</location>
+    </error-page>
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/public/erro-acesso.jsf</location>
+    </error-page>
+    <error-page>
+        <!-- Not found -->
+        <error-code>404</error-code>
+        <location>/public/erro-geral.jsf</location>
+    </error-page>
+    <error-page>
+        <!-- Uncaught exception -->
+        <error-code>500</error-code>
+        <location>/public/erro-geral.jsf</location>
+    </error-page>
+    <error-page>
+        <!-- Unsupported servlet method -->
+        <error-code>503</error-code>
+        <location>/public/erro-geral.jsf</location>
+    </error-page>
+    
+</web-app>

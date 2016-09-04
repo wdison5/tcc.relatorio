@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template/interno.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .yui-dt {
+                margin-top:10px;
+            }
+
+            .yui-dt table {
+                width:100%;
+            }
+
+            .yui-ac {
+                width:200px;
+                padding-bottom:1em; 
+            }
+
+            .label {
+                width:20%;
+                padding:4px;
+            }
+
+            .value {
+                width:80%;
+                padding:4px;
+            }
+
+            .grid {
+                width:100%;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:panel id="panel" header="Alterar Senha">
+
+            <h:panelGrid columns="2"  columnClasses="label,value" styleClass="grid">
+
+                <h:outputLabel for="password" value="Senha atual: " />
+                <p:password id="password" value="#{loginMBean.senha}" />
+
+                <h:outputLabel for="newPassword" value="Nova Senha: " />
+                <p:password id="newPassword" value="#{loginMBean.novaSenha1}" />
+
+                <h:outputLabel for="newPasswordConfirm" value="Confirme a nova senha: " />
+                <p:password id="newPasswordConfirm" value="#{loginMBean.novaSenha2}" />
+
+                <h:outputText />
+                <p:commandButton value="Alterar" action="#{loginMBean.alterarSenha}" icon="ui-icon-disk" ajax="true" />
+
+            </h:panelGrid>
+        </p:panel>
+
+    </ui:define>
+
+
+</ui:composition>

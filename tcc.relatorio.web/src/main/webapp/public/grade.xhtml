@@ -1,0 +1,182 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <script type="text/javascript">
+        var pressedGradeCtrl = false;
+        var pressedGradeAlt = false;
+        $(document).keyup(function (e) { if (e.which === 17) pressedGradeCtrl = false; });
+        $(document).keyup(function (e) { if (e.which === 18) pressedGradeAlt  = false; });
+
+        $(document).keydown(function (e) {
+            if (e.which === 17) pressedGradeCtrl = true;
+            if (e.which === 18) pressedGradeAlt  = true;
+
+            if (pressedGradeCtrl === true) { if (pressedGradeAlt === true) {
+                if (e.which === 70) { document.getElementById("grade:pdfLink").focus(); document.getElementById("grade:pdfLink").click(); }
+                if (e.which === 72) { document.getElementById("grade:xlsLink").focus(); document.getElementById("grade:xlsLink").click(); }
+                if (e.which === 77) { document.getElementById("grade:xmlLink").focus(); document.getElementById("grade:xmlLink").click(); }
+                if (e.which === 83) { document.getElementById("grade:csvLink").focus(); document.getElementById("grade:csvLink").click(); }
+            }}
+        });
+    </script>
+
+        <p:dataTable id="grade"
+                     var="reg"
+                     scrollable="true"
+                     value="#{MBean.lista}"
+                     emptyMessage="#{grade.mensagemVazio(MBean)}"
+                     style="font-size: small; width: 100%;"
+                     resizableColumns="true"
+                     paginator="#{MBean.lista.size() == 0 ? false : true}"
+                     disabledSelection="false"
+                     selectionMode="single"
+                     sortMode="multiple"
+                     sortBy="#{grade.ordenacaoInicial}"
+                     rowKey="#{reg.id}"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                     paginatorPosition="both"
+                     rows="20">
+            <f:facet name="header">#{grade.mensagemCabecalho(MBean.lista)}</f:facet>
+            <f:facet name="{Exporters}">
+                <p:tooltip for="grade:csvLink" value="#{grade.textoHintCsv}" hideEffect="explode" trackMouse="true"/>
+                <h:commandLink id="csvLink"
+                               style="float:right"
+                               disabled="#{MBean.lista.size() == 0}"
+                               rendered="#{relat}"
+                               actionListener="#{MBean.setExportar(true)}">
+                    <p:graphicImage url="/img/csv.png" width="24"/>
+                    <p:dataExporter type="csv"
+                                    encoding="iso-8859-1"
+                                    target="grade"
+                                    fileName="#{exportarArquivo.getNomeArquivo(grade.nome)}"
+                                    pageOnly="false" />
+                </h:commandLink>
+
+                <p:tooltip for="grade:xmlLink" value="#{grade.textoHintXml}" hideEffect="explode" trackMouse="true"/>
+                <h:commandLink id="xmlLink"
+                               style="float:right"
+                               disabled="#{MBean.lista.size() == 0}"
+                               rendered="#{relat}"
+                               actionListener="#{MBean.setExportar(true)}">
+                    <p:graphicImage url="/img/xml.png" width="24"/>
+                    <p:dataExporter type="xml"
+                                    target="grade"
+                                    fileName="#{exportarArquivo.getNomeArquivo(grade.nome)}"
+                                    pageOnly="false" />
+                </h:commandLink>
+
+                <p:tooltip for="grade:xlsLink" value="#{grade.textoHintXls}" hideEffect="explode" trackMouse="true"/>
+                <h:commandLink id="xlsLink"
+                               style="float:right" 
+                               disabled="#{MBean.lista.size() == 0}"
+                               rendered="#{relat}"
+                               actionListener="#{MBean.setExportar(true)}">
+                    <p:graphicImage url="/img/excel.png" width="24"/>
+                    <p:dataExporter type="xls"
+                                    target="grade"
+                                    postProcessor="#{exportarArquivo.processaXLS}"
+                                    fileName="#{exportarArquivo.getNomeArquivo(grade.nome)}"
+                                    pageOnly="false">
+                    </p:dataExporter>
+                </h:commandLink>
+
+                <p:tooltip for="grade:pdfLink" value="#{grade.textoHintPdf}" hideEffect="explode" trackMouse="true"/>
+                <h:commandLink id="pdfLink"
+                               action="#{MBean.processarPDF(grade.relatorioPadrao)}"
+                               style="float:right" 
+                               disabled="#{MBean.lista.size() == 0}"
+                               rendered="#{relat}">
+                    <p:graphicImage url="/img/pdf.png" width="24"/>
+                </h:commandLink>
+                
+            </f:facet>
+            <p:columns width="#{column.largura}%"
+                       value="#{grade.columns}"
+                       columnIndexVar="colIndexVar"
+                       sortFunction="#{MBean.setOrdem(column.property)}"
+                       style="text-align:#{column.alinhamento};#{MBean.lista.size() == 0 ? 'display:none;' : ''}"
+                       sortBy="#{grade.funcao(grade,column.funcao,(not empty column.property? reg[column.property]: null),grade.sort, reg)}"
+                       rendered="#{column.visivel || MBean.exportar}"
+                       exportable="#{column.exportavel}"
+                       var="column">
+                <f:facet name="header">
+                    <h:outputText value="#{column.header}"/>
+                </f:facet>
+                <h:outputText id="coluna"
+                              value="#{grade.funcao(grade,column.funcao,(not empty column.property? reg[column.property]: null),grade.grid, reg)}"/>
+                <p:tooltip for="coluna"
+                           rendered="#{!MBean.exportar}" 
+                           style="width: 300px"
+                           trackMouse="true"
+                           value="#{grade.funcao(grade,column.funcao,(not empty column.property? reg[column.property]: null),grade.hint, reg)}" />
+            </p:columns>
+            <p:column style="text-align:center; #{(grade.botaoEditar || grade.botaoExcluir || grade.botaoDetalhar || grade.botaoSelecionar) ? (MBean.lista.size() > 0 ? '' : 'display:none') : 'display:none'}"
+                      width="#{(grade.botaoEditar || grade.botaoExcluir || grade.botaoDetalhar || grade.botaoSelecionar) ? 12 : 0}%"
+                      exportable="false"
+                      toggleable="false">
+                <f:facet name="header">
+                    <h:outputText value="AÇÕES" />
+                </f:facet>
+                <p:commandButton icon="ui-icon-pencil"
+                                 id="btnEditar"
+                                 rendered="#{grade.botaoEditar}"
+                                 immediate="true"
+                                 action="#{grade.getActionEditar()}" >
+                    <p:ajax listener="#{grade.editar(MBean,reg,aux)}"/>
+                </p:commandButton>
+                <p:tooltip for="btnEditar" value="Editar" />
+
+                <p:commandButton icon="ui-icon-trash"
+                                 rendered="#{grade.botaoExcluir and grade.mensagemExclusao == 0}"
+                                 id="btnExcluir"
+                                 ajax="true">
+                      <p:confirm header="Confirmação"
+                                 message="Você tem certeza que deseja excluir este registro?"
+                                 icon="ui-icon-alert" />
+                      <p:ajax id="ajx1" listener="#{grade.excluir(MBean, reg)}" update="grade"/>
+                </p:commandButton>
+                <p:tooltip for="btnExcluir" value="Excluir" />
+                <p:commandButton icon="ui-icon-trash"
+                                 rendered="#{grade.botaoExcluir and grade.mensagemExclusao == 1}"
+                                 id="btnExcluir2"
+                                 ajax="true">
+                      <p:confirm header="Confirmação"
+                                 message="O vínculo ficará INATIVO. Confirma a alteração?"
+                                 icon="ui-icon-alert" />
+                      <p:ajax id="ajx2" listener="#{grade.excluir(MBean, reg)}" update="grade"/>
+                </p:commandButton>
+                <p:tooltip for="btnExcluir2" value="Excluir" />
+
+                <p:commandButton icon="ui-icon-search"
+                                 rendered="#{grade.botaoDetalhar}"
+                                 async="false"
+                                 immediate="true"
+                                 id="btnDetalhar"
+                                 ignoreAutoUpdate="false"
+                                 action="#{grade.getActionDetalhar()}">
+                    <p:ajax listener="#{grade.detalhar(MBean,reg,aux)}" />
+                </p:commandButton>
+                <p:tooltip for="btnDetalhar" value="Visualizar" />
+
+                <p:commandButton icon="ui-icon-check"
+                                 rendered="#{grade.botaoSelecionar}"
+                                 async="false"
+                                 immediate="true"
+                                 id="btnSelecionar"
+                                 ignoreAutoUpdate="false"
+                                 action="#{MBean.getVoltar()}">
+                    <p:ajax listener="#{grade.selecionar(aux,reg)}" />
+                </p:commandButton>
+                <p:tooltip for="btnSelecionar" value="Selecionar" />
+
+            </p:column>
+        </p:dataTable>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false" >
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close" />
+        </p:confirmDialog>
+
+</ui:composition>

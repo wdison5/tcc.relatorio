@@ -1,0 +1,114 @@
+<!DOCTYPE html 
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xml:lang="pt-BR" 
+      lang="pt-BR">
+
+    <f:view encoding="utf-8" locale="pt-BR">
+        <h:head>
+            <link rel="sortcut icon" href="#{request.contextPath}/img/icon.ico" type="image/x-icon" />
+            <link rel="stylesheet" type="text/css" href="#{request.contextPath}/style/default.css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="#{request.contextPath}/style/print.css" media="print" />
+            <meta name="author" content="Prodesp" />
+            <meta name="description" content="siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos" />
+            <meta name="keywords" content="siPPH, sipph, sistema de informação, pagamento, pensão, hansenianos, saúde, sp" />
+            <title>siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos</title>
+            <h:outputScript name="js/default.js" />
+            <ui:insert name="head"/>
+        </h:head>
+
+        <h:body>
+            <ui:insert name="cabecalho">
+                <div class="header_container">                
+                    <div class="header">
+                        <a href="#{request.contextPath}/view/home.jsf" class="logo"></a>
+                        <c:if test="${sessionScope['username'] != null}">
+                            <h:form>
+                                <div class="user">
+                                    <ul>
+                                        <li><span class="icon-user"></span><h:outputText value="#{sessionScope['username']}" /></li>
+                                        <li>
+                                            <span class="icon-lock"></span>
+                                            <p:commandLink  action="/public/alterar-senha?faces-redirect=true" ajax="false" >  
+                                                <h:outputText value="Alterar Senha" />  
+                                            </p:commandLink>
+                                        </li>
+                                        <li>
+                                            <span class="icon-off"></span>
+                                            <p:commandLink action="#{loginMBean.logout}" ajax="false" >  
+                                                <h:outputText value="Sair" />  
+                                            </p:commandLink>
+                                        </li>
+                                    </ul>
+                                    <span id="sessao" style="text-align: right;float: right;">
+                                        <p:messages id="ajax_timeout" autoUpdate="true" style="visibility: hidden; display: none;"/>
+                                        <span id="frase_sessao" style="color: green;">
+                                            Sessão expira em <span id="tempo">#{loginMBean.time()}</span>.
+                                        </span>
+                                        <h:outputScript name="js/sessao.js" />
+                                    </span>
+                                </div>
+                            </h:form>
+                        </c:if>
+                    </div>
+                </div>
+            </ui:insert>
+
+            <div class="container">
+                <ui:insert name="menubar"/>
+                <h:form id="formulario" prependId="false" onkeypress="sipph.onEnterKeyup(event);">
+                    <div class="content">
+                        <p:messages id="mensagem_customizada" for="mensagem_customizada" closable="true" showDetail="true"/>
+                        <p:messages id="mensagem" autoUpdate="true" closable="true" />
+                        <ui:insert name="content"></ui:insert>
+                    </div>
+                </h:form>
+            </div>
+
+            <dir class="container2">
+                <h:form id="formulario2" prependId="false" onkeypress="sipph.onEnterKeyup(event);">
+                    <div class="content2">
+                        <ui:insert name="content2" />
+                    </div>
+                </h:form>
+            </dir>
+
+            <dir class="container3">
+                <h:form id="formulario3" prependId="false" onkeypress="sipph.onEnterKeyup(event);">
+                    <div class="content3">
+                        <ui:insert name="content3" />
+                    </div>
+                </h:form>
+            </dir>
+
+            <dir class="container4">
+                <h:form id="formulario4" prependId="false" onkeypress="sipph.onEnterKeyup(event);">
+                    <div class="content4">
+                        <ui:insert name="content4" />
+                    </div>
+                </h:form>
+            </dir>
+
+            <div class="footer_container">
+                <div class="footer">
+                    <a href="#" title="siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos" class="logo">siPPH</a>
+                    <ul class="links">
+                        <li><a href="http://www.prodesp.sp.gov.br" title="Prodesp" class="logo-prodesp" target="_blank">Prodesp - Tecnologia da Informação</a></li>
+                        <li><a href="http://www.saopaulo.sp.gov.br" title="Portal do Governo de SP" class="logo-governo" target="_blank">Portal do Governo de SP</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+            <p:dialog widgetVar="statusDialog" header="Aguarde..." draggable="false" closable="false" resizable="false" >
+                <p:graphicImage value="/img/ajax-loader.gif" alt="carregando..." />
+            </p:dialog>
+        </h:body>
+    </f:view>
+</html>

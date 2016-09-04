@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+
+    <ui:define name="content">
+
+        <p:panel header="Associar Usuário/Grupo" style="margin-bottom:20px;">
+            <h:panelGrid columns="3">
+                <h:outputText value="Usuário: " />
+                <p:autoComplete id="acNome" value="#{usrGrpMBean.item.userId}" completeMethod="#{usrGrpMBean.completar}" 
+                                maxResults="5" />
+                <p:commandButton value="Pesquisar" actionListener="#{usrGrpMBean.listar}" async="true" update="grade"/>
+            </h:panelGrid>
+        </p:panel>
+
+
+        <p:dataTable id="grade" 
+                     var="item" 
+                     value="#{usrGrpMBean.lista}" 
+                     rows="15" 
+                     paginator="#{usrGrpMBean.lista.size() == 0 ? false : true}"
+                     sortBy="#{item.nome}" 
+                     scrollable="true"
+                     resizableColumns="true"
+                     disabledSelection="false"
+                     selectionMode="single"
+                     rowKey="#{item.id}"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginatorPosition="both"
+                     styleClass="com_grade"
+                     emptyMessage="Nenhum registro encontrado."
+                     sortOrder="descending">
+            <f:facet name="header">#{beneficiarioGrade.mensagemCabecalho(usrGrpMBean.lista)}</f:facet>
+            <p:column rendered="#{usrGrpMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Usuário" />
+                </f:facet>
+                <h:outputText value="#{item.userId}"></h:outputText>
+            </p:column>
+
+            <p:column rendered="#{usrGrpMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Nome Completo" />
+                </f:facet>
+                <div style="text-align:left" >
+                    <h:outputText value="#{item.nome}" ></h:outputText>
+                </div>
+            </p:column>
+
+            <p:column rendered="#{usrGrpMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Email" />
+                </f:facet>
+                <div style="text-align:left" >
+                    <h:outputText value="#{item.email}" ></h:outputText>
+                </div>
+            </p:column>
+
+            <p:column rendered="#{usrGrpMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Associar"/>
+                </f:facet>
+                <div style="text-align:center" >
+                    <p:button outcome="editar" icon="ui-icon-transferthick-e-w">  
+                        <f:param name="id" value="#{item.id}" />  
+                    </p:button>
+                </div>
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>

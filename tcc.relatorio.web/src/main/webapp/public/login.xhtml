@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template/base.xhtml" >
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#username').focus();
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="cabecalho">
+        <div class="header_container home">
+            <div class="header">
+                <a href="#" class="logo">siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos</a>            
+            </div>
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <img src="#{request.contextPath}/img/foto_home.jpg" class="foto-home" alt="siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos" />
+
+        <div id="login">
+            <div class="form-login">            
+                <!-- h:form id="loginForm" -->
+                    <h1>Faça o seu Login</h1>
+
+                    <h:outputLabel for="username" value="USUÁRIO:" />
+                    <h:inputText id="username" value="#{loginMBean.userId}" />
+
+                    <h:outputLabel for="password" value="SENHA:" />
+                    <h:inputSecret id="password" value="#{loginMBean.senha}" />
+
+                    <p:commandButton value="ENTRAR" action="#{loginMBean.login}" />
+                <!-- /h:form -->
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

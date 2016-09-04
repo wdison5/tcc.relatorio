@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+
+    <ui:define name="content">
+        <p:panel header="Listar Grupo" style="margin-bottom:20px;">
+            <h:panelGrid columns="3">
+                <h:outputText value="Nome: " />
+                <p:autoComplete id="acNome" value="#{grupoMBean.item.nome}" completeMethod="#{grupoMBean.completar}" 
+                                maxResults="5" />
+                <p:commandButton value="Pesquisar" actionListener="#{grupoMBean.listar}" async="true" update="lista"/>
+
+            </h:panelGrid>
+        </p:panel>
+
+        <p:panel id="lista">
+            <p:dataTable 
+                id="grade" 
+                var="item" 
+                value="#{grupoMBean.lista}" 
+                rows="15" 
+                paginator="#{grupoMBean.lista.size() == 0 ? false : true}"
+                sortBy="#{item.nome}" 
+                scrollable="true"
+                resizableColumns="true"
+                disabledSelection="false"
+                selectionMode="single"
+                rowKey="#{item.id}"
+                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                paginatorPosition="both"
+                styleClass="com_grade"
+                emptyMessage="Nenhum registro encontrado."
+                sortOrder="descending">
+                <f:facet name="header">#{beneficiarioGrade.mensagemCabecalho(grupoMBean.lista)}</f:facet>
+                <p:column rendered="#{grupoMBean.lista.size() > 0}">
+                    <f:facet name="header">
+                        <h:outputText value="Grupo" />
+                    </f:facet>
+                    <h:outputText value="#{item.nome}"></h:outputText>
+                </p:column>
+
+                <p:column rendered="#{grupoMBean.lista.size() > 0}">
+                    <f:facet name="header">
+                        <h:outputText value="Descrição" />
+                    </f:facet>
+                    <div style="text-align:left" >
+                        <h:outputText value="#{item.descricao}" ></h:outputText>
+                    </div>
+                </p:column>
+
+                <p:column style="text-align:center; width: 15%;" headerText="AÇÕES" rendered="#{grupoMBean.lista.size() > 0}">
+                    <p:commandButton icon="ui-icon-pencil"
+                                     id="btnEditarGrupo"
+                                     rendered="#{request.isUserInRole('AdminGrupos')}"
+                                     immediate="true" 
+                                     actionListener="#{grupoMBean.setId(item.id)}"
+                                     action="/view/grupo/editar.jsf?faces-redirect=true">
+                    </p:commandButton>
+                    <p:tooltip for="btnEditarGrupo" value="Editar"/>
+                    <p:commandButton icon="ui-icon-trash"
+                                     id="btnExcluirGrupo"
+                                     rendered="#{request.isUserInRole('AdminGrupos')}"
+                                     async="true"
+                                     onclick="PF('groupDeleteConfirm').show();"
+                                     >
+                        <p:ajax id="ajx1Atestado" listener="#{grupoMBean.preparaExclusao(item.id)}"/>
+                    </p:commandButton>
+                    <p:tooltip for="btnExcluirGrupo" value="Excluir" />
+                    <p:commandButton icon="ui-icon-search"
+                                     id="btnDetalharGrupo"
+                                     immediate="true" 
+                                     actionListener="#{grupoMBean.setId(item.id)}"
+                                     action="/view/grupo/detalhar.jsf?faces-redirect=true">
+                    </p:commandButton>
+                    <p:tooltip for="btnDetalharGrupo" value="Visualizar"/>
+                </p:column>
+            </p:dataTable>
+            <p:confirmDialog header="Confirmação" message="Você tem certeza que deseja excluir este registro?" widgetVar="groupDeleteConfirm">
+                <p:commandButton value="Sim" icon="ui-icon-check" oncomplete="PF('groupDeleteConfirm').hide()">
+                    <p:ajax id="ajx1Atestado" listener="#{grupoMBean.excluir()}" update="grade"/>
+                </p:commandButton>
+                <p:commandButton icon="ui-icon-close" value="Não" onclick="PF('groupDeleteConfirm').hide();
+                        return false;"/>
+            </p:confirmDialog>
+        </p:panel>
+    </ui:define>
+</ui:composition>

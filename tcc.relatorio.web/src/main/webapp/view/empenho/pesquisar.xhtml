@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+    <ui:define name="head">
+        <style type="text/css">
+            .yui-dt {
+                margin-top:10px;
+            }
+
+            .yui-dt table {
+                width:100%;
+            }
+
+            .yui-ac {
+                width:200px;
+                padding-bottom:1em; 
+            }
+
+            .label {
+                width:20%;
+                padding:4px;
+            }
+
+            .value {
+                width:80%;
+                padding:4px;
+            }
+
+            .grid {
+                width:100%;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:body onload="$('#dataPeriodoDe_input').focus();">
+            <p:panel header="#{empenhoMBean.tituloTela()}" id="painelPesquisa"> 
+                <h:panelGrid columns="2">
+                    <p:outputLabel id="lblNumero" for="txtNumero">Número do Empenho:</p:outputLabel>
+                    <p:inputText id="txtNumero" immediate="true" style="width: 90px" value="#{empenhoMBean.item.nrEmpenho}"/>
+
+                    <p:outputLabel/>
+                    <h:panelGrid columns="2" width="100%">
+                        <h:panelGrid columns="3" >
+                            <p:commandButton value="Pesquisar" 
+                                             id="botaoPesquisar"
+                                             ajax="true" 
+                                             update="painelPesquisa,grade"
+                                             actionListener="#{empenhoMBean.listar}">
+                            </p:commandButton>
+
+                            <p:commandButton value="Limpar"
+                                             id="botaoLimpar"
+                                             immediate="true"
+                                             update="painelPesquisa,grade">
+                                <p:ajax listener="#{empenhoMBean.inicializaRelatorio('Consulta Pagamentos')}" update="painelPesquisa"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="Voltar" 
+                                             id="botaoVoltar"
+                                             action="/view/home.jsf?faces-redirect=true" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+
+            <ui:include src="/public/grade.xhtml" >
+                <!--<ui:param name="grade" value="#{empenhoGrade}"/>-->
+                <ui:param name="grade" value="#{relatorioGrade}"/>
+                <ui:param name="MBean" value="#{empenhoMBean}"/>
+                <ui:param name="relat" value="#{false}"/>
+                <ui:param name="aux"   value="#{null}"/>
+            </ui:include>
+
+        </h:body>
+    </ui:define>
+    <ui:define name="content3">
+        <p:panel id="pagamentoCriar">
+            <ui:include src="/view/empenho/detalhar.xhtml">
+            </ui:include>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>

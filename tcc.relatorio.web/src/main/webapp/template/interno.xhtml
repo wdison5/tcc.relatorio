@@ -1,0 +1,100 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="base.xhtml">
+
+    <ui:define name="menubar">
+        <h:form prependId="false">
+            <div class="menubar">
+                <p:menubar id="menu" rendered="#{request.isUserInRole('Authenticated')}">
+                    <!--Menus do Modulo hanseníase-->
+                    <p:submenu label="Administração" icon="ui-icon-gear" rendered="#{request.isUserInRole('AdminInstituicoes') || request.isUserInRole('ConsultarInstituicoes')
+                            || request.isUserInRole('AdminGrupos') || request.isUserInRole('ConsultarGrupos')
+                            || request.isUserInRole('AdminUsuarios') || request.isUserInRole('ConsultarUsuarios')}">
+                        <p:submenu label="Grupo" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminGrupos') || request.isUserInRole('ConsultarGrupos')}">
+                            <p:menuitem value="Criar"       action="/view/grupo/criar.jsf?faces-redirect=true"      actionListener="#{grupoMBean.initialize()}" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminGrupos')}"/>
+                            <p:menuitem value="Consultar"   action="/view/grupo/consultar.jsf?faces-redirect=true"  actionListener="#{grupoMBean.initialize()}" icon="ui-icon-search" rendered="#{request.isUserInRole('ConsultarGrupos')}"/>
+                            <p:menuitem value="Associar Funcionalidade"  url="/view/associar/consultarGrupo.jsf" icon="ui-icon-transferthick-e-w" rendered="#{request.isUserInRole('AdminGrupos')}"/>
+                        </p:submenu>
+                        <p:submenu label="Instituição" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminInstituicoes') || request.isUserInRole('ConsultarInstituicoes')}">
+                            <p:menuitem value="Criar" icon="ui-icon-contact" actionListener="#{instituicaoMBean.prepararTelaInclusao()}" action="/view/instituicao/criar.jsf?faces-redirect=true" rendered="#{request.isUserInRole('AdminInstituicoes')}"/>
+                            <p:menuitem value="Consultar" icon="ui-icon-search" actionListener="#{instituicaoMBean.prepararTelaInclusao()}" action="/view/instituicao/consultar.jsf?faces-redirect=true" rendered="#{request.isUserInRole('AdminInstituicoes') || request.isUserInRole('ConsultarInstituicoes')}"/>
+                        </p:submenu>
+                        <p:submenu label="Usuário" icon="ui-icon-person" rendered="#{request.isUserInRole('AdminUsuarios') || request.isUserInRole('ConsultarUsuarios')}">
+                            <p:menuitem value="Criar"     action="/view/usuario/criar.jsf?faces-redirect=true" actionListener="#{usuarioMBean.initialize()}" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminUsuarios')}"/>
+                            <p:menuitem value="Consultar" url="/view/usuario/consultar.jsf" icon="ui-icon-search" rendered="#{request.isUserInRole('ConsultarUsuarios')}"/>
+                            <p:menuitem value="Associar Grupo"  url="/view/associar/consultar.jsf" icon="ui-icon-transferthick-e-w" rendered="#{request.isUserInRole('AdminUsuarios')}"/>
+                        </p:submenu>
+                    </p:submenu>
+                    
+                    <p:submenu label="Beneficiário" icon="ui-icon-person" rendered="#{request.isUserInRole('AdminBeneficiarios') || request.isUserInRole('ConsultarBeneficiarios')}">
+                        <p:menuitem value="Criar"
+                                    icon="ui-icon-contact" 
+                                    actionListener="#{beneficiarioMBean.prepararTelaInclusao()}"
+                                    action="/view/beneficiario/manter.jsf?faces-redirect=true"
+                                    rendered="#{request.isUserInRole('AdminBeneficiarios')}"/>
+                        <p:menuitem value="Consultar"
+                                    icon="ui-icon-search"
+                                    rendered="#{request.isUserInRole('AdminBeneficiarios') || request.isUserInRole('ConsultarBeneficiarios')}"
+                                    actionListener="#{beneficiarioMBean.inicializaRelatorio('', true)}"
+                                    action="/view/beneficiario/consultar.jsf?faces-redirect=true"/>
+                    </p:submenu>
+                    <p:menuitem value="Consulta Pagamento" 
+                                icon="ui-icon-search" 
+                                rendered="#{request.isUserInRole('AdminEmpenhos') || request.isUserInRole('ConsultarEmpenhos')}"
+                                actionListener="#{empenhoMBean.inicializaRelatorio('Consulta Pagamentos')}"
+                                action="/view/empenho/pesquisar.jsf?faces-redirect=true"/>
+                    <p:submenu label="Relatórios" icon="ui-icon-script" rendered="#{request.isUserInRole('AdminEmpenhos') || request.isUserInRole('ConsultarEmpenhos')}">
+                        <p:submenu label="Beneficiários" icon="ui-icon-person" >
+
+                                <p:menuitem value="Listagem" 
+                                        icon="ui-icon-document" 
+                                        actionListener="#{beneficiarioMBean.inicializaRelatorio('Listagem', false)}"
+                                        action="/view/beneficiario/consultar.jsf?faces-redirect=true">
+                                </p:menuitem>
+
+                            <p:menuitem value="Log" 
+                                        icon="ui-icon-info" 
+                                        actionListener="#{beneficiarioMBean.inicializaRelatorio('SQLLog', false)}"
+                                        action="/view/beneficiario/consultar.jsf?faces-redirect=true">
+                            </p:menuitem>
+                            
+                        </p:submenu>
+                        <p:submenu label="Pagamentos" icon="ui-icon-check" rendered="#{request.isUserInRole('ConsultarEmpenhos')||request.isUserInRole('AdminEmpenhos')}">
+                            <p:menuitem value="Analítico" 
+                                        icon="ui-icon-document" 
+                                        actionListener="#{empenhoMBean.inicializaRelatorio('Analitico', true)}"
+                                        action="/view/empenho/consultar.jsf?faces-redirect=true">
+                            </p:menuitem>
+                            <p:menuitem value="Sintético" 
+                                        icon="ui-icon-document" 
+                                        actionListener="#{empenhoMBean.inicializaRelatorio('Sintetico', true)}"
+                                        action="/view/empenho/consultar.jsf?faces-redirect=true">
+                            </p:menuitem>
+                            <p:menuitem value="Log" 
+                                        icon="ui-icon-info" 
+                                        actionListener="#{empenhoMBean.inicializaRelatorio('SQLLog', true)}"
+                                        action="/view/empenho/consultar.jsf?faces-redirect=true">
+                            </p:menuitem>
+                        </p:submenu>
+                    </p:submenu>
+                    
+                    <!--Menus do Modulo hanseníase-->
+                    <p:submenu label="Unidade Saúde" rendered="#{request.isUserInRole('AdminUnidadeSaude') || request.isUserInRole('ConsultarUnidadeSaude')}">
+                        <p:menuitem value="Criar"     url="/view/unidade_saude/criar.jsf" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminUnidadeSaude')}"></p:menuitem>
+                        <p:menuitem value="Consultar" url="/view/unidade_saude/consultar.jsf" icon="ui-icon-search" rendered="#{request.isUserInRole('ConsultarUnidadeSaude')||request.isUserInRole('AdminUnidadeSaude')}"></p:menuitem>
+                    </p:submenu>
+                                                    
+                    <p:submenu label="Suporte" rendered="#{request.isUserInRole('Log')}">
+                        <p:menuitem value="Logs"          url="/view/log/logs.jsf" icon="ui-icon-search" ></p:menuitem>
+                    </p:submenu>
+                   
+                </p:menubar>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <p:dialog id="agencia_incluir" widgetVar="agencia_incluir" modal="true" closable="true" header="Incluir Agência Bancária" resizable="true" draggable="true" showHeader="true">
+        <p:ajax event="close" update="panel_agencia_incluir" listener="#{agenciaBancariaMBean.preparaItem(null, beneficiarioMBean.lstBanco, beneficiarioMBean.lstEstado, null)}" />
+        <p:panel styleClass="sem_grade" >
+            <p:messages id="messagesAgencia" autoUpdate="true" />
+            <p:panelGrid styleClass="grid" id="panel_agencia_incluir">
+                <p:row>
+                    <p:column>
+                        <h:outputLabel value="Instituição Bancária:*" id="_manterBancoIntituicao" for="manterBancoIntituicao"/>
+                    </p:column>
+                    <p:column colspan="3">
+                        <p:selectOneMenu id="manterBancoIntituicao" value="#{agenciaBancariaMBean.banco.id}" label="#{agenciaBancariaMBean.banco.nmBanco}" styleClass="selectOneMenuCheio" onchange="sipph.selectOneMenuCheio();">
+                            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{agenciaBancariaMBean.lstBanco}"  var="bancoEntity" itemLabel="#{bancoEntity.nmBanco}" itemValue="#{bancoEntity.id}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputLabel value="Agência:*" id="_manterBancoAgencia" for="manterBancoAgencia"/>
+                    </p:column>
+                    <p:column colspan="3">
+                        <p:inputText id="manterBancoAgencia" value="#{agenciaBancariaMBean.item.nmAgBancaria}" size="60" converter="#{toUpperConverter}" validatorMessage="'Agência:*': #{msg['validatorMessage.maiusculas.espacos.ponto']}" onblur="sipph.toUpper(this);">
+                            <f:validateRegex pattern="([A-Z\-0-9 \.]*)" />
+                        </p:inputText>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputLabel value="Número:*" id="_manterBancoAgenciaNumero" for="manterBancoAgenciaNumero"/>
+                    </p:column>
+                    <p:column colspan="3">
+                        <p:inputText id="manterBancoAgenciaNumero" value="#{agenciaBancariaMBean.item.nrAgencia}" size="60" validatorMessage="'Número:*': #{msg['validatorMessage.numero.traco']}" >
+                            <f:validateRegex pattern="([\-0-9 \.]*)" />
+                        </p:inputText>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:outputLabel value="Estado:*" id="_manterBancoEstado" for="manterBancoEstado"/>
+                    </p:column>
+                    <p:column colspan="3">
+                        <p:selectOneMenu id="manterBancoEstado" value="#{agenciaBancariaMBean.estado.id}" required="true" requiredMessage="Selecione o Estado.">
+                            <p:ajax event="change" listener="#{agenciaBancariaMBean.onSelectEstadoChange(agenciaBancariaMBean.estado.id)}" update="manterBancoMunicipio" oncomplete="$('.ui-selectonemenu-label').css('width', '96%');"/>
+                            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{agenciaBancariaMBean.lstEstado}"  var="estado" itemLabel="#{estado.cdUf}" itemValue="#{estado.id}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputLabel value="Município:*" id="_manterBancoMunicipio" for="manterBancoMunicipio"/>
+                    </p:column>
+                    <p:column colspan="3">
+                        <p:selectOneMenu id="manterBancoMunicipio" value="#{agenciaBancariaMBean.municipio.id}"  required="true" requiredMessage="Selecione o Município.">
+                            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{agenciaBancariaMBean.lstMunicipio}"  var="municipioEntity" itemLabel="#{municipioEntity.nmMunicipio}" itemValue="#{municipioEntity.id}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column/>
+                    <p:column colspan="3">
+                        <h:panelGroup>
+                            <h:panelGrid columns="3">
+                                <p:commandButton value="Cancelar"   actionListener="#{agenciaBancariaMBean.reset}" update="panel_agencia_incluir" process="@this" icon="ui-icon-closethick" onclick="PF('agencia_incluir').hide();"/>
+                                <p:commandButton value="Limpar"     actionListener="#{agenciaBancariaMBean.reset}" update="panel_agencia_incluir" process="@this" icon="ui-icon-refresh"/>
+                                <p:commandButton value="Salvar"     
+                                                 actionListener="#{agenciaBancariaMBean.manterPorDialog()}" 
+                                                 icon="ui-icon-disk" 
+                                                 ajax="true" />
+                                
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </p:panel>
+    </p:dialog>
+</ui:composition>

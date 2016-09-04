@@ -1,0 +1,27 @@
+/*********************************************
+FOLHA DE ESTILO DE IMPRESSÃO
+*********************************************/
+
+* {margin: 0; padding: 0;}
+body {
+	color: #000;
+	background-color: #fff;
+}
+
+/***********************
+links - Padronização de Links
+***********************/
+a:link, a:visited {color: #000; font-weight: bold; text-decoration: underline;}
+
+.content { width: 100%;}
+
+/***********************
+Esconde elementos
+***********************/
+img, .header_container, .footer_container, .menubar
+{ display: none;}
+
+/***********************
+Tipografia
+***********************/
+h1,h2,h3,h4,h5,h6 { color: #000;}

@@ -1,0 +1,2 @@
+prodesp.cap.web.UsuarioBCJUnitTest
+prodesp.cap.web.SistemaBCJUnitTest

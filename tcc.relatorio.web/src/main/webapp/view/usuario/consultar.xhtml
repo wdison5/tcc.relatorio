@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+
+    <ui:define name="content">
+
+        <p:panel header="Listar Usuario" style="margin-bottom:20px;">
+            <h:panelGrid columns="3">
+                <h:outputText value="Usuário: " />
+                <p:autoComplete id="acNome" value="#{usuarioMBean.item.userId}" completeMethod="#{usuarioMBean.completar}" 
+                                maxResults="5" />
+                <p:commandButton value="Pesquisar" actionListener="#{usuarioMBean.listar}" async="true" update="grade"/>
+            </h:panelGrid>
+        </p:panel>
+
+
+        <p:dataTable id="grade" var="item" 
+                     value="#{usuarioMBean.lista}"
+                     sortBy="#{item.nome}" 
+                     scrollable="true"
+                     resizableColumns="true"
+                     paginator="#{usuarioMBean.lista.size() == 0 ? false : true}"
+                     disabledSelection="false"
+                     selectionMode="single"
+                     rowKey="#{item.id}"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginatorPosition="both"
+                     rows="15"
+                     styleClass="com_grade"
+                     emptyMessage="Nenhum registro encontrado."
+                     sortOrder="descending" >
+            <f:facet name="header">#{beneficiarioGrade.mensagemCabecalho(usuarioMBean.lista)}</f:facet>
+            <p:column rendered="#{usuarioMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Usuário" />
+                </f:facet>
+                <h:outputText value="#{item.userId}"></h:outputText>
+            </p:column>
+
+            <p:column rendered="#{usuarioMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Nome Completo" />
+                </f:facet>
+                <div style="text-align:left" >
+                    <h:outputText value="#{item.nome}" ></h:outputText>
+                </div>
+            </p:column>
+
+            <p:column rendered="#{usuarioMBean.lista.size() > 0}">
+                <f:facet name="header">
+                    <h:outputText value="Email" />
+                </f:facet>
+                <div style="text-align:left" >
+                    <h:outputText value="#{item.email}" ></h:outputText>
+                </div>
+            </p:column>
+
+            <p:column style="text-align:center; width: 15%;" headerText="AÇÕES"  rendered="#{usuarioMBean.lista.size() > 0}">
+                <p:commandButton icon="ui-icon-pencil"
+                                 id="btnEditarUsuario"
+                                 rendered="#{request.isUserInRole('AdminUsuarios')}"
+                                 immediate="true" 
+                                 actionListener="#{usuarioMBean.setId(item.id)}"
+                                 action="/view/usuario/editar.jsf?faces-redirect=true">
+                </p:commandButton>
+                <p:tooltip for="btnEditarUsuario" value="Editar"/>
+
+                <p:commandButton icon="ui-icon-trash"
+                                 id="btnExcluirUsuario"
+                                 rendered="#{request.isUserInRole('AdminUsuarios')}"
+                                 onclick="PF('groupDeleteConfirm').show();"
+                                 async="true">
+                    <p:ajax id="ajx1Atestado" listener="#{usuarioMBean.preparaExclusao(item.id)}"/>
+                </p:commandButton>
+                <p:tooltip for="btnExcluirUsuario" value="Excluir" />
+
+                <p:commandButton icon="ui-icon-search"
+                                 id="btnDetalharUsuario"
+                                 immediate="true" 
+                                 actionListener="#{usuarioMBean.setId(item.id)}"
+                                 action="/view/usuario/detalhar.jsf?faces-redirect=true"/>
+                <p:tooltip for="btnDetalharUsuario" value="Visualizar"/>
+            </p:column>
+        </p:dataTable>
+
+        <p:confirmDialog header="Confirmação" message="Você tem certeza que deseja excluir este registro?" widgetVar="groupDeleteConfirm">
+            <p:commandButton value="Sim" icon="ui-icon-check" oncomplete="PF('groupDeleteConfirm').hide()">
+                <p:ajax id="ajx1Atestado" listener="#{usuarioMBean.excluir()}" update="grade"/>
+            </p:commandButton>
+            <p:commandButton icon="ui-icon-close" value="Não" onclick="PF('groupDeleteConfirm').hide(); return false;"/>
+        </p:confirmDialog>
+    </ui:define>
+</ui:composition>

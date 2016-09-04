@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+
+    <ui:define name="content">
+        <p:panel id="panel" header="Novo Usuário">
+
+            <h:panelGrid columns="2"  columnClasses="label,value" styleClass="grid">
+                <h:outputLabel for="userId" value="Login:*" />
+                <h:inputText id="userId" value="#{usuarioMBean.item.userId}" 
+                             required="true" 
+                             requiredMessage="O Id do usuário é obrigatório"
+                             maxlength="20"
+                             converter="#{toLowerConverter}" 
+                             validatorMessage="#{msg['validatorMessage.minusculas']} Tamanho máximo do Usuário é 20."
+                             onblur="sipph.toLower(this);
+                                     sipph.max(this, 20);">
+                    <f:validateLength maximum="20" />
+                    <f:validateRegex pattern="([a-z0-9]*)" />
+                </h:inputText>
+
+                <h:outputLabel for="nome" value="Nome Completo:*" />
+                <h:inputText id="nome" value="#{usuarioMBean.item.nome}" 
+                             validatorMessage="0 Nome tem no máximo 100 caracters" size="50"
+                             required="true" 
+                             requiredMessage="preencher nome completo."
+                             >
+                    <f:validateLength maximum="100" />
+                </h:inputText>
+
+                <h:outputLabel for="email" value="Email:*" />
+                <h:inputText id="email" value="#{usuarioMBean.item.email}" 
+                             required="true" 
+                             requiredMessage="preencher Email."
+                             validatorMessage="O Email tem no máximo 50 caracters" size="50">
+                    <f:validateLength maximum="50" />
+                </h:inputText>
+
+                <h:outputLabel for="cpf" value="Cpf:" />
+                <h:inputText id="cpf" value="#{usuarioMBean.item.cpf}" 
+                             validatorMessage="O Cpf tem no máximo 11 caracters" >
+                    <f:validateLength maximum="11" />
+                </h:inputText>
+
+                <h:outputLabel for="rg" value="RG:" />
+                <h:inputText id="rg" value="#{usuarioMBean.item.rg}" validatorMessage="O RG tem no máximo 10 caracters" maxlength="10">
+                    <f:validateLength maximum="10" />
+                </h:inputText>
+
+                <h:outputLabel value="Adm Sistema:" id="_acessogeral" for="acessogeral" rendered="#{usuarioLogado.isAcessoGeral()}"/>
+                <p:selectBooleanCheckbox id="acessogeral" value="#{usuarioMBean.item.acessoGeral}" rendered="#{usuarioLogado.isAcessoGeral()}"/>
+
+                <h:outputLabel value="Instituição:*" id="_instituicaoOut" for="todas" rendered="#{usuarioMBean.instituicoes.size() gt 1}"/>
+                <p:selectBooleanCheckbox id="todas" value="#{usuarioMBean.todas}" itemLabel="Todas" disabled="#{usuarioMBean.instituicoes.size() lt 2}" rendered="#{usuarioMBean.instituicoes.size() gt 1}">
+                    <p:ajax update="instituicoes" listener="#{usuarioMBean.toggleInstituicoes}" />
+                </p:selectBooleanCheckbox>
+                <h:outputText rendered="#{usuarioMBean.instituicoes.size() gt 1}"/>
+                <h:panelGroup id="instituicoes" rendered="#{usuarioMBean.instituicoes.size() gt 1}">
+                    <p:selectManyCheckbox value="#{usuarioMBean.instituicoesSelec}" valueChangeListener="#{usuarioMBean.selectedItemsChanged}" layout="pageDirection">
+                        <p:ajax process="@this"/>
+                        <f:selectItems value="#{usuarioMBean.instituicoes}" var="instituicao" itemValue="#{instituicao.id}" itemLabel="#{usuarioMBean.labelInsituicao(instituicao)}" />
+                    </p:selectManyCheckbox>
+                </h:panelGroup>
+
+                <h:outputText />
+                <h:panelGroup>
+                    <h:panelGrid columns="3">
+                        <p:button value="Voltar" outcome="consultar" icon="ui-icon-arrowreturnthick-1-w" /> 
+                        <p:commandButton value="Limpar" actionListener="#{usuarioMBean.reset}" async="true" update="panel" process="@this"/>
+                        <p:commandButton value="Salvar" actionListener="#{usuarioMBean.persistir}" icon="ui-icon-disk" async="true" update="panel" />
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:panel>
+    </ui:define>
+</ui:composition>

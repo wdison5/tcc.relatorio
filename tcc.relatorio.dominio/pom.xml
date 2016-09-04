@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.tcc.relatorio</groupId>
+        <artifactId>tcc.relatorio</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>tcc.relatorio.dominio</artifactId>
+    <packaging>jar</packaging>
+    <name>tcc.relatorio.dominio</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.tcc.relatorio</groupId>
+            <artifactId>tcc.relatorio.hammer</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
