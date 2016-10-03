@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.tcc.relatorio.persistencia;
 
 import org.tcc.relatorio.hammer.persistencia.exception.DaoException;
@@ -26,7 +21,6 @@ import org.tcc.relatorio.enumeracao.Confirmacao;
 import org.tcc.relatorio.persistencia.exception.util.DaoExceptionUtil;
 
 /**
- *
  * @author Jose Wdison
  */
 public class InstituicaoRepo extends Repositorio {

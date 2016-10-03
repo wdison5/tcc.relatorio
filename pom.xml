@@ -36,7 +36,7 @@
         </plugins>
     </build>
     <modules>
-        <module>tcc.relatorio.ear</module>
+        <!--<module>tcc.relatorio.ear</module>-->
         <module>tcc.relatorio.dominio</module>
         <module>tcc.relatorio.negocio</module>
         <module>tcc.relatorio.persistencia</module>

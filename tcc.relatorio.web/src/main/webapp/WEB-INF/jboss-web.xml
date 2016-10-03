@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-    <context-root>/SIPPH</context-root>
-    <!-- security-domain>jcap-sec-domain</security-domain -->
-    <!-- security-domain>java:/jaas/other</security-domain -->
-    <security-domain>java:/jaas/sipph</security-domain>
-   
+  <context-root>/SIPPH</context-root>
+  <!-- security-domain>jcap-sec-domain</security-domain -->
+  <!-- security-domain>java:/jaas/other</security-domain -->
+  <security-domain>java:/jaas/sipph</security-domain>
 </jboss-web>
