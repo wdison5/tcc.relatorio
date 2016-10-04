@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.tcc.relatorio.cap.dominio;
 
 import java.util.Date;
@@ -24,8 +20,7 @@ import org.tcc.relatorio.cap.dominio.util.Policy;
 import org.tcc.relatorio.dominio.InstituicaoEntity;
 
 /**
- *
- * @author 140200
+ * @author Jose Wdison
  */
 @Entity
 @Table(name = "USUARIO", uniqueConstraints = {

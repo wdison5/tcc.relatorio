@@ -290,7 +290,7 @@
                             <module-option name="unauthenticatedIdentity" value="guest"/>
                             <module-option name="dsJndiName" value="java:/jdbc/tccRelatorioDS"/>
                             <module-option name="principalsQuery" value="select senha from usuario where user_id = ?"/>
-                            <module-option name="rolesQuery" value="select f.nome Role, 'Roles' RoleGroup from funcionalidade f, grupo g, usuario u, grupo_funcionalidade gf, usuario_grupo ug where f.id = gf.funcionalidades_id and g.id = gf.grupos_id and g.id = ug.grupos_id and u.id = ug.usuarios_id and u.user_id = ? order by f.nome"/>
+                            <module-option name="rolesQuery" value="select f.nome Role, 'Roles' RoleGroup from funcionalidade f, usuario u where  u.user_id = ? and (u.acesso_geral = true or f.id in (select gf.funcionalidades_id from grupo_funcionalidade gf, usuario uu, grupo g, usuario_grupo ug where uu.id = u.id and g.id = gf.grupos_id and g.id = ug.grupos_id and uu.id = ug.usuarios_id)) group by f.nome order by f.nome"/>
                             <module-option name="hashAlgorithm" value="SHA-1"/>
                             <module-option name="hashEncoding" value="hex"/>
                         </login-module>

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.tcc.relatorio.cap.dominio;
 
 import java.util.List;
@@ -17,8 +13,7 @@ import org.tcc.relatorio.cap.dominio.util.IPolicy;
 import org.tcc.relatorio.cap.dominio.util.PolicyHelper;
 
 /**
- *
- * @author roger
+ * @author Jose Wdison
  */
 @MappedSuperclass
 public abstract class BaseEntity extends DomainObject<Long> {

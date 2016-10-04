@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.tcc.relatorio.cap.dominio;
 
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -19,8 +13,7 @@ import org.tcc.relatorio.cap.dominio.util.Policies;
 import org.tcc.relatorio.cap.dominio.util.Policy;
 
 /**
- *
- * @author 140200
+ * @author Jose Wdison
  */
 
 @Entity
