@@ -2,7 +2,7 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="org.tcc.relatorio.cap.persistenciaPU" transaction-type="JTA">
     <!--        <jta-data-source>jdbc/s4spindDS</jta-data-source>-->
-    <jta-data-source>jdbc/tccRelatorio</jta-data-source>
+    <jta-data-source>jdbc/tccRelatorioDS</jta-data-source>
     <class>org.tcc.relatorio.cap.dominio.FuncionalidadeEntity</class>
     <class>org.tcc.relatorio.cap.dominio.GrupoEntity</class>
     <class>org.tcc.relatorio.cap.dominio.UsuarioEntity</class>
@@ -21,11 +21,12 @@
     <class>org.tcc.relatorio.dominio.PphUnidadePagadoraEntity</class>
     <class>org.tcc.relatorio.dominio.PphUnidSaudeEntity</class>
     <properties>
-      <property name="hib1ernate.hbm2ddl.auto" value="update" />
+      <!--<property name="hibernate.hbm2ddl.auto" value="update" />-->
+      <property name="hibernate.hbm2ddl.auto" value="create" />
       <!--<property name="hibernate.hbm2ddl.auto" value="validate"/>-->
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
     </properties>
   </persistence-unit>
 </persistence>

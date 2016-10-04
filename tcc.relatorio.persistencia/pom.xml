@@ -10,6 +10,7 @@
     <groupId>org.tcc.relatorio</groupId>
     <artifactId>tcc.relatorio.persistencia</artifactId>
     <name>tcc.relatorio.persistencia</name>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>org.tcc.relatorio</groupId>

@@ -36,12 +36,11 @@
         </plugins>
     </build>
     <modules>
-        <!--<module>tcc.relatorio.ear</module>-->
+        <module>tcc.relatorio.ear</module>
         <module>tcc.relatorio.dominio</module>
         <module>tcc.relatorio.negocio</module>
         <module>tcc.relatorio.persistencia</module>
         <module>tcc.relatorio.web</module>
-        <module>tcc.relatorio.servicos</module>
         <module>tcc.relatorio.hammer</module>
     </modules>
     <properties>

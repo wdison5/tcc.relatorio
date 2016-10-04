@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<datasources>
+	<datasource jta="false" jndi-name="java:/jdbc/tccRelatorioDS" enabled="true" pool-name="tccDataSource" use-ccm="false">
+		<connection-url>jdbc:derby://localhost:1527/tcc;create=true</connection-url>   
+		<driver-class>org.apache.derby.jdbc.ClientDriver</driver-class>
+		<driver>derbyclient.jar</driver>
+		<security>
+			<user-name>tcc</user-name>
+			<password>tcc</password>
+		</security>
+		<validation>
+			<validate-on-match>false</validate-on-match>
+			<background-validation>false</background-validation>
+		</validation>
+		<statement>
+			<share-prepared-statements>false</share-prepared-statements>
+		</statement>
+	</datasource>
+</datasources>
