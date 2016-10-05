@@ -109,7 +109,7 @@
     
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>s4spRealm</realm-name>
+        <realm-name>tccRelatorioRealm</realm-name>
         <form-login-config>
             <form-login-page>/public/login.jsf</form-login-page>
             <form-error-page>/public/login.jsf</form-error-page>
