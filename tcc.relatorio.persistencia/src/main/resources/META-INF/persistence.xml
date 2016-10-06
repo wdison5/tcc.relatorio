@@ -20,9 +20,11 @@
     <class>org.tcc.relatorio.dominio.PphProcuradorEntity</class>
     <class>org.tcc.relatorio.dominio.PphUnidadePagadoraEntity</class>
     <class>org.tcc.relatorio.dominio.PphUnidSaudeEntity</class>
+    <class>org.tcc.relatorio.dominio.Produto</class>
+    <class>org.tcc.relatorio.dominio.TipoProduto</class>
     <properties>
       <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
-      <property name="hibernate.hbm2ddl.auto" value="update" />
+      <!--<property name="hibernate.hbm2ddl.auto" value="update" />-->
       <!--<property name="hibernate.hbm2ddl.auto" value="validate"/>-->
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>

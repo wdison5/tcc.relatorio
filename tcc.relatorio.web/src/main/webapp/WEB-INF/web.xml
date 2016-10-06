@@ -105,6 +105,9 @@
     <security-role>
         <role-name>ConsultarInstituicoes</role-name>
     </security-role>
+    <security-role>
+        <role-name>ConsultarRelatorios</role-name>
+    </security-role>
     <!--   Termino Hanceniase Regras -->
     
     <login-config>
@@ -264,6 +267,17 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>AdminAtestados</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <!--Adicionando a segurança dos relatorios-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Páginas de consulta de relatorios.</web-resource-name>
+            <url-pattern>/view/relatorios/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ConsultarRelatorios</role-name>
         </auth-constraint>
     </security-constraint>
    <!--   Termino Hanceniase Segurança -->

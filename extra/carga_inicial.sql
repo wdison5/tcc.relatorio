@@ -15,6 +15,7 @@ Insert into FUNCIONALIDADE (ID,NOME,VER,DESCRICAO,TP_OPER,URL) values (10,'Admin
 Insert into FUNCIONALIDADE (ID,NOME,VER,DESCRICAO,TP_OPER,URL) values (11,'ConsultarEmpenhos',0,'Consultas de empenhos.',null,null);
 Insert into FUNCIONALIDADE (ID,NOME,VER,DESCRICAO,TP_OPER,URL) values (12,'AdminAtestados',0,'Acesso completo ao CRUD de atestados de vida',null,null);
 Insert into FUNCIONALIDADE (ID,NOME,VER,DESCRICAO,TP_OPER,URL) values (13,'ConsultaAtestados',0,'Consultas de atestados de vida.',null,null);
+Insert into FUNCIONALIDADE (ID,NOME,VER,DESCRICAO,TP_OPER,URL) values (14,'ConsultaRelatorios',0,'Consulta completa a todos os relatorios.',null,null);
 
 Insert into GRUPO (ID,NOME,VER,DESCRICAO,FL_EXCLUSAO) values (1,'Administrador Sistema',0,null,0);
 Insert into GRUPO (ID,NOME,VER,DESCRICAO,FL_EXCLUSAO) values (2,'Acessar Menu',0,null,0);
