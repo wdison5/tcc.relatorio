@@ -45,7 +45,7 @@
                                              id="botaoPesquisar"
                                              ajax="true" 
                                              update="painelPesquisa,grade"
-                                             actionListener="#{beneficiarioMBean.listar}">
+                                             actionListener="#{relatorioMBean.listar}">
                             </p:commandButton>
 
                             <p:commandButton value="Limpar"
@@ -56,38 +56,13 @@
                                         update="painelPesquisa"
                                         oncomplete="$('#txtNome').focus();"/>
                             </p:commandButton>
-                            
-                            <ui:remove>
-                                <p:commandButton value="Incluir"
-                                                 id="botaoIncluir"
-                                                 immediate="true"
-                                                 actionListener="#{beneficiarioMBean.prepararTelaInclusao()}"
-                                                 action="/view/beneficiario/manter.jsf?faces-redirect=true"
-                                                 rendered="#{beneficiarioMBean.complementoRelatorio.trim().length() == 0 and (request.isUserInRole('AdminBeneficiarios') or request.isUserInRole('ConsultarBeneficiarios'))}">
-                                </p:commandButton>
-
-                                <p:commandButton value="Voltar" 
-                                                 id="botaoVoltar"
-                                                 action="/view/home.jsf?faces-redirect=true" />
-                            </ui:remove>
-                        </h:panelGrid>
-                        <h:panelGrid columns="2" >
-                            <ui:remove>
-                                <p:outputLabel id="lblRelatorio" for="radioRelatorio">Relatório:</p:outputLabel>
-                                <p:selectOneRadio id="radioRelatorio" value="#{beneficiarioMBean.complementoRelatorio}">
-                                    <f:selectItem itemLabel="Padrão"    itemValue="Padrao" />
-                                    <f:selectItem itemLabel="Log"       itemValue="SQLLog" />
-                                </p:selectOneRadio>
-                            </ui:remove>
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>
             <ui:include src="/public/grade.xhtml">
-                <ui:param name="grade" value="#{beneficiarioGrade}"/>
-                <ui:param name="MBean" value="#{beneficiarioMBean}"/>
-                <ui:param name="relat" value="#{beneficiarioMBean.complementoRelatorio == '' ? false : true}"/>
-                <ui:param name="aux"   value="#{empenhoMBean}"/>
+                <ui:param name="grade" value="#{relatorioGrade}"/>
+                <ui:param name="MBean" value="#{relatorioMBean}"/>
             </ui:include>
 
         </h:body>

@@ -18,7 +18,7 @@ import org.tcc.relatorio.hammer.persistencia.exception.BCException;
 
 /**
  *
- * @author Eloy
+ * @author Jose Wdison de Souza<wdison@hotmail.com>
  */
 @SessionScoped
 @ManagedBean
