@@ -12,50 +12,32 @@
             <!--<p:panel header="#{beneficiarioMBean.tituloTela()}" id="painelPesquisa"> -->
             <p:panel header="Pratos + Vendidos" id="painelPesquisa"> 
                 <h:panelGrid columns="2" width="100%">
-                    <p:outputLabel id="lblNome" for="txtNome">Nome:</p:outputLabel>
-                    <p:inputText id="txtNome" immediate="true" style="width: 500px" value="#{beneficiarioMBean.item.nmBeneficiario}"/>
-
-                    <p:outputLabel id="lblPagadora" for="selecPagadora">Unidade Pagadora:</p:outputLabel>
-                    <p:selectOneMenu id="selecPagadora"
-                                     value="#{beneficiarioMBean.unidadePagadoraSelecionada}"
-                                     style="width: 400px" 
-                                     required="false"
-                                     immediate="true"
-                                     requiredMessage="Selecione uma Unidade Pagadora.">
-                        <c:if test="#{beneficiarioMBean.lstUnidadePagadora.size() gt 1}">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"/>
-                        </c:if>
-                        <f:selectItems value="#{beneficiarioMBean.lstUnidadePagadora}"
-                                       var="unidade"
-                                       itemValue="#{unidade.id}"
-                                       itemLabel="#{unidade.nmUnidadePagadora}"/>
-                        <p:ajax update="selecPagadora"/>
-                    </p:selectOneMenu>
-
-                    <p:outputLabel id="lblInstituicao" for="selecInstituicao">Unidade de Saúde:</p:outputLabel>
-                    <p:selectOneMenu id="selecInstituicao"
-                                     value="#{beneficiarioMBean.unidadeSaudeSelecionada}"
-                                     style="width: 400px" 
-                                     required="false"
-                                     immediate="true"
-                                     requiredMessage="Selecione uma Unidade de Saúde.">
-                        <c:if test="#{beneficiarioMBean.lstUnidSaude.size() gt 1}">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"/>
-                        </c:if>
-                        <f:selectItems value="#{beneficiarioMBean.lstUnidSaude}"
-                                       var="unidade"
-                                       itemValue="#{unidade.id}"
-                                       itemLabel="#{unidade.nome}"/>
-                        <p:ajax update="selecInstituicao"/>
-                    </p:selectOneMenu>
-
-                    <p:outputLabel id="lblTipo" for="radioTipo" >Tipo de Beneficiário:</p:outputLabel>
-                    <p:selectOneRadio id="radioTipo" value="#{beneficiarioMBean.item.tpBeneficiario}">
-                        <f:selectItem itemLabel="Inicial"    itemValue="1" />
-                        <f:selectItem itemLabel="Dependente" itemValue="2" />
-                        <f:selectItem itemLabel="Ambos"      itemValue="3" />
-                    </p:selectOneRadio>
-
+                    
+                    <p:outputLabel id="dataPeriodoDeLabel" for="dataPeriodoDe">Período de Pesquisa:</p:outputLabel>
+                    <h:panelGrid columns="3" cellpadding="0" cellspacing="0">
+                        <p:calendar id="dataPeriodoDe"
+                                    value="#{relatorioMBean.dataPeriodoDe}"
+                                    showOn="button"
+                                    pattern="dd/MM/yyyy"
+                                    immediate="true"
+                                    mask="true" 
+                                    locale="br"
+                                    navigator="true"
+                                    size="12"/>
+                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0" style="width: 30px;text-align: center;">
+                            <p:outputLabel id="dataPeriodoAteLabel" for="dataPeriodoAte" value="até" />
+                        </h:panelGrid>
+                        <p:calendar id="dataPeriodoAte"
+                                    value="#{relatorioMBean.dataPeriodoAte}"
+                                    showOn="button"
+                                    pattern="dd/MM/yyyy"
+                                    immediate="true"
+                                    mask="true" 
+                                    locale="br"
+                                    navigator="true"
+                                    size="12"/>
+                    </h:panelGrid>
+                    
                     <p:outputLabel/>
                     <h:panelGrid columns="2" width="100%">
                         <h:panelGrid columns="4" >

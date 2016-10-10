@@ -1,20 +1,16 @@
 package org.tcc.relatorio.dominio;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -22,13 +18,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "PRODUTO")
-public class Produto implements Serializable {
+public class ProdutoEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_PRODUTO")
-    private Long idProduto;
     @Size(max = 500)
     @Column(name = "DESCRICAO")
     private String descricao;
@@ -49,21 +40,13 @@ public class Produto implements Serializable {
     private Long idInstituicao;
     @JoinColumn(name = "ID_TIPO_PRODUTO", referencedColumnName = "ID_TIPO_PRODUTO")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TipoProduto tipoProduto;
+    private TipoProdutoEntity tipoProduto;
 
-    public Produto() {
+    public ProdutoEntity() {
     }
 
-    public Produto(Long idProduto) {
-        this.idProduto = idProduto;
-    }
-
-    public Long getIdProduto() {
-        return idProduto;
-    }
-
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+    public ProdutoEntity(Long idProduto) {
+        this.setId(idProduto);
     }
 
     public String getDescricao() {
@@ -122,35 +105,35 @@ public class Produto implements Serializable {
         this.idInstituicao = idInstituicao;
     }
 
-    public TipoProduto getTipoProduto() {
+    public TipoProdutoEntity getTipoProduto() {
         return tipoProduto;
     }
 
-    public void setTipoProduto(TipoProduto tipoProduto) {
+    public void setTipoProduto(TipoProdutoEntity tipoProduto) {
         this.tipoProduto = tipoProduto;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getIdProduto() != null ? getIdProduto().hashCode() : 0) + (getDescricao()!= null ? getDescricao().hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0) + (getDescricao()!= null ? getDescricao().hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Produto)) {
+        if (!(object instanceof ProdutoEntity)) {
             return false;
         }
-        Produto other = (Produto) object;
-        return this.getIdProduto() != null && other.getIdProduto() != null && this.getIdProduto().longValue()== other.getIdProduto()
+        ProdutoEntity other = (ProdutoEntity) object;
+        return this.getId() != null && other.getId() != null && this.getId().longValue()== other.getId()
                 || this.getDescricao()!= null && other.getDescricao()!= null && this.getDescricao().equals(other.getDescricao());
     }
 
     @Override
     public String toString() {
         return new StringBuilder(this.getClass().getName())
-            .append("[ idProduto=").append(getIdProduto())
+            .append("[ idProduto=").append(getId())
             .append(", descricao").append(getDescricao())
             .append(" ]").toString();
     }

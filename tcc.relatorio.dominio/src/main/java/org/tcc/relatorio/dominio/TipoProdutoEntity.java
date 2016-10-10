@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "TIPO_PRODUTO")
-public class TipoProduto implements Serializable {
+public class TipoProdutoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -29,12 +29,12 @@ public class TipoProduto implements Serializable {
     @Column(name = "DESCRICAO")
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoProduto", fetch = FetchType.LAZY)
-    private List<Produto> produtoList;
+    private List<ProdutoEntity> produtoList;
 
-    public TipoProduto() {
+    public TipoProdutoEntity() {
     }
 
-    public TipoProduto(Long idTipoProduto) {
+    public TipoProdutoEntity(Long idTipoProduto) {
         this.idTipoProduto = idTipoProduto;
     }
 
@@ -54,11 +54,11 @@ public class TipoProduto implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Produto> getProdutoList() {
+    public List<ProdutoEntity> getProdutoList() {
         return produtoList;
     }
 
-    public void setProdutoList(List<Produto> produtoList) {
+    public void setProdutoList(List<ProdutoEntity> produtoList) {
         this.produtoList = produtoList;
     }
 
@@ -71,10 +71,10 @@ public class TipoProduto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof TipoProduto)) {
+        if (!(object instanceof TipoProdutoEntity)) {
             return false;
         }
-        TipoProduto other = (TipoProduto) object;
+        TipoProdutoEntity other = (TipoProdutoEntity) object;
         return this.getIdTipoProduto() != null && other.getIdTipoProduto() != null && this.getIdTipoProduto().longValue() ==  other.getIdTipoProduto()
                 || this.getDescricao() != null && other.getDescricao()!= null && this.getDescricao().equals(other.getDescricao());
     }
