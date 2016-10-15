@@ -9,7 +9,6 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.BarChartSeries;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartModel;
@@ -37,7 +36,7 @@ public class TccRelatorioChart implements Serializable {
     public ChartModel pieChart(List<ProdutoEntity> produtos) {
         PieChartModel pie = new PieChartModel();
         pie.setShowDataLabels(true);
-        pie.setFill(true);
+        pie.setExtender("pieExtender");
         pie.setLegendPosition("ne");
         Map<String, Integer> fatias = new HashMap<String, Integer>();
         for (ProdutoEntity produto : produtos) {

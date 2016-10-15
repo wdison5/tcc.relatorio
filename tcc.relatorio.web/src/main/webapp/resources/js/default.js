@@ -78,3 +78,12 @@ var sipph = {
         }
     }
 };
+
+function pieExtender() {
+        this.cfg.highlighter = {
+            show: true,
+            tooltipLocation: 'n',
+            useAxesFormatters: false,
+            formatString: '%s = %d'
+        };
+    }

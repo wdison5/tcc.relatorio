@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.cap.dominio.UsuarioEntity;
 import org.tcc.relatorio.dominio.ProdutoEntity;
+import org.tcc.relatorio.dominio.TipoProdutoEntity;
 import org.tcc.relatorio.util.ExportarArquivo;
 import org.tcc.relatorio.util.FacesUtil;
 import org.tcc.relatorio.util.jasper.Reports;
@@ -35,16 +36,18 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
     private static final long serialVersionUID = 118231614034054148L;
     private static final Logger LOGGER = LoggerFactory.getLogger(TccRelatorioMBean.class);
     
+    private UsuarioEntity usuarioLogado;
     private Date dataPeriodoDe;
     private Date dataPeriodoAte;
-    private UsuarioEntity usuarioLogado;
+    private Long idTipoProduto;
+    private String tituloTela;
 
     private String actionVoltar = "/view/relatorio/consultar.jsf?faces-redirect=true";
 
     @EJB(name = "RelatorioBC")
     private TccRelatorioBC relatorioBC;
     private Map<String, String> titulos;
-
+    
     public TccRelatorioMBean() {
         setParameterClass(ProdutoEntity.class);
         super.initialize("Produto");
@@ -57,14 +60,45 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
         this.usuarioLogado = (UsuarioEntity) FacesUtil.getInSession("usuarioLogado");
     }
 
+    /**
+     * default true para inicializar o periodo
+     * @param complemento 
+     */
     public void inicializaRelatorio(String complemento) {
-        this.setEstadoDefault();
-        super.setComplementoRelatorio(complemento);
+        inicializaRelatorio(complemento, true);
     }
 
     public void inicializaRelatorio(String complemento, Boolean periodoDefault) {
         this.setEstadoDefault();
-        super.setComplementoRelatorio(complemento);
+        switch(complemento){
+            case "P+V":
+                tituloTela = "Pratos + Vendidos";
+                setIdTipoProduto(1L);
+                break;
+            case "B+V":
+                tituloTela = "Bebidas + Vendidas";
+                setIdTipoProduto(2L);
+                break;
+            case "S+V":
+                tituloTela = "Sobremesas + Vendidas";
+                setIdTipoProduto(3L);
+                break;
+            case "P-V":
+                tituloTela = "Pratos - Vendidos";
+                setIdTipoProduto(1L);
+                break;
+            case "B-V":
+                tituloTela = "Bebidas - Vendidas";
+                setIdTipoProduto(2L);
+                break;
+            case "S-V":
+                tituloTela = "Sobremesas - Vendidas";
+                setIdTipoProduto(3L);
+                break;
+        }
+        putTitulos("barTitSup","", "barTitEsq","Quantidade", "barTitInf","");
+        
+        super.setComplementoRelatorio(tituloTela);
         if (periodoDefault) {
             Date date = new Date();
             Calendar c = Calendar.getInstance();
@@ -80,20 +114,12 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
         super.setComplementoRelatorio("");
         this.setDataPeriodoDe(null);
         this.setDataPeriodoAte(null);
+        this.setIdTipoProduto(null);
         this.setActionVoltar("/view/relatorio/consultar.jsf?faces-redirect=true");//TODO
     }
 
     public String tituloTela() {
-        if (this.getComplementoRelatorio().equals("Analitico")) {
-            return "Relatório Analítico";
-        }
-        if (this.getComplementoRelatorio().equals("Sintetico")) {
-            return "Relatório Sintético";
-        }
-        if (this.getComplementoRelatorio().equals("SQLLog")) {
-            return "LOG - Pagamentos";
-        }
-        return "Consulta Pagamentos";
+        return tituloTela;
     }
 
     @Override
@@ -116,7 +142,7 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
                     break;
                 }
 
-                List<ProdutoEntity> set = relatorioBC.pesquisar(produtoInicial, produtoFinal, usuarioLogado);
+                List<ProdutoEntity> set = relatorioBC.pesquisar(produtoInicial, produtoFinal, usuarioLogado, idTipoProduto);
                 if (set != null) {
                     return new ArrayList<ProdutoEntity>(set);
                 }
@@ -139,6 +165,14 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
 
     public void setDataPeriodoAte(Date dataPeriodoAte) {
         this.dataPeriodoAte = dataPeriodoAte;
+    }
+
+    public Long getIdTipoProduto() {
+        return idTipoProduto;
+    }
+
+    public void setIdTipoProduto(Long idTipoProduto) {
+        this.idTipoProduto = idTipoProduto;
     }
 
     public String getActionVoltar() {

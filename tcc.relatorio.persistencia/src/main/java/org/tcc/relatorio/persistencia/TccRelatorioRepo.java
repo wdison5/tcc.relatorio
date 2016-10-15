@@ -45,13 +45,11 @@ public class TccRelatorioRepo extends Repositorio {
             CriteriaBuilder cb = entityManager().getCriteriaBuilder();
             CriteriaQuery<ProdutoEntity> c = cb.createQuery(ProdutoEntity.class);
             Root<ProdutoEntity> root = c.from(ProdutoEntity.class);
-//            root.fetch("tipoProduto");
             List<Predicate> predicados = new ArrayList<Predicate>();
             if (produtoInicial.getDataReferencia()!= null) predicados.add(cb.greaterThanOrEqualTo(root.<Date  >get("dataReferencia"), produtoInicial.getDataReferencia()));
             if (produtoFinal  .getDataReferencia()!= null) predicados.add(cb.lessThanOrEqualTo   (root.<Date  >get("dataReferencia"), produtoFinal  .getDataReferencia()));
             if (idsTpProd != null && idsTpProd.length > 0) predicados.add(root.get("tipoProduto").get("id").in(idsTpProd));
             predicados.add(cb.or(cb.equal(root.get("idUsuario"), usuarioLogado.getId()), root.get("idInstituicao").in(new Object[]{1})));//TODO deve ser os ids Corretos das instituicoes
-            
             c.select(cb.construct(ProdutoEntity.class, root.get("descricao")
                             ,root.get("dataReferencia")
                             ,root.get("valorUnitario")
@@ -70,7 +68,7 @@ public class TccRelatorioRepo extends Repositorio {
                             )
                     .orderBy(cb.asc(root.get("dataReferencia")), 
                             cb.desc(cb.sumAsLong(root.<Integer>get("quantidade"))));
-            return entityManager().createQuery(c)//.setMaxResults(5)
+            return entityManager().createQuery(c)
                     .getResultList();
         } catch (Exception e) {
             throw DaoExceptionUtil.prepara(log, e);

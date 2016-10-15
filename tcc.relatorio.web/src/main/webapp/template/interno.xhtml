@@ -84,11 +84,30 @@
 
 
                     <p:submenu label="Relatorios" icon="ui-icon-calculator" rendered="#{request.isUserInRole('ConsultarRelatorios')}">
-                        <p:menuitem value="Pratos +Vendidos" 
+                        <p:menuitem value="Pratos + Vendidos" 
                                     icon="ui-icon-plusthick" 
-                                    actionListener="#{tccRelatorioMBean.putTitulos('barTitSup','', 'barTitEsq','Quantidade', 'barTitInf','')}" 
+                                    actionListener="#{tccRelatorioMBean.inicializaRelatorio('P+V')}" 
                                     action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
-                                    <!--actionListener="#{tccRelatorioMBean.putTitulos('barTitSup','Gráfico - Pratos + Vendidos', 'barTitEsq','Quantidade', 'barTitInf','')}" -->
+                        <p:menuitem value="Bebidas + Vendidas" 
+                                    icon="ui-icon-plusthick" 
+                                    actionListener="#{tccRelatorioMBean.inicializaRelatorio('B+V')}" 
+                                    action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
+                        <p:menuitem value="Sobremesas + Vendidas" 
+                                    icon="ui-icon-plusthick" 
+                                    actionListener="#{tccRelatorioMBean.inicializaRelatorio('S+V')}" 
+                                    action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
+                        <p:menuitem value="Pratos - Vendidos" 
+                                    icon="ui-icon-minusthick" 
+                                    actionListener="#{tccRelatorioMBean.inicializaRelatorio('P-V')}" 
+                                    action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
+                        <p:menuitem value="Bebidas - Vendidas" 
+                                    icon="ui-icon-minusthick" 
+                                    actionListener="#{tccRelatorioMBean.inicializaRelatorio('B-V')}" 
+                                    action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
+                        <p:menuitem value="Sobremesas - Vendidas" 
+                                    icon="ui-icon-minusthick" 
+                                    actionListener="#{tccRelatorioMBean.inicializaRelatorio('S-V')}" 
+                                    action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
                     </p:submenu>
 
                 </p:menubar>

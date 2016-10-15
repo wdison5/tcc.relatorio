@@ -8,8 +8,8 @@
     <ui:define name="content">
         <h:body onload="$('#txtNome').focus();">
 
-            <!--<p:panel header="#{beneficiarioMBean.tituloTela()}" id="painelPesquisa"> -->
-            <p:panel header="Pratos + Vendidos" id="painelPesquisa"> 
+            <p:panel header="#{tccRelatorioMBean.tituloTela()}" id="painelPesquisa">
+            <!--<p:panel header="Pratos + Vendidos" id="painelPesquisa">-->
                 <h:panelGrid columns="2" width="100%">
                     
                     <p:outputLabel id="dataPeriodoDeLabel" for="dataPeriodoDe">Período de Pesquisa:</p:outputLabel>
