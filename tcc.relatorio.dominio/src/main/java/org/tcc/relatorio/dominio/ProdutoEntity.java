@@ -38,7 +38,7 @@ public class ProdutoEntity extends BaseEntity {
     private Long idUsuario;
     @Column(name = "ID_INSTITUICAO")
     private Long idInstituicao;
-    @JoinColumn(name = "ID_TIPO_PRODUTO", referencedColumnName = "ID_TIPO_PRODUTO")
+    @JoinColumn(name = "ID_TIPO_PRODUTO", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TipoProdutoEntity tipoProduto;
 
@@ -47,6 +47,24 @@ public class ProdutoEntity extends BaseEntity {
 
     public ProdutoEntity(Long idProduto) {
         this.setId(idProduto);
+    }
+
+    public ProdutoEntity(String descricao, Date dataReferencia, BigDecimal valorUnitario, BigDecimal valorCusto, Long idTipoProduto, String descricaoTipoProduto) {
+        this.descricao = descricao;
+        this.dataReferencia = dataReferencia;
+        this.valorUnitario = valorUnitario;
+        this.valorCusto = valorCusto;
+        this.tipoProduto = new TipoProdutoEntity(idTipoProduto, descricaoTipoProduto);
+    }
+    
+    public ProdutoEntity(String descricao, Date dataReferencia, BigDecimal valorUnitario, BigDecimal valorCusto, Long idTipoProduto, String descricaoTipoProduto, Integer quantidade) {
+        this.setId(999999L);//Id falso para evitar erros no relatorio
+        this.descricao = descricao;
+        this.dataReferencia = dataReferencia;
+        this.valorUnitario = valorUnitario;
+        this.valorCusto = valorCusto;
+        this.quantidade = quantidade;
+        this.tipoProduto = new TipoProdutoEntity(idTipoProduto, descricaoTipoProduto);
     }
 
     public String getDescricao() {

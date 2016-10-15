@@ -7,6 +7,7 @@ package org.tcc.relatorio.negocio.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -15,7 +16,10 @@ import java.util.Calendar;
 public class CalendarUtil {
     public static String formata(Calendar c, String formato){
         if(c==null)c=Calendar.getInstance();
+        return formata(c.getTime(), formato);
+    }
+    public static String formata(Date d, String formato){
         SimpleDateFormat sdf = new SimpleDateFormat(formato);
-        return sdf.format(c.getTime());
+        return sdf.format(d);
     }
 }

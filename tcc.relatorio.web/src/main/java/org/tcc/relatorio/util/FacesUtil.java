@@ -1,5 +1,6 @@
 package org.tcc.relatorio.util;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -126,7 +127,7 @@ public class FacesUtil {
         StringBuilder buildScript = new StringBuilder();
         StringBuilder build = new StringBuilder();
         if (e != null) {
-            build.append(CalendarUtil.formata(null, "yyyy-MM-dd HH:mm:ss:SSS => "))
+            build.append(CalendarUtil.formata(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss:SSS => "))
                     .append(e.getClass().getName())
                     .append(": ")
                     .append(e.getMessage());

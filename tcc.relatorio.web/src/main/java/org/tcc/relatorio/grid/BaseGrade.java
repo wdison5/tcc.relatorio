@@ -2,6 +2,9 @@ package org.tcc.relatorio.grid;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -340,11 +344,37 @@ public abstract class BaseGrade<MBean extends BaseMBean, Entidade extends BaseEn
         switch (tipo) {
             case HINT:
                 return dataPorExtenso((Date) informacao);
-            case SORT:
-                return (Date) informacao;
             case GRID:
                 SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
                 return formatoData.format(informacao);
+        }
+        return informacao;
+    }
+    
+    public Object moeda(Object informacao, Tipo tipo) {
+        Locale BRAZIL = new Locale("pt", "BR");
+        DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);
+        DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00", REAL);
+
+        switch (tipo) {
+            case HINT:
+                return DINHEIRO_REAL.format(informacao);
+            case SORT:
+                return (BigDecimal) informacao;
+            case GRID:
+                return DINHEIRO_REAL.format(informacao);
+        }
+        return informacao;
+    }
+    
+    public Object texto(Object informacao, Tipo tipo) {
+        return informacao;
+    }
+    
+    public Object numero(Object informacao, Tipo tipo){
+        switch (tipo) {
+            case SORT:
+                return Integer.valueOf((String) informacao);
         }
         return informacao;
     }

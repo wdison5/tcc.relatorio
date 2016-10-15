@@ -86,7 +86,9 @@
                     <p:submenu label="Relatorios" icon="ui-icon-calculator" rendered="#{request.isUserInRole('ConsultarRelatorios')}">
                         <p:menuitem value="Pratos +Vendidos" 
                                     icon="ui-icon-plusthick" 
+                                    actionListener="#{tccRelatorioMBean.putTitulos('barTitSup','', 'barTitEsq','Quantidade', 'barTitInf','')}" 
                                     action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
+                                    <!--actionListener="#{tccRelatorioMBean.putTitulos('barTitSup','Gráfico - Pratos + Vendidos', 'barTitEsq','Quantidade', 'barTitInf','')}" -->
                     </p:submenu>
 
                 </p:menubar>

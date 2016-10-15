@@ -1,16 +1,12 @@
 package org.tcc.relatorio.dominio;
 
-import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,13 +14,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "TIPO_PRODUTO")
-public class TipoProdutoEntity implements Serializable {
+public class TipoProdutoEntity extends BaseEntity{
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_TIPO_PRODUTO")
-    private Long idTipoProduto;
+    
     @Size(max = 500)
     @Column(name = "DESCRICAO")
     private String descricao;
@@ -35,17 +27,13 @@ public class TipoProdutoEntity implements Serializable {
     }
 
     public TipoProdutoEntity(Long idTipoProduto) {
-        this.idTipoProduto = idTipoProduto;
+        this.setId(idTipoProduto);
     }
-
-    public Long getIdTipoProduto() {
-        return idTipoProduto;
+    public TipoProdutoEntity(Long idTipoProduto, String descricao) {
+        this.setId(idTipoProduto);
+        this. descricao = descricao;
     }
-
-    public void setIdTipoProduto(Long idTipoProduto) {
-        this.idTipoProduto = idTipoProduto;
-    }
-
+    
     public String getDescricao() {
         return descricao;
     }
@@ -65,7 +53,7 @@ public class TipoProdutoEntity implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getIdTipoProduto() != null ? getIdTipoProduto().hashCode() : 0) + (getDescricao() != null ? getDescricao().hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0) + (getDescricao() != null ? getDescricao().hashCode() : 0);
         return hash;
     }
 
@@ -75,14 +63,14 @@ public class TipoProdutoEntity implements Serializable {
             return false;
         }
         TipoProdutoEntity other = (TipoProdutoEntity) object;
-        return this.getIdTipoProduto() != null && other.getIdTipoProduto() != null && this.getIdTipoProduto().longValue() ==  other.getIdTipoProduto()
+        return this.getId() != null && other.getId() != null && this.getId().longValue() ==  other.getId()
                 || this.getDescricao() != null && other.getDescricao()!= null && this.getDescricao().equals(other.getDescricao());
     }
 
     @Override
     public String toString() {
         return new StringBuilder(this.getClass().getName())
-            .append("[ idTipoProduto=").append(getIdTipoProduto())
+            .append("[ idTipoProduto=").append(getId())
             .append(", descricao").append(getDescricao())
             .append(" ]").toString();
     }

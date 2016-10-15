@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <p:panel id="grafico">
+        <p:panel  rendered="#{not empty MBean.lista}">
+            <!--<h:outputText value="Gráfico"/>-->
+            <p:chart type="pie" model="#{grafico.pieChart(MBean.lista)}" 
+                     style="width:450px;float: left;"/>
+            <p:chart type="bar" model="#{grafico.barChart(MBean.lista, MBean.titulo('barTitSup'), MBean.titulo('barTitEsq'), MBean.titulo('barTitInf'))}"
+                     style="width:450px;float: left;"/>
+            <p:chart type="line" model="#{grafico.lineChart(MBean.lista, MBean.titulo('barTitSup'), MBean.titulo('barTitEsq'), MBean.titulo('barTitInf'))}"
+                     style="width:900px;float: left;"/>
+            <div style="float: none;"></div>
+        </p:panel>
+    </p:panel>
+</ui:composition>

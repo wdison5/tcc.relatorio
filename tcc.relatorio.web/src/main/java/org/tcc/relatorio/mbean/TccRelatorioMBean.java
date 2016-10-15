@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -21,18 +22,18 @@ import org.tcc.relatorio.util.ExportarArquivo;
 import org.tcc.relatorio.util.FacesUtil;
 import org.tcc.relatorio.util.jasper.Reports;
 import org.tcc.relatorio.hammer.persistencia.exception.BCException;
-import org.tcc.relatorio.negocio.RelatorioBC;
+import org.tcc.relatorio.negocio.TccRelatorioBC;
 
 /**
  *
  * @author Eloy
  */
 @SessionScoped
-@ManagedBean(name = "relatorioMBean")
-public class RelatorioMBean extends BaseMBean<ProdutoEntity> {
+@ManagedBean(name = "tccRelatorioMBean")
+public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
 
     private static final long serialVersionUID = 118231614034054148L;
-    private static final Logger LOGGER = LoggerFactory.getLogger(RelatorioMBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TccRelatorioMBean.class);
     
     private Date dataPeriodoDe;
     private Date dataPeriodoAte;
@@ -41,11 +42,13 @@ public class RelatorioMBean extends BaseMBean<ProdutoEntity> {
     private String actionVoltar = "/view/relatorio/consultar.jsf?faces-redirect=true";
 
     @EJB(name = "RelatorioBC")
-    private RelatorioBC relatorioBC;
+    private TccRelatorioBC relatorioBC;
+    private Map<String, String> titulos;
 
-    public RelatorioMBean() {
+    public TccRelatorioMBean() {
         setParameterClass(ProdutoEntity.class);
         super.initialize("Produto");
+        titulos = new HashMap();
         LOGGER.debug(getDescricaoMBean());
     }
 
@@ -112,7 +115,6 @@ public class RelatorioMBean extends BaseMBean<ProdutoEntity> {
                     FacesUtil.addMsg(FacesUtil.WARN, "A data inicial é maior que a data final.");
                     break;
                 }
-
 
                 List<ProdutoEntity> set = relatorioBC.pesquisar(produtoInicial, produtoFinal, usuarioLogado);
                 if (set != null) {
@@ -238,6 +240,19 @@ public class RelatorioMBean extends BaseMBean<ProdutoEntity> {
         ExportarArquivo e = new ExportarArquivo();
         e.processaPDF(r, this.getComplementoRelatorio());
 
+    }
+    
+    public String titulo(String titulo) {
+        String result = titulos.get(titulo);
+        return result!=null?result:"";
+    }
+    
+    public void putTitulos(String ... titulos) {
+        if(titulos!=null && titulos.length > 1 && titulos.length % 2 == 0){
+            for (int i = titulos.length; i > 0 ; i=i-2) {
+                this.titulos.put(titulos[i-2], titulos[i-1]);
+            }
+        }
     }
     
 }

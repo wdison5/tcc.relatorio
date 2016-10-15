@@ -7,34 +7,32 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.cap.dominio.UsuarioEntity;
-import org.tcc.relatorio.dominio.PphEmpenhoEntity;
 import org.tcc.relatorio.dominio.ProdutoEntity;
 import org.tcc.relatorio.negocio.exception.util.BCExceptionUtil;
-import org.tcc.relatorio.negocio.util.EntityPreencherUtil;
 import org.tcc.relatorio.hammer.persistencia.exception.BCException;
-import org.tcc.relatorio.persistencia.RelatorioRepo;
+import org.tcc.relatorio.persistencia.TccRelatorioRepo;
 
 /**
  * @author Jose Wdison de Souza<wdison@hotmail.com>
  */
 @Stateless
-public class RelatorioBC {
+public class TccRelatorioBC {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RelatorioBC.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TccRelatorioBC.class);
 
     @Inject
     @New
-    private RelatorioRepo relatorioRepo;
+    private TccRelatorioRepo relatorioRepo;
     
     private UsuarioEntity usuario;
 
-    public RelatorioBC() {
+    public TccRelatorioBC() {
         LOGGER.debug("__| " + this.getClass().getSimpleName());
     }
 
-    public List<ProdutoEntity> pesquisar(ProdutoEntity produtoInicial, ProdutoEntity produtoFinal, UsuarioEntity usuarioLogado) throws BCException {
+    public List<ProdutoEntity> pesquisar(ProdutoEntity produtoInicial, ProdutoEntity produtoFinal, UsuarioEntity usuarioLogado, Object ... idsTpProd) throws BCException {
         try {
-            return (List) relatorioRepo.pesquisar(produtoInicial, produtoFinal);
+            return (List) relatorioRepo.pesquisar(produtoInicial, produtoFinal, usuarioLogado, idsTpProd);
         } catch (Exception e) {
             throw BCExceptionUtil.prepara(LOGGER, e);
         }
