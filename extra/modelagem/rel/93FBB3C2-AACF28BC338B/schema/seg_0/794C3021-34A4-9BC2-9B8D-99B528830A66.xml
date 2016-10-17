@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SchemaObject class="oracle.dbtools.crest.model.design.relational.SchemaObject" name="PSATD" directorySegmentName="seg_0" id="794C3021-34A4-9BC2-9B8D-99B528830A66">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+</SchemaObject>

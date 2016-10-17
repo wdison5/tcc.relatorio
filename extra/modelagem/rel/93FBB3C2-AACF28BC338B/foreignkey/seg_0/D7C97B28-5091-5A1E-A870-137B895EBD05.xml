@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="D7C97B28-5091-5A1E-A870-137B895EBD05" containerWithKeyObject="22176F3F-6F06-C76F-50BA-887A4463CC6E" localFKIndex="22D89B9D-B5CF-28C1-7932-48AD15748581" name="PEDIDO_GARCON_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:27:18 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>19F3435C-85A4-A54D-74EB-DEFCE0704D8D</referredTableID>
+<keyObject>48AC68D0-93D4-BF36-C4C3-31A2F0F78A06</keyObject>
+<referredKeyID>48AC68D0-93D4-BF36-C4C3-31A2F0F78A06</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

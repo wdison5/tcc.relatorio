@@ -1,0 +1,29 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="SchemaObject" objectID="794C3021-34A4-9BC2-9B8D-99B528830A66" name="PSATD" seqName="seg_0"/>
+   <object objectType="Table" objectID="77CB1F94-2CC2-1D54-DC89-21D3B32C73F0" name="CARDAPIO" seqName="seg_0"/>
+   <object objectType="Table" objectID="1D5DABF3-5CE2-97F4-BD18-1E07EE3D01EB" name="FUNC" seqName="seg_0"/>
+   <object objectType="Table" objectID="19F3435C-85A4-A54D-74EB-DEFCE0704D8D" name="GARCON" seqName="seg_0"/>
+   <object objectType="Table" objectID="9D3DCCA5-1D94-A8D1-8B24-3DAFD0FF4881" name="GRUPO_USR" seqName="seg_0"/>
+   <object objectType="Table" objectID="869261B3-5E17-A5C7-CEB6-B05150696575" name="GRUPO_USR_FUNC" seqName="seg_0"/>
+   <object objectType="Table" objectID="8ECBD468-013C-9745-5B2F-A922BE89ED5E" name="MESA" seqName="seg_0"/>
+   <object objectType="Table" objectID="22176F3F-6F06-C76F-50BA-887A4463CC6E" name="PEDIDO" seqName="seg_0"/>
+   <object objectType="Table" objectID="7E62D6C2-67C6-7E51-376C-2CD638366F5D" name="PEDIDO_CARDAPIO" seqName="seg_0"/>
+   <object objectType="Table" objectID="E6525146-18FA-DC07-10C5-708E4DEDF9CA" name="TIPO_PAGAMENTO" seqName="seg_0"/>
+   <object objectType="Table" objectID="6E72F37E-B52A-37BC-B900-53C2F04E9ABC" name="TIPO_PERIODO" seqName="seg_0"/>
+   <object objectType="Table" objectID="A208D9B4-155C-A020-52DE-DEAA7C01F863" name="TIPO_PRATO" seqName="seg_0"/>
+   <object objectType="Table" objectID="E77CDEB7-A84C-487A-4844-ECB0BB6EE838" name="UNIDADE" seqName="seg_0"/>
+   <object objectType="Table" objectID="204FFF10-1014-037D-A1FC-31A51B92B346" name="USUARIO" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="C62E7858-CF47-931A-BA46-4D9F5298880F" name="CARDAPIO_TIPO_PRATO_FK" seqName="seg_0" containerID="77CB1F94-2CC2-1D54-DC89-21D3B32C73F0" refContainerID="A208D9B4-155C-A020-52DE-DEAA7C01F863"/>
+   <object objectType="FKIndexAssociation" objectID="2653CAEB-5223-F57E-7CA1-2C690857B00F" name="PEDIDO_CARDAPIO_CARDAPIO_FK" seqName="seg_0" containerID="7E62D6C2-67C6-7E51-376C-2CD638366F5D" refContainerID="77CB1F94-2CC2-1D54-DC89-21D3B32C73F0"/>
+   <object objectType="FKIndexAssociation" objectID="5E66CF1A-4706-C33A-33C3-037117E9C8FE" name="PEDIDO_CARDAPIO_PEDIDO_FK" seqName="seg_0" containerID="7E62D6C2-67C6-7E51-376C-2CD638366F5D" refContainerID="22176F3F-6F06-C76F-50BA-887A4463CC6E"/>
+   <object objectType="FKIndexAssociation" objectID="D7C97B28-5091-5A1E-A870-137B895EBD05" name="PEDIDO_GARCON_FK" seqName="seg_0" containerID="22176F3F-6F06-C76F-50BA-887A4463CC6E" refContainerID="19F3435C-85A4-A54D-74EB-DEFCE0704D8D"/>
+   <object objectType="FKIndexAssociation" objectID="6D29F042-2A6B-49EC-B5A1-912C4A2A40B0" name="PEDIDO_MESAS_FK" seqName="seg_0" containerID="22176F3F-6F06-C76F-50BA-887A4463CC6E" refContainerID="8ECBD468-013C-9745-5B2F-A922BE89ED5E"/>
+   <object objectType="FKIndexAssociation" objectID="758C90BB-9944-E75D-184B-2A1FA116D466" name="PEDIDO_TIPO_PAGAMENTO_FK" seqName="seg_0" containerID="22176F3F-6F06-C76F-50BA-887A4463CC6E" refContainerID="E6525146-18FA-DC07-10C5-708E4DEDF9CA"/>
+   <object objectType="FKIndexAssociation" objectID="9A7BD41C-AD64-AF09-9359-04A5E45006B0" name="PEDIDO_TIPO_PERIODO_FK" seqName="seg_0" containerID="22176F3F-6F06-C76F-50BA-887A4463CC6E" refContainerID="6E72F37E-B52A-37BC-B900-53C2F04E9ABC"/>
+   <object objectType="FKIndexAssociation" objectID="33F4623E-6190-7A90-8D87-00543DB5DCCD" name="PEDIDO_UNIDADE_FK" seqName="seg_0" containerID="22176F3F-6F06-C76F-50BA-887A4463CC6E" refContainerID="E77CDEB7-A84C-487A-4844-ECB0BB6EE838"/>
+   <object objectType="FKIndexAssociation" objectID="02D2CE28-C736-2EC0-21F8-ABA1AEAB4848" name="GRUPO_USR_FUNC_PSAT_FUNC_FK" seqName="seg_0" containerID="869261B3-5E17-A5C7-CEB6-B05150696575" refContainerID="1D5DABF3-5CE2-97F4-BD18-1E07EE3D01EB"/>
+   <object objectType="FKIndexAssociation" objectID="D9893AD1-0769-AE73-2ED4-1D14CDD14ACC" name="GRUPO_USR_FUNC_GRUPO_USR_FK" seqName="seg_0" containerID="869261B3-5E17-A5C7-CEB6-B05150696575" refContainerID="9D3DCCA5-1D94-A8D1-8B24-3DAFD0FF4881"/>
+   <object objectType="FKIndexAssociation" objectID="566768AA-DB73-1973-9E0F-B0DDA7A301B0" name="USUARIO_GRUPO_USR_FK" seqName="seg_0" containerID="204FFF10-1014-037D-A1FC-31A51B92B346" refContainerID="9D3DCCA5-1D94-A8D1-8B24-3DAFD0FF4881"/>
+   <object objectType="FKIndexAssociation" objectID="00B074A0-9505-631F-B0F7-24C7526B1E8C" name="USUARIO_UNIDADE_FK" seqName="seg_0" containerID="204FFF10-1014-037D-A1FC-31A51B92B346" refContainerID="E77CDEB7-A84C-487A-4844-ECB0BB6EE838"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

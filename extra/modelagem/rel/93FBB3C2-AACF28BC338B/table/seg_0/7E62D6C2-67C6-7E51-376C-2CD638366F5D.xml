@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7E62D6C2-67C6-7E51-376C-2CD638366F5D" name="PEDIDO_CARDAPIO">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:30:12 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<ordsAlias>table_11</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PEDIDO_ID" id="B19A6268-DA40-D292-C460-AA32A56F6544">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:30:33 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5E66CF1A-4706-C33A-33C3-037117E9C8FE" referredColumn="EB39EFF4-9132-C112-A85C-66DA3CEF2739"/>
+</associations>
+</Column>
+<Column name="CARDAPIO_ID" id="75F46CB8-0ABE-1CDE-C63B-8D3FE419E37A">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:30:46 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2653CAEB-5223-F57E-7CA1-2C690857B00F" referredColumn="95BFA44B-56D2-46D7-760B-1793215D28D4"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9B71ABCA-7468-6004-05F8-D30130EE8395" name="PEDIDO_CARDAPIO_PK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:32:36 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B19A6268-DA40-D292-C460-AA32A56F6544"/>
+<colUsage columnID="75F46CB8-0ABE-1CDE-C63B-8D3FE419E37A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E52DA65F-0076-27B4-D041-250EE9C8E61A" name="PEDIDO_CARDAPIO_PEDIDO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:32:36 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B19A6268-DA40-D292-C460-AA32A56F6544"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6EAE226A-5A88-EA0A-0E3C-43A1B7EEE94E" name="PEDIDO_CARDAPIO_CARDAPIO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:32:43 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="75F46CB8-0ABE-1CDE-C63B-8D3FE419E37A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

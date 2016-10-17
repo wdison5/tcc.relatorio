@@ -34,7 +34,7 @@ img {border:none;}
     text-indent:-999em;
     height: 57px;
     width: 512px;
-    background: url("../img/logo.png") no-repeat;
+    background: url("../imgTcc/images (2).png") no-repeat;
     margin-top:20px;	
 }
 .user {
@@ -89,13 +89,13 @@ img {border:none;}
 /* Make Footer Sticky */
 .footer_container { 
     width:100%;
-    background:url(../img/bg_footer.gif) left bottom repeat-x;
+    /*background:url(../img/bg_footer.gif) left bottom repeat-x;*/
     height:70px;
     position:fixed;
     bottom:0;
 }
 .footer {
-    background:url(../img/bandeira.png) left bottom no-repeat;
+    /*background:url(../img/bandeira.png) left bottom no-repeat;*/
     height:70px;
 }
 
@@ -149,7 +149,7 @@ img {border:none;}
 .home .logo {		
     height: 50px;
     width: 400px;
-    background: url("../img/logo_home.png") no-repeat;
+    background: url("../imgTcc/images (2).png") no-repeat;
     margin-top:30px;
 }
 

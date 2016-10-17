@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="77CB1F94-2CC2-1D54-DC89-21D3B32C73F0" name="CARDAPIO">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 17:55:47 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="95BFA44B-56D2-46D7-760B-1793215D28D4">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 17:56:50 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NOME_PRATO" id="4FC90E0C-5BD8-43F1-68DD-E49EE943B353">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 17:57:09 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIPO_PRATO_ID" id="F6503F02-C508-2AF7-6280-F3C0EB0508F5">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 17:59:41 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C62E7858-CF47-931A-BA46-4D9F5298880F" referredColumn="D5FBDBB7-24DD-4D71-A0A1-9AA62B51B3B3"/>
+</associations>
+</Column>
+<Column name="PRECO" id="EFBE6754-4935-61E7-12C0-60A1B63A467D">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 17:58:34 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUST0" id="BCC9326B-8DE0-11E2-39AC-EBDB5168477D">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:40:24 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="416E84D7-DFCC-46CA-D980-B2D7C40ECF30" name="CARDAPIO_PK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:19:14 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="95BFA44B-56D2-46D7-760B-1793215D28D4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7AFF4FCB-9E32-2C6A-FFCD-9FF0E98B8CA8" name="CARDAPIO_TIPO_PRATO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:19:44 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6503F02-C508-2AF7-6280-F3C0EB0508F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

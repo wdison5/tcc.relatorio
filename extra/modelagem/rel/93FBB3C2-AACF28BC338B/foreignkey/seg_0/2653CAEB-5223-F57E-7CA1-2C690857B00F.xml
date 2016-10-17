@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2653CAEB-5223-F57E-7CA1-2C690857B00F" containerWithKeyObject="7E62D6C2-67C6-7E51-376C-2CD638366F5D" localFKIndex="6EAE226A-5A88-EA0A-0E3C-43A1B7EEE94E" name="PEDIDO_CARDAPIO_CARDAPIO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:32:43 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>77CB1F94-2CC2-1D54-DC89-21D3B32C73F0</referredTableID>
+<keyObject>416E84D7-DFCC-46CA-D980-B2D7C40ECF30</keyObject>
+<referredKeyID>416E84D7-DFCC-46CA-D980-B2D7C40ECF30</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
