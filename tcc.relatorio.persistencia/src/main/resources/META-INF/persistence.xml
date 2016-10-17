@@ -6,20 +6,7 @@
     <class>org.tcc.relatorio.cap.dominio.FuncionalidadeEntity</class>
     <class>org.tcc.relatorio.cap.dominio.GrupoEntity</class>
     <class>org.tcc.relatorio.cap.dominio.UsuarioEntity</class>
-    <class>org.tcc.relatorio.dominio.InstituicaoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphAgenciaBancariaEntity</class>
-    <class>org.tcc.relatorio.dominio.PphAtestadoVidaEntity</class>
-    <class>org.tcc.relatorio.dominio.PphBancoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphBeneficiarioEntity</class>
-    <class>org.tcc.relatorio.dominio.PphComunicacaoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphContatoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphEmpenhoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphEnderecoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphEstadoEntity</class>
-    <class>org.tcc.relatorio.dominio.PphMunicipioEntity</class>
-    <class>org.tcc.relatorio.dominio.PphProcuradorEntity</class>
-    <class>org.tcc.relatorio.dominio.PphUnidadePagadoraEntity</class>
-    <class>org.tcc.relatorio.dominio.PphUnidSaudeEntity</class>
+    <class>org.tcc.relatorio.dominio.EmpresaEntity</class>
     <class>org.tcc.relatorio.dominio.ProdutoEntity</class>
     <class>org.tcc.relatorio.dominio.TipoProdutoEntity</class>
     <properties>

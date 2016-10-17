@@ -17,7 +17,7 @@ import org.tcc.relatorio.cap.dominio.policy.UsuarioDefault;
 import org.tcc.relatorio.cap.dominio.policy.UsuarioNotNull;
 import org.tcc.relatorio.cap.dominio.util.Policies;
 import org.tcc.relatorio.cap.dominio.util.Policy;
-import org.tcc.relatorio.dominio.InstituicaoEntity;
+import org.tcc.relatorio.dominio.EmpresaEntity;
 
 /**
  * @author Jose Wdison
@@ -81,13 +81,13 @@ public class UsuarioEntity extends BaseEntity {
     private Set<GrupoEntity> grupos;
 
     @ManyToMany
-    @JoinTable(name = "USUARIO_INSTITUICAO",
+    @JoinTable(name = "USUARIO_EMPRESA",
             joinColumns = {
                 @JoinColumn(name = "USUARIO_ID")},
             inverseJoinColumns = {
-                @JoinColumn(name = "INSTITUICAO_ID")}
+                @JoinColumn(name = "EMPRESA_ID")}
     )
-    private List<InstituicaoEntity> instituicoes;
+    private List<EmpresaEntity> empresas;
 
     @Transient
     private boolean senhaExpirada;
@@ -296,12 +296,12 @@ public class UsuarioEntity extends BaseEntity {
         this.senhaExpirada = senhaExpirada;
     }
 
-    public List<InstituicaoEntity> getInstituicoes() {
-        return instituicoes;
+    public List<EmpresaEntity> getEmpresas() {
+        return empresas;
     }
 
-    public void setInstituicoes(List<InstituicaoEntity> instituicoes) {
-        this.instituicoes = instituicoes;
+    public void setEmpresas(List<EmpresaEntity> empresas) {
+        this.empresas = empresas;
     }
 
 }

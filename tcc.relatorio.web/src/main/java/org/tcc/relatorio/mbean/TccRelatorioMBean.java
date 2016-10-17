@@ -243,11 +243,6 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
         r.getParametros().put("cabecalho3", relatorioPadrao.get("cabecalho3"));
 
         if (this.getComplementoRelatorio().contains("SQL")) {
-            List<Long> idsUP = new ArrayList<Long>();
-            List<Long> idsUS = new ArrayList<Long>();
-                 
-            r.getParametros().put("unidadePagadora", idsUP);
-            r.getParametros().put("unidadeSaude"   , idsUS);
               
             Calendar calendar = new GregorianCalendar();
             if (dataPeriodoDe == null) {

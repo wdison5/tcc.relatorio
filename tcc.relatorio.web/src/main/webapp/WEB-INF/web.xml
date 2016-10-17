@@ -100,10 +100,10 @@
         <role-name>ConsultaAtestados</role-name>
     </security-role>
     <security-role>
-        <role-name>AdminInstituicoes</role-name>
+        <role-name>AdminEmpresas</role-name>
     </security-role>  
     <security-role>
-        <role-name>ConsultarInstituicoes</role-name>
+        <role-name>ConsultarEmpresas</role-name>
     </security-role>
     <security-role>
         <role-name>ConsultarRelatorios</role-name>
@@ -216,23 +216,23 @@
     
      <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Páginas de administração de instituições</web-resource-name>
-            <url-pattern>/view/instituicao/criar.jsf</url-pattern>
-            <url-pattern>/view/instituicao/consultar.jsf</url-pattern>
-            <url-pattern>/view/instituicao/detalhar.jsf</url-pattern>
+            <web-resource-name>Páginas de administração de empresas</web-resource-name>
+            <url-pattern>/view/empresa/criar.jsf</url-pattern>
+            <url-pattern>/view/empresa/consultar.jsf</url-pattern>
+            <url-pattern>/view/empresa/detalhar.jsf</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>AdminInstituicoes</role-name>
+            <role-name>AdminEmpresas</role-name>
         </auth-constraint>
     </security-constraint>
      <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Páginas de consulta de instituições</web-resource-name>
-            <url-pattern>/view/instituicao/consultar.jsf</url-pattern>
-            <url-pattern>/view/instituicao/detalhar.jsf</url-pattern>
+            <web-resource-name>Páginas de consulta de empresas</web-resource-name>
+            <url-pattern>/view/empresa/consultar.jsf</url-pattern>
+            <url-pattern>/view/empresa/detalhar.jsf</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>ConsultarInstituicoes</role-name>
+            <role-name>ConsultarEmpresas</role-name>
         </auth-constraint>
     </security-constraint>
     

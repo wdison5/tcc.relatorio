@@ -9,13 +9,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.dominio.BaseEntity;
-import org.tcc.relatorio.dominio.InstituicaoEntity;
-import org.tcc.relatorio.dominio.PphAgenciaBancariaEntity;
-import org.tcc.relatorio.dominio.PphAtestadoVidaEntity;
-import org.tcc.relatorio.dominio.PphBeneficiarioEntity;
-import org.tcc.relatorio.dominio.PphEmpenhoEntity;
-import org.tcc.relatorio.dominio.PphEnderecoEntity;
-import org.tcc.relatorio.dominio.PphProcuradorEntity;
+import org.tcc.relatorio.dominio.EmpresaEntity;
 import org.tcc.relatorio.negocio.exception.util.BCExceptionUtil;
 import org.tcc.relatorio.hammer.persistencia.exception.BCException;
 
@@ -29,40 +23,10 @@ public class ValidadorUtil {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidadorUtil.class);
     
-    @Inject private BeneficiarioValidator beneficiarioValidator;
-    @Inject private ProcuradorValidator procuradorValidator;
-    @Inject private EnderecoValidator enderecoValidator;
-    @Inject private AtestadoVidaValidator atestadoVidaValidator;
-    @Inject private AgenciaBancariaValidator agenciaBancariaValidator;
-    @Inject private EmpenhoValidator empenhoValidator;
-    @Inject private InstituicaoValidator instituicaoValidator;
-    
-    public void valida(PphEnderecoEntity entity, Integer tipo) throws BCException {
-        valida(enderecoValidator, entity, tipo);
-    }
+    @Inject private EmpresaValidator empresaValidator;
 
-    public void valida(PphProcuradorEntity entity, Integer tipo) throws BCException {
-        valida(procuradorValidator, entity, tipo);
-    }
-
-    public void valida(PphBeneficiarioEntity entity, Integer tipo) throws BCException {
-        valida(beneficiarioValidator, entity, tipo);
-    }
-
-    public void valida(PphAtestadoVidaEntity entity, Integer tipo) throws BCException {
-        valida(atestadoVidaValidator, entity, tipo);
-    }
-
-    public void valida(PphAgenciaBancariaEntity entity, Integer tipo) throws BCException {
-        valida(agenciaBancariaValidator, entity, tipo);
-    }
-
-    public void valida(PphEmpenhoEntity entity, Integer tipo) throws BCException {
-        valida(empenhoValidator, entity, tipo);
-    }
-
-    public void valida(InstituicaoEntity entity, Integer tipo) throws BCException {
-        valida(instituicaoValidator, entity, tipo);
+    public void valida(EmpresaEntity entity, Integer tipo) throws BCException {
+        valida(empresaValidator, entity, tipo);
     }
 
     private void valida(ValidadorEntity validador, BaseEntity entity, Integer tipo) throws BCException {

@@ -22,10 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.cap.dominio.UsuarioEntity;
 import org.tcc.relatorio.cap.negocio.UsuarioBC;
-import org.tcc.relatorio.dominio.InstituicaoEntity;
-import org.tcc.relatorio.dominio.PphUnidSaudeEntity;
-import org.tcc.relatorio.dominio.PphUnidadePagadoraEntity;
-import org.tcc.relatorio.negocio.InstituicaoBC;
+import org.tcc.relatorio.dominio.EmpresaEntity;
+import org.tcc.relatorio.negocio.EmpresaBC;
 import org.tcc.relatorio.negocio.validator.Validador;
 import org.tcc.relatorio.util.FacesUtil;
 import org.tcc.relatorio.util.Funcoes;
@@ -50,19 +48,14 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
     @EJB(name = "UsuarioBC")
     private UsuarioBC usr;
 
-    @EJB(name = "InstituicaoBC")
-    private InstituicaoBC instituicaoBC;
+    @EJB(name = "EmpresaBC")
+    private EmpresaBC empresaBC;
 
-    private Long unidSaude;
-    private Long instituicao;
-    private Long unidPagadora;
-    private String nomeUnidSaudeSelecionada;
-    private String nomeInstituicaoSelecionada;
-
-    private List<PphUnidSaudeEntity> unidSaudes;
-    private List<PphUnidadePagadoraEntity> unidPagadoras;
-    private List<InstituicaoEntity> instituicoes;
-    private List<Long> instituicoesSelec;
+    private Long empresa;
+    private String nomeEmpresaSelecionada;
+    
+    private List<EmpresaEntity> empresas;
+    private List<Long> empresasSelec;
     private boolean exporta = false;
     private boolean todas = false;
     private UsuarioEntity usuarioLogado;
@@ -88,28 +81,17 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
             if (usuarioLogado != null) {
                 userId = usuarioLogado.getUserId();
             }
-            instituicoes = instituicaoBC.listComUSaudUPaga(userId);
-            unidSaudes = new ArrayList<PphUnidSaudeEntity>();
-            unidPagadoras = new ArrayList<PphUnidadePagadoraEntity>();
+            empresas = empresaBC.list(userId);
 
-            if (Validador.isColecao(instituicoes)) {
-                Collections.sort(instituicoes, new Comparator<InstituicaoEntity>() {
+            if (Validador.isColecao(empresas)) {
+                Collections.sort(empresas, new Comparator<EmpresaEntity>() {
                     @Override
-                    public int compare(InstituicaoEntity o1, InstituicaoEntity o2) {
+                    public int compare(EmpresaEntity o1, EmpresaEntity o2) {
                         return o1 != null ? o1.compareTo(o2) : -1;
                     }
                 });
-
-                for (InstituicaoEntity instituicao : instituicoes) {
-                    if (instituicao.getPphUnidSaude() != null && instituicao.getPphUnidSaude().getId() != null) {
-                        unidSaudes.add(instituicao.getPphUnidSaude());
-                    }
-                    if (instituicao.getPphUnidadePagadora() != null && instituicao.getPphUnidadePagadora().getId() != null) {
-                        unidPagadoras.add(instituicao.getPphUnidadePagadora());
-                    }
-                }
             }
-            instituicoesSelec = new ArrayList<Long>();
+            empresasSelec = new ArrayList<Long>();
         } catch (Exception e) {
             LoggerUtil.error("Erro iniciando " + getDescricaoMBean(), e, LOGGER, true);
         }
@@ -119,18 +101,18 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
     public List<UsuarioEntity> manter(ManterOp op) throws BCException {
         switch (op) {
             case INCLUIR:
-                preparaInstituicoes();
+                preparaEmpresas();
                 usr.incluir(getItem());
                 break;
             case ATUALIZAR:
-                preparaInstituicoes();
+                preparaEmpresas();
                 usr.atualizar(getItem());
                 break;
             case EXCLUIR:
                 usr.excluir(getItem());
                 break;
             case LISTAR:
-                Set<UsuarioEntity> set = usr.listar(getItem(), (List<Long>) Funcoes.getSessionObject("lstInstituicaoId"), usuarioLogado);
+                Set<UsuarioEntity> set = usr.listar(getItem(), (List<Long>) Funcoes.getSessionObject("lstEmpresaId"), usuarioLogado);
                 if (set != null) {
                     return new ArrayList<UsuarioEntity>(set);
                 }
@@ -138,19 +120,19 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
         return null;
     }
 
-    private void preparaInstituicoes() {
-        if (Validador.isColecao(instituicoesSelec)) {
-            List<InstituicaoEntity> listaInstituicaoSelecionada = new ArrayList<InstituicaoEntity>();
-            for (InstituicaoEntity instit : instituicoes) {
-                for (Long instSele : instituicoesSelec) {
+    private void preparaEmpresas() {
+        if (Validador.isColecao(empresasSelec)) {
+            List<EmpresaEntity> listaEmpresaSelecionada = new ArrayList<EmpresaEntity>();
+            for (EmpresaEntity instit : empresas) {
+                for (Long instSele : empresasSelec) {
                     if (instSele.longValue() == instit.getId()) {
-                        listaInstituicaoSelecionada.add(instit);
+                        listaEmpresaSelecionada.add(instit);
                     }
                 }
             }
-            getItem().setInstituicoes(listaInstituicaoSelecionada);
-        }else if(instituicoes.size() == 1){
-            getItem().setInstituicoes(instituicoes);
+            getItem().setEmpresas(listaEmpresaSelecionada);
+        } else if (empresas.size() == 1) {
+            getItem().setEmpresas(empresas);
         }
     }
 
@@ -161,71 +143,35 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
         UsuarioEntity user = new UsuarioEntity();
         try {
             user.setUserId(query);
-            Set<UsuarioEntity> list = usr.listar(user, (List<Long>) Funcoes.getSessionObject("lstInstituicaoId"), usuarioLogado);
+            Set<UsuarioEntity> list = usr.listar(user, (List<Long>) Funcoes.getSessionObject("lstEmpresaId"), usuarioLogado);
             LOGGER.debug("completar().size: {}", list.size());
             for (UsuarioEntity s : list) {
                 results.add(s.getUserId());
             }
         } catch (Exception ex) {
-            LoggerUtil.error("Erro ao listar " + getDescricaoMBean() + ": " + getItem().getNome()+": "+query , ex, LOGGER, true);
+            LoggerUtil.error("Erro ao listar " + getDescricaoMBean() + ": " + getItem().getNome() + ": " + query, ex, LOGGER, true);
         }
         return results;
     }
 
-    public Long getUnidSaude() {
-        return unidSaude;
+    public Long getEmpresa() {
+        return empresa;
     }
 
-    public void setUnidSaude(Long unidSaude) {
-        this.unidSaude = unidSaude;
+    public void setEmpresa(Long empresa) {
+        this.empresa = empresa;
     }
 
-    public Long getInstituicao() {
-        return instituicao;
+    public List<EmpresaEntity> getEmpresas() {
+        return empresas;
     }
 
-    public void setInstituicao(Long instituicao) {
-        this.instituicao = instituicao;
+    public String getNomeEmpresaSelecionada() {
+        return nomeEmpresaSelecionada;
     }
 
-    public Long getUnidPagadora() {
-        return unidPagadora;
-    }
-
-    public void setUnidPagadora(Long unidPagadora) {
-        this.unidPagadora = unidPagadora;
-    }
-
-    public List<PphUnidSaudeEntity> getUnidSaudes() {
-        return unidSaudes;
-    }
-
-    public List<InstituicaoEntity> getInstituicoes() {
-        return instituicoes;
-    }
-
-    public List<PphUnidadePagadoraEntity> getUnidPagadoras() {
-        return unidPagadoras;
-    }
-
-    public PphUnidSaudeEntity[] getUnidSaudesArray() {
-        return unidSaudes != null ? unidSaudes.toArray(new PphUnidSaudeEntity[unidSaudes.size()]) : null;
-    }
-
-    public String getNomeUnidSaudeSelecionada() {
-        return nomeUnidSaudeSelecionada;
-    }
-
-    public void setNomeUnidSaudeSelecionada(String nomeUnidSaudeSelecionada) {
-        this.nomeUnidSaudeSelecionada = nomeUnidSaudeSelecionada;
-    }
-
-    public String getNomeInstituicaoSelecionada() {
-        return nomeInstituicaoSelecionada;
-    }
-
-    public void setNomeInstituicaoSelecionada(String nomeInstituicaoSelecionada) {
-        this.nomeInstituicaoSelecionada = nomeInstituicaoSelecionada;
+    public void setNomeEmpresaSelecionada(String nomeEmpresaSelecionada) {
+        this.nomeEmpresaSelecionada = nomeEmpresaSelecionada;
     }
 
     public boolean isTodas() {
@@ -236,45 +182,40 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
         this.todas = todas;
     }
 
-    public List<Long> getInstituicoesSelec() {
-        return instituicoesSelec;
+    public List<Long> getEmpresasSelec() {
+        return empresasSelec;
     }
 
-    public void setInstituicoesSelec(List instituicoesSelec) {
-        this.instituicoesSelec.clear();
-        if (Validador.isColecao(instituicoesSelec)) {
-            Object objValue = instituicoesSelec.get(0);
+    public void setEmpresasSelec(List empresasSelec) {
+        this.empresasSelec.clear();
+        if (Validador.isColecao(empresasSelec)) {
+            Object objValue = empresasSelec.get(0);
             if (objValue instanceof Long) {
-                this.instituicoesSelec = instituicoesSelec;
+                this.empresasSelec = empresasSelec;
             } else if (objValue instanceof String) {
-                for (int i = instituicoesSelec.size(); i > 0; i--) {
-                    this.instituicoesSelec.add(new Long((String) instituicoesSelec.get(i - 1)));
+                for (int i = empresasSelec.size(); i > 0; i--) {
+                    this.empresasSelec.add(new Long((String) empresasSelec.get(i - 1)));
                 }
             }
         }
     }
 
-    public String labelInsituicao(InstituicaoEntity institu) {
+    public String labelEmpresa(EmpresaEntity institu) {
         String result = "";
         if (institu != null) {
-            if ("US".equals(institu.getTpUnid())) {
-                result = "US(" + institu.getPphUnidSaude().getCnes() + ") - " + institu.getPphUnidSaude().getNome();
-            }
-            if ("UP".equals(institu.getTpUnid())) {
-                result = "UP(" + institu.getPphUnidadePagadora().getCdUnidadePagadora() + ") - " + institu.getPphUnidadePagadora().getNmUnidadePagadora();
-            }
+            result = institu.getCdEmpresa() + " - " + institu.getNmEmpresa();
         }
         return result;
     }
 
-    public void toggleInstituicoes(AjaxBehaviorEvent event) {
-        instituicoesSelec.clear();
+    public void toggleEmpresas(AjaxBehaviorEvent event) {
+        empresasSelec.clear();
         if (todas) {
-            for (InstituicaoEntity instit : instituicoes) {
-                instituicoesSelec.add(instit.getId());
+            for (EmpresaEntity empresa : empresas) {
+                empresasSelec.add(empresa.getId());
             }
         }
-        LOGGER.debug("Sentando o usuario para " + (todas ? "todas as instituições." : "nenhuma instituição."));
+        LOGGER.debug("Sentando o usuario para " + (todas ? "todas as empresas." : "nenhuma empresa."));
     }
 
     public void selectedItemsChanged(ValueChangeEvent event) {
@@ -282,9 +223,9 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
         List newValue = (List) event.getNewValue();
         boolean oldTodas = todas;
         if (Validador.isColecao(newValue)) {
-            setInstituicoesSelec(newValue);
+            setEmpresasSelec(newValue);
         }
-        todas = instituicoesSelec.size() == instituicoes.size();
+        todas = empresasSelec.size() == empresas.size();
         if (oldTodas != todas) {
             FacesUtil.update("todas");
         }
@@ -294,26 +235,20 @@ public class UsuarioMBean extends BaseMBean<UsuarioEntity> implements Serializab
     public void setId(Long id) {
         super.setId(id);
         try {
-            List<InstituicaoEntity> lstInstituicao = instituicaoBC.listComUSaudUPaga(getItem().getUserId());
-            instituicoesSelec.clear();
-            if (Validador.isColecao(lstInstituicao)) {
-                for (InstituicaoEntity instit : lstInstituicao) {
-                    instituicoesSelec.add(instit.getId());
-                    if (instit.getPphUnidSaude() != null && instit.getPphUnidSaude().getId() != null) {
-                        LOGGER.debug(instit.getPphUnidSaude().getNome());
-                    }
-                    if (instit.getPphUnidadePagadora() != null && instit.getPphUnidadePagadora().getId() != null) {
-                        LOGGER.debug(instit.getPphUnidadePagadora().getNmUnidadePagadora());
-                    }
+            List<EmpresaEntity> lstEmpresa = empresaBC.list(getItem().getUserId());
+            empresasSelec.clear();
+            if (Validador.isColecao(lstEmpresa)) {
+                for (EmpresaEntity instit : lstEmpresa) {
+                    empresasSelec.add(instit.getId());
                 }
-                if (lstInstituicao.size() == 1) {
-                    nomeInstituicaoSelecionada = labelInsituicao(lstInstituicao.get(0));
+                if (lstEmpresa.size() == 1) {
+                    nomeEmpresaSelecionada = labelEmpresa(lstEmpresa.get(0));
                 }
             }
 
-            getItem().setInstituicoes(lstInstituicao);
+            getItem().setEmpresas(lstEmpresa);
 
-            if (instituicoesSelec.size() == instituicoes.size()) {
+            if (empresasSelec.size() == empresas.size()) {
                 todas = true;
             } else {
                 todas = false;

@@ -16,10 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.cap.dominio.UsuarioEntity;
 import org.tcc.relatorio.cap.negocio.UsuarioBC;
-import org.tcc.relatorio.dominio.InstituicaoEntity;
-import org.tcc.relatorio.dominio.PphUnidSaudeEntity;
-import org.tcc.relatorio.dominio.PphUnidadePagadoraEntity;
-import org.tcc.relatorio.negocio.InstituicaoBC;
+import org.tcc.relatorio.dominio.EmpresaEntity;
+import org.tcc.relatorio.negocio.EmpresaBC;
 import org.tcc.relatorio.hammer.persistencia.exception.BCException;
 
 /**
@@ -44,8 +42,8 @@ public class LoginMBean implements Serializable {
 
     @EJB(name = "UsuarioBC")
     private UsuarioBC usr;
-    @EJB(name = "InstituicaoBC")
-    private InstituicaoBC instituicaoBC;
+    @EJB(name = "EmpresaBC")
+    private EmpresaBC empresaBC;
 
     /**
      * Construtor default.
@@ -123,34 +121,18 @@ public class LoginMBean implements Serializable {
         usuario.setUserId(userId);
         try {
             usuario = usr.consultar(usuario);
-            List<InstituicaoEntity> instituicoes =  instituicaoBC.listComUSaudUPaga(userId);
-            if (instituicoes != null && instituicoes.size() > 0) {
-                List<Long> lstInstituicaoId = new ArrayList<Long>();
-                List<Long> lstUnidSaudeId = new ArrayList<Long>();
-                List<Long> lstUnidPagadoraId = new ArrayList<Long>();
-                for (InstituicaoEntity instituicao : instituicoes) {
-                    lstInstituicaoId.add(instituicao.getId());
-                    
-                    PphUnidSaudeEntity unidSaude = instituicao.getPphUnidSaude();
-                    if (unidSaude != null) {
-                        lstUnidSaudeId.add(unidSaude.getId());
-                    }
-                    PphUnidadePagadoraEntity unidadePagadora = instituicao.getPphUnidadePagadora();
-                    if (unidadePagadora != null) {
-                        lstUnidPagadoraId.add(unidadePagadora.getId());
-                    }
-                    
-                    logger.debug(instituicao.getId() + ": " + instituicao.getTpUnid());
+            List<EmpresaEntity> empresas = empresaBC.list(userId);
+            if (empresas != null && empresas.size() > 0) {
+                List<Long> lstEmpresaId = new ArrayList();
+                for (EmpresaEntity empresa : empresas) {
+                    lstEmpresaId.add(empresa.getId());
+                    logger.debug(empresa.getId() + ": " + empresa.getId());
                 }
-                request.getSession().setAttribute("lstInstituicaoId", lstInstituicaoId);
-                request.getSession().setAttribute("lstUnidSaudeId", lstUnidSaudeId);
-                request.getSession().setAttribute("lstUnidPagadoraId", lstUnidPagadoraId);
-                
-                for (Long id : lstInstituicaoId ) logger.info("lstInstituicaoId : {}", id);
-                for (Long id : lstUnidSaudeId   ) logger.info("lstUnidSaudeId   : {}", id);
-                for (Long id : lstUnidPagadoraId) logger.info("lstUnidPagadoraId: {}", id);
+                request.getSession().setAttribute("lstEmpresaId", lstEmpresaId);
 
-                
+                for (Long id : lstEmpresaId) {
+                    logger.debug("lstEmpresaId : {}", id);
+                }
             }
         } catch (BCException ex) {
             logger.error("Erro ao buscar o nome extenso do usuário: " + ex.getMessage() + " {}", ex);

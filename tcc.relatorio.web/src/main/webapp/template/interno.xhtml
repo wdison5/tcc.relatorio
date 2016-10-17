@@ -10,8 +10,7 @@
         <h:form prependId="false">
             <div class="menubar">
                 <p:menubar id="menu" rendered="#{request.isUserInRole('Authenticated')}">
-                    <!--Menus do Modulo hanseníase-->
-                    <p:submenu label="Administração" icon="ui-icon-gear" rendered="#{request.isUserInRole('AdminInstituicoes') || request.isUserInRole('ConsultarInstituicoes')
+                    <p:submenu label="Administração" icon="ui-icon-gear" rendered="#{request.isUserInRole('AdminEmpresas') || request.isUserInRole('ConsultarEmpresas')
                                                                                      || request.isUserInRole('AdminGrupos') || request.isUserInRole('ConsultarGrupos')
                                                                                      || request.isUserInRole('AdminUsuarios') || request.isUserInRole('ConsultarUsuarios')}">
                         <p:submenu label="Grupo" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminGrupos') || request.isUserInRole('ConsultarGrupos')}">
@@ -19,9 +18,9 @@
                             <p:menuitem value="Consultar"   action="/view/grupo/consultar.jsf?faces-redirect=true"  actionListener="#{grupoMBean.initialize()}" icon="ui-icon-search" rendered="#{request.isUserInRole('ConsultarGrupos')}"/>
                             <p:menuitem value="Associar Funcionalidade"  url="/view/associar/consultarGrupo.jsf" icon="ui-icon-transferthick-e-w" rendered="#{request.isUserInRole('AdminGrupos')}"/>
                         </p:submenu>
-                        <p:submenu label="Instituição" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminInstituicoes') || request.isUserInRole('ConsultarInstituicoes')}">
-                            <p:menuitem value="Criar" icon="ui-icon-contact" actionListener="#{instituicaoMBean.prepararTelaInclusao()}" action="/view/instituicao/criar.jsf?faces-redirect=true" rendered="#{request.isUserInRole('AdminInstituicoes')}"/>
-                            <p:menuitem value="Consultar" icon="ui-icon-search" actionListener="#{instituicaoMBean.prepararTelaInclusao()}" action="/view/instituicao/consultar.jsf?faces-redirect=true" rendered="#{request.isUserInRole('AdminInstituicoes') || request.isUserInRole('ConsultarInstituicoes')}"/>
+                        <p:submenu label="Empresa" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminEmpresas') || request.isUserInRole('ConsultarEmpresas')}">
+                            <p:menuitem value="Criar" icon="ui-icon-contact" actionListener="#{empresaMBean.prepararTelaInclusao()}" action="/view/empresa/criar.jsf?faces-redirect=true" rendered="#{request.isUserInRole('AdminEmpresas')}"/>
+                            <p:menuitem value="Consultar" icon="ui-icon-search" actionListener="#{empresaMBean.prepararTelaInclusao()}" action="/view/empresa/consultar.jsf?faces-redirect=true" rendered="#{request.isUserInRole('AdminEmpresas') || request.isUserInRole('ConsultarEmpresas')}"/>
                         </p:submenu>
                         <p:submenu label="Usuário" icon="ui-icon-person" rendered="#{request.isUserInRole('AdminUsuarios') || request.isUserInRole('ConsultarUsuarios')}">
                             <p:menuitem value="Criar"     action="/view/usuario/criar.jsf?faces-redirect=true" actionListener="#{usuarioMBean.initialize()}" icon="ui-icon-contact" rendered="#{request.isUserInRole('AdminUsuarios')}"/>
@@ -29,59 +28,6 @@
                             <p:menuitem value="Associar Grupo"  url="/view/associar/consultar.jsf" icon="ui-icon-transferthick-e-w" rendered="#{request.isUserInRole('AdminUsuarios')}"/>
                         </p:submenu>
                     </p:submenu>
-
-                    <p:submenu label="Beneficiário" icon="ui-icon-person" rendered="#{request.isUserInRole('AdminBeneficiarios') || request.isUserInRole('ConsultarBeneficiarios')}">
-                        <p:menuitem value="Criar"
-                                    icon="ui-icon-contact" 
-                                    actionListener="#{beneficiarioMBean.prepararTelaInclusao()}"
-                                    action="/view/beneficiario/manter.jsf?faces-redirect=true"
-                                    rendered="#{request.isUserInRole('AdminBeneficiarios')}"/>
-                        <p:menuitem value="Consultar"
-                                    icon="ui-icon-search"
-                                    rendered="#{request.isUserInRole('AdminBeneficiarios') || request.isUserInRole('ConsultarBeneficiarios')}"
-                                    actionListener="#{beneficiarioMBean.inicializaRelatorio('', true)}"
-                                    action="/view/beneficiario/consultar.jsf?faces-redirect=true"/>
-                    </p:submenu>
-                    <p:menuitem value="Consulta Pagamento" 
-                                icon="ui-icon-search" 
-                                rendered="#{request.isUserInRole('AdminEmpenhos') || request.isUserInRole('ConsultarEmpenhos')}"
-                                actionListener="#{empenhoMBean.inicializaRelatorio('Consulta Pagamentos')}"
-                                action="/view/empenho/pesquisar.jsf?faces-redirect=true"/>
-                    <p:submenu label="Relatórios Internos" icon="ui-icon-script" rendered="#{request.isUserInRole('AdminEmpenhos') || request.isUserInRole('ConsultarEmpenhos')}">
-                        <p:submenu label="Beneficiários" icon="ui-icon-person" >
-
-                            <p:menuitem value="Listagem" 
-                                        icon="ui-icon-document" 
-                                        actionListener="#{beneficiarioMBean.inicializaRelatorio('Listagem', false)}"
-                                        action="/view/beneficiario/consultar.jsf?faces-redirect=true">
-                            </p:menuitem>
-
-                            <p:menuitem value="Log" 
-                                        icon="ui-icon-info" 
-                                        actionListener="#{beneficiarioMBean.inicializaRelatorio('SQLLog', false)}"
-                                        action="/view/beneficiario/consultar.jsf?faces-redirect=true">
-                            </p:menuitem>
-
-                        </p:submenu>
-                        <p:submenu label="Pagamentos" icon="ui-icon-check" rendered="#{request.isUserInRole('ConsultarEmpenhos')||request.isUserInRole('AdminEmpenhos')}">
-                            <p:menuitem value="Analítico" 
-                                        icon="ui-icon-document" 
-                                        actionListener="#{empenhoMBean.inicializaRelatorio('Analitico', true)}"
-                                        action="/view/empenho/consultar.jsf?faces-redirect=true">
-                            </p:menuitem>
-                            <p:menuitem value="Sintético" 
-                                        icon="ui-icon-document" 
-                                        actionListener="#{empenhoMBean.inicializaRelatorio('Sintetico', true)}"
-                                        action="/view/empenho/consultar.jsf?faces-redirect=true">
-                            </p:menuitem>
-                            <p:menuitem value="Log" 
-                                        icon="ui-icon-info" 
-                                        actionListener="#{empenhoMBean.inicializaRelatorio('SQLLog', true)}"
-                                        action="/view/empenho/consultar.jsf?faces-redirect=true">
-                            </p:menuitem>
-                        </p:submenu>
-                    </p:submenu>
-
 
                     <p:submenu label="Relatorios" icon="ui-icon-calculator" rendered="#{request.isUserInRole('ConsultarRelatorios')}">
                         <p:menuitem value="Pratos + Vendidos" 
@@ -109,10 +55,8 @@
                                     actionListener="#{tccRelatorioMBean.inicializaRelatorio('S-V')}" 
                                     action="/view/relatorios/consultar.jsf?faces-redirect=true"/>
                     </p:submenu>
-
                 </p:menubar>
             </div>
         </h:form>
     </ui:define>
-
 </ui:composition>

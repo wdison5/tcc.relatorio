@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+    <ui:define name="content">
+        <h:body onload="$('#dataPeriodoDe_input').focus();">
+            <p:panel header="#{empresaMBean.tituloTela()}" id="painelPesquisa">
+                <p:panel widgetVar="panelEmpresa" id="panelEmpresa" >
+                    <h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+                        <p:outputLabel id="_empresaNome" for="empresaNome">Empresa:</p:outputLabel>
+                        <p:inputText id="empresaNome" value="#{empresaMBean.item.nmEmpresa}"/>
+                        <p:outputLabel id="_empresaCod" for="empresaCod">Código:</p:outputLabel>
+                        <p:inputText id="empresaCod" value="#{empresaMBean.item.cdEmpresa}" onkeyup="sipph.numero(this);"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+                    <p:outputLabel/>
+                    <h:panelGrid columns="2" width="100%">
+                        <h:panelGrid columns="3" >
+                            <p:commandButton value="Pesquisar" 
+                                             id="botaoPesquisar"
+                                             ajax="true" 
+                                             update="painelPesquisa,grade"
+                                             actionListener="#{empresaMBean.listar}">
+                            </p:commandButton>
+
+                            <p:commandButton value="Limpar"
+                                             id="botaoLimpar"
+                                             immediate="true"
+                                             update="painelPesquisa,grade">
+                                <p:ajax listener="#{empresaMBean.inicializaRelatorio(empresaMBean.complementoRelatorio)}" update="painelPesquisa"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+            <ui:include src="/public/grade.xhtml" >
+                <ui:param name="grade" value="#{empresaGrade}"/>
+                <ui:param name="MBean" value="#{empresaMBean}"/>
+                <ui:param name="relat" value="#{false}"/>
+                <ui:param name="aux"   value="#{null}"/>
+            </ui:include>
+        </h:body>
+    </ui:define>
+</ui:composition>

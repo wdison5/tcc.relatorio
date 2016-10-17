@@ -36,8 +36,8 @@ public class ProdutoEntity extends BaseEntity {
     private BigDecimal valorCusto;
     @Column(name = "ID_USUARIO")
     private Long idUsuario;
-    @Column(name = "ID_INSTITUICAO")
-    private Long idInstituicao;
+    @Column(name = "ID_EMPRESA")
+    private Long idEmpresa;
     @JoinColumn(name = "ID_TIPO_PRODUTO", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TipoProdutoEntity tipoProduto;
@@ -115,12 +115,12 @@ public class ProdutoEntity extends BaseEntity {
         this.idUsuario = idUsuario;
     }
 
-    public Long getIdInstituicao() {
-        return idInstituicao;
+    public Long getIdEmpresa() {
+        return idEmpresa;
     }
 
-    public void setIdInstituicao(Long idInstituicao) {
-        this.idInstituicao = idInstituicao;
+    public void setIdEmpresa(Long idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public TipoProdutoEntity getTipoProduto() {

@@ -10,7 +10,7 @@ package org.tcc.relatorio.negocio.validator;
  * @author jwsouza
  */
 public enum TipoUnidade {
-    SAUDE("US"), PAGADORA("UP");
+    PAGADORA("UP");
     private String cod;
 
     private TipoUnidade(String cod) {

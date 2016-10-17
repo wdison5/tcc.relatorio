@@ -9,9 +9,7 @@
         <h:body onload="$('#txtNome').focus();">
 
             <p:panel header="#{tccRelatorioMBean.tituloTela()}" id="painelPesquisa">
-            <!--<p:panel header="Pratos + Vendidos" id="painelPesquisa">-->
                 <h:panelGrid columns="2" width="100%">
-                    
                     <p:outputLabel id="dataPeriodoDeLabel" for="dataPeriodoDe">Período de Pesquisa:</p:outputLabel>
                     <h:panelGrid columns="3" cellpadding="0" cellspacing="0">
                         <p:calendar id="dataPeriodoDe"
@@ -59,19 +57,16 @@
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>
-            
             <ui:include src="/public/grafico.xhtml">
                 <ui:param name="grafico" value="#{tccRelatorioChart}"/>
                 <ui:param name="MBean" value="#{tccRelatorioMBean}"/>
             </ui:include>
-            
             <ui:include src="/public/grade.xhtml">
                 <ui:param name="grade" value="#{tccRelatorioGrade}"/>
                 <ui:param name="MBean" value="#{tccRelatorioMBean}"/>
                 <ui:param name="relat" value="#{true}"/>
                 <ui:param name="aux"   value="#{null}"/>
             </ui:include>
-
         </h:body>
     </ui:define>
 

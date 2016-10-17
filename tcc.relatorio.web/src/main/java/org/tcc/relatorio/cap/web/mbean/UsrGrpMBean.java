@@ -62,7 +62,7 @@ public class UsrGrpMBean extends BaseMBean<UsuarioEntity> implements Serializabl
                 break;
 
             case LISTAR:
-                Set<UsuarioEntity> set = usr.listar(getItem(), (List<Long>)Funcoes.getSessionObject("lstInstituicaoId"), (UsuarioEntity)Funcoes.getSessionObject("usuarioLogado"));
+                Set<UsuarioEntity> set = usr.listar(getItem(), (List<Long>)Funcoes.getSessionObject("lstEmpresaId"), (UsuarioEntity)Funcoes.getSessionObject("usuarioLogado"));
                 return new ArrayList<UsuarioEntity>(set);
         }
         return null;
@@ -104,7 +104,7 @@ public class UsrGrpMBean extends BaseMBean<UsuarioEntity> implements Serializabl
                 usr.associar(getItem(), gruposAssociar);
             }
 
-            setLista(new ArrayList<UsuarioEntity>(usr.listar(getItem(), (List<Long>)Funcoes.getSessionObject("lstInstituicaoId"), (UsuarioEntity)Funcoes.getSessionObject("usuarioLogado"))));
+            setLista(new ArrayList<UsuarioEntity>(usr.listar(getItem(), (List<Long>)Funcoes.getSessionObject("lstEmpresaId"), (UsuarioEntity)Funcoes.getSessionObject("usuarioLogado"))));
             setId(getItem().getId());
 
         } catch (BCException ex) {
@@ -139,7 +139,7 @@ public class UsrGrpMBean extends BaseMBean<UsuarioEntity> implements Serializabl
         UsuarioEntity user = new UsuarioEntity();
         try {
             user.setUserId(query);
-            Set<UsuarioEntity> list = usr.listar(user, (List<Long>)Funcoes.getSessionObject("lstInstituicaoId"), (UsuarioEntity)Funcoes.getSessionObject("usuarioLogado"));
+            Set<UsuarioEntity> list = usr.listar(user, (List<Long>)Funcoes.getSessionObject("lstEmpresaId"), (UsuarioEntity)Funcoes.getSessionObject("usuarioLogado"));
             logger.debug("completar().size: {}", list.size());
             for (UsuarioEntity s : list) {
                 results.add(s.getUserId());

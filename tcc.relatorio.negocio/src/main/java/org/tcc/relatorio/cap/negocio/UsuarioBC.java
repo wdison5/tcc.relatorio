@@ -19,13 +19,12 @@ import org.tcc.relatorio.cap.dominio.util.Sha1;
 import org.tcc.relatorio.cap.persistencia.GrupoRepo;
 import org.tcc.relatorio.cap.persistencia.FuncionalidadeRepo;
 import org.tcc.relatorio.cap.persistencia.UsuarioRepo;
-import org.tcc.relatorio.dominio.InstituicaoEntity;
-import org.tcc.relatorio.dominio.PphUnidSaudeEntity;
+import org.tcc.relatorio.dominio.EmpresaEntity;
 import org.tcc.relatorio.enumeracao.Confirmacao;
 import org.tcc.relatorio.negocio.exception.util.BCExceptionUtil;
 import org.tcc.relatorio.negocio.validator.Validador;
-import org.tcc.relatorio.persistencia.UnidSaudeRepo;
 import org.tcc.relatorio.hammer.persistencia.exception.BCException;
+import org.tcc.relatorio.persistencia.EmpresaRepo;
 
 /**
  *
@@ -39,19 +38,16 @@ public class UsuarioBC {
     @Inject
     @New
     private GrupoRepo grupoRepo;
-
     @Inject
     @New
     private UsuarioRepo usuarioRepo;
-
     @Inject
     @New
-    private FuncionalidadeRepo sistemaRepo;
-
+    private FuncionalidadeRepo funcionalidadeRepo;
     @Inject
     @New
-    private UnidSaudeRepo unidSaudeRepo;
-
+    private EmpresaRepo empresaRepo;
+    
     /**
      * Construtor.
      */
@@ -107,15 +103,12 @@ public class UsuarioBC {
                 if (usuario.isOk()) {
                     usuario.setSenha(Sha1.digest(usuario.getUserId()));
 
-                    //   Este trecho é aonde é feita a amarração do Usuario com a Instituição:  Uma ou Todas
-                    if (!Validador.isColecao(usuario.getInstituicoes())) {
-                        PphUnidSaudeEntity unidSaude = unidSaudeRepo.getById(2);
-
-                        InstituicaoEntity instituicao = unidSaude.getInstituicao();
-
-                        List<InstituicaoEntity> listaInsti = new ArrayList<InstituicaoEntity>();
-                        listaInsti.add(instituicao);
-                        usuario.setInstituicoes(listaInsti);
+                    //   Este trecho é aonde é feita a amarração do Usuario com a Empresa:  Uma ou Todas
+                    if (!Validador.isColecao(usuario.getEmpresas())) {
+                        EmpresaEntity empresa = empresaRepo.buscarPorId(1L);
+                        List<EmpresaEntity> listaInsti = new ArrayList<EmpresaEntity>();
+                        listaInsti.add(empresa);
+                        usuario.setEmpresas(listaInsti);
                     }
                     usuario.setFlExclusao(Confirmacao.NAO.getId());
                     usuarioRepo.persist(usuario);
@@ -177,21 +170,21 @@ public class UsuarioBC {
                 entity.setDataExpSenha(usuario.getDataExpSenha());
                 entity.setAcessoGeral(usuario.isAcessoGeral());
 
-                List<InstituicaoEntity> instituicoesTmp = new ArrayList<InstituicaoEntity>();
-                boolean isInstiUser = usuario.getInstituicoes() != null;
-                if (entity.getInstituicoes() != null) {
-                    for (InstituicaoEntity instit : entity.getInstituicoes()) {
-                        if (isInstiUser && usuario.getInstituicoes().contains(instit)) {
-                            instituicoesTmp.add(instit);
+                List<EmpresaEntity> empresasTmp = new ArrayList<EmpresaEntity>();
+                boolean isInstiUser = usuario.getEmpresas() != null;
+                if (entity.getEmpresas() != null) {
+                    for (EmpresaEntity instit : entity.getEmpresas()) {
+                        if (isInstiUser && usuario.getEmpresas().contains(instit)) {
+                            empresasTmp.add(instit);
                         }
                     }
                 }
-                entity.getInstituicoes().clear();
+                entity.getEmpresas().clear();
                 if (isInstiUser) {
-                    entity.getInstituicoes().addAll(instituicoesTmp);
-                    for (InstituicaoEntity instit : usuario.getInstituicoes()) {
-                        if (!entity.getInstituicoes().contains(instit)) {
-                            entity.getInstituicoes().add(instit);
+                    entity.getEmpresas().addAll(empresasTmp);
+                    for (EmpresaEntity instit : usuario.getEmpresas()) {
+                        if (!entity.getEmpresas().contains(instit)) {
+                            entity.getEmpresas().add(instit);
                         }
                     }
                 }
@@ -210,7 +203,7 @@ public class UsuarioBC {
         }
     }
 
-    public Set<UsuarioEntity> listar(UsuarioEntity usuario, List<Long> lstInstituicaoId, UsuarioEntity usuarioLogado) throws BCException {
+    public Set<UsuarioEntity> listar(UsuarioEntity usuario, List<Long> lstEmpresaId, UsuarioEntity usuarioLogado) throws BCException {
 
         try {
             if (usuario == null) {
@@ -221,7 +214,7 @@ public class UsuarioBC {
             if (Validador.isBlank(userId)) {
                 userId = "%";
             }
-            return usuarioRepo.listarPorUserIdLike(userId, lstInstituicaoId, usuarioLogado);
+            return usuarioRepo.listarPorUserIdLike(userId, lstEmpresaId, usuarioLogado);
         } catch (Exception e) {
             throw BCExceptionUtil.prepara(LOGGER, e);
         }
@@ -636,7 +629,7 @@ public class UsuarioBC {
                 LOGGER.info("Grupo {} não cadastrado", grupo.getNome());
             }
 
-            List<FuncionalidadeEntity> funcLista = sistemaRepo.listarFuncPorNomeLista(funcNomes);
+            List<FuncionalidadeEntity> funcLista = funcionalidadeRepo.listarFuncPorNomeLista(funcNomes);
             if (funcLista.isEmpty() || funcLista.size() != funcionalidaes.size()) {
                 grupo.getMsg().add("Lista de Funcionalidades inválida");
             }
@@ -646,7 +639,7 @@ public class UsuarioBC {
                 for (FuncionalidadeEntity func : funcLista) {
                     grupo.getFuncionalidades().add(func);
                     func.getGrupos().add(grupo);
-                    sistemaRepo.update(func);
+                    funcionalidadeRepo.update(func);
                     LOGGER.info("BC/ Grupo/Func associados '{}'/{}", func.getNome(), func.getNome());
                 }
                 usuarioRepo.update(grupo);
@@ -697,7 +690,7 @@ public class UsuarioBC {
                 return;
             }
 
-            List<FuncionalidadeEntity> funcLista = sistemaRepo.listarFuncPorNomeLista(funcNomes);
+            List<FuncionalidadeEntity> funcLista = funcionalidadeRepo.listarFuncPorNomeLista(funcNomes);
             if (funcLista.isEmpty() || funcLista.size() != funcionalidades.size()) {
                 grupo.getMsg().add("Lista de Funcionalidades inválida");
             }
@@ -707,7 +700,7 @@ public class UsuarioBC {
                 for (FuncionalidadeEntity func : funcLista) {
                     grupo.getFuncionalidades().remove(func);
                     func.getGrupos().remove(grupo);
-                    sistemaRepo.update(func);
+                    funcionalidadeRepo.update(func);
                     LOGGER.info("BC/ Grupo/Func Desassociados '{}'/{}", func.getNome(), func.getNome());
                 }
                 usuarioRepo.update(grupo);

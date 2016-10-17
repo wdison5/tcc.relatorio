@@ -17,7 +17,7 @@ import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.cap.dominio.UsuarioEntity;
-import org.tcc.relatorio.dominio.InstituicaoEntity;
+import org.tcc.relatorio.dominio.EmpresaEntity;
 import org.tcc.relatorio.enumeracao.Confirmacao;
 import org.tcc.relatorio.hammer.persistencia.exception.DaoException;
 
@@ -48,7 +48,7 @@ public class UsuarioRepo extends Repositorio {
         }
     }
 
-    public Set<UsuarioEntity> listarPorUserIdLike(String userId, List<Long> lstInstituicaoId, UsuarioEntity usuarioLogado) throws DaoException {
+    public Set<UsuarioEntity> listarPorUserIdLike(String userId, List<Long> lstEmpresaId, UsuarioEntity usuarioLogado) throws DaoException {
         try {
             CriteriaBuilder cb = entityManager().getCriteriaBuilder();
             CriteriaQuery<UsuarioEntity> c = cb.createQuery(UsuarioEntity.class);
@@ -60,14 +60,14 @@ public class UsuarioRepo extends Repositorio {
             criteriaListAnd.add(cb.equal(root.get("flExclusao"), Confirmacao.NAO.getId()));
 
             if (usuarioLogado == null || !usuarioLogado.isAcessoGeral()) {
-                if (lstInstituicaoId != null && !lstInstituicaoId.isEmpty()) {
-                    Join<UsuarioEntity, InstituicaoEntity> joinUsuarioInstituicao = root.<UsuarioEntity, InstituicaoEntity>join("instituicoes", JoinType.LEFT);
+                if (lstEmpresaId != null && !lstEmpresaId.isEmpty()) {
+                    Join<UsuarioEntity, EmpresaEntity> joinUsuarioEmpresa = root.<UsuarioEntity, EmpresaEntity>join("empresas", JoinType.LEFT);
                     criteriaListAnd.add(
                             cb.or(
-                                cb.isNull(joinUsuarioInstituicao), 
+                                cb.isNull(joinUsuarioEmpresa), 
                                 cb.and(
-                                    joinUsuarioInstituicao.get("id").in(lstInstituicaoId),
-                                    cb.equal(joinUsuarioInstituicao.get("flExclusao"), Confirmacao.NAO.getId())
+                                    joinUsuarioEmpresa.get("id").in(lstEmpresaId),
+                                    cb.equal(joinUsuarioEmpresa.get("flExclusao"), Confirmacao.NAO.getId())
                             )));
                     criteriaListAnd.add(cb.equal(root.get("acessoGeral"), false));
                 }

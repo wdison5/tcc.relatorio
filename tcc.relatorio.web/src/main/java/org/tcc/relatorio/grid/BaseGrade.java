@@ -151,42 +151,6 @@ public abstract class BaseGrade<MBean extends BaseMBean, Entidade extends BaseEn
         return ":formulario:grade";
     }
 
-//    public List<Registro> regs(List<Object> regs) {
-//        this.iniciar();
-//
-//        String header[] = new String[columns.size()];
-//        String campos[] = new String[columns.size()];
-//        for (int i = 0; i < columns.size(); i++) {
-//            header[i] = columns.get(i).getHeader();
-//            campos[i] = columns.get(i).getProperty();
-//        }
-//        for (Object reg : regs) {
-//            Object dados[] = new Object[columns.size()];
-//            for (int i = 0; i < columns.size(); i++) {
-//                String atributo = columns.get(i).getProperty();
-//                String metodoGet = "get" + atributo.substring(0,1).toUpperCase() + atributo.substring(1);
-//                Class cls = reg.getClass();
-//                Method meth;
-//                try {
-//                    meth = cls.getMethod(metodoGet);
-//                    dados[i] = meth.invoke(reg);
-//                } catch (IllegalAccessException ex) {
-//                    logger.info("BaseGrade: {}", ex.toString());
-//                } catch (IllegalArgumentException ex) {
-//                    logger.info("BaseGrade: {}", ex.toString());
-//                } catch (NoSuchMethodException ex) {
-//                    logger.info("BaseGrade: {}", ex.toString());
-//                } catch (SecurityException ex) {
-//                    logger.info("BaseGrade: {}", ex.toString());
-//                } catch (InvocationTargetException ex) {
-//                    logger.info("BaseGrade: {}", ex.toString());
-//                }
-//            }
-//            registros.add(new Registro(UUID.randomUUID(), dados, campos, header));
-//        }
-//        return registros;
-//    }
-
     static public class ColumnModel {
  
         private final String header;
@@ -320,13 +284,6 @@ public abstract class BaseGrade<MBean extends BaseMBean, Entidade extends BaseEn
     /*********************************************************************/
     /************************FUNÇÕES PARA COLUNAS DA GRADE****************/
     /*********************************************************************/
-    
-    /**
-     * 
-     * @param informacao
-     * @param tipo
-     * @return 
-     */
     public Object dataHora(Object informacao, Tipo tipo){
         switch (tipo) {
             case HINT:

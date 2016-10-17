@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../template/interno.xhtml">
+    <f:metadata>  
+        <f:viewParam name="id" value="#{empresaMBean.id}" />  
+    </f:metadata>  
+
+    <ui:define name="content">
+
+        <p:panel id="panel" header="Detalhar Empresa">
+
+            <h:panelGrid columns="2"  columnClasses="label,value" styleClass="grid">
+                <h:outputLabel value="Nome Empresa:*" id="_empresa" for="empresa" />
+                <p:inputText id="empresa" value="#{empresaMBean.item.nmEmpresa}" readonly="true"/>
+                <h:outputLabel value="Cod/CNPJ Empresa:*" id="_cdEmpresa" for="cdEmpresa" />
+                <p:inputText id="cdEmpresa" value="#{empresaMBean.item.cdEmpresa}" readonly="true"/>
+                <h:outputText />
+                <h:panelGroup>
+                    <h:panelGrid columns="3">
+                        <p:button value="Voltar" outcome="consultar" icon="ui-icon-arrowreturnthick-1-w" />
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:panel>
+    </ui:define>
+</ui:composition>

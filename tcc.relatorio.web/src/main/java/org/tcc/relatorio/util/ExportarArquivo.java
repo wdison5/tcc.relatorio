@@ -27,7 +27,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tcc.relatorio.negocio.BeneficiarioBC;
 import org.tcc.relatorio.negocio.validator.Validador;
 import org.tcc.relatorio.util.jasper.ReportPadrao;
 import org.tcc.relatorio.util.jasper.Reports;
@@ -41,9 +40,6 @@ import org.tcc.relatorio.util.jasper.Reports;
 @RequestScoped
 @ManagedBean(name = "exportarArquivo")
 public class ExportarArquivo  {
-
-    @EJB(name = "BeneficiarioBC")
-    private BeneficiarioBC beneficiarioBC;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportarArquivo.class);
     private String nomeArquivo;

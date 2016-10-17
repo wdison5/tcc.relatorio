@@ -41,7 +41,7 @@ public class UsuarioNotNull implements IPolicy {
             if(usuario.getEmail()!=null && !usuario.getEmail().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
                 PolicyHelper.notNull(usuario, null, "Email inválido.");
             }
-            PolicyHelper.notNull(usuario, usuario.getInstituicoes(), "Selecione uma instituição.");
+            PolicyHelper.notNull(usuario, usuario.getEmpresas(), "Selecione uma Empresa.");
             //PolicyHelper.notNullNotEmpty(usuario, usuario.getSenha(),   "A senha deve ser informada");
 //            if(usuario.getSenha().length() < min_UserId) {
 //                usuario.getMsg().add("A Senha deve ter no mínimo " + min_UserId + " letras");
@@ -58,7 +58,7 @@ public class UsuarioNotNull implements IPolicy {
             if(usuario.getEmail()!=null && !usuario.getEmail().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
                 PolicyHelper.notNull(usuario, null, "Email inválido.");
             }
-            PolicyHelper.notNull(usuario, usuario.getInstituicoes(), "Selecione uma instituição.");
+            PolicyHelper.notNull(usuario, usuario.getEmpresas(), "Selecione uma Empresa.");
             if (usuario.getSenha().length() < min_UserId) {
                 usuario.getMsg().add("A Senha deve ter no mínimo " + min_UserId + " letras");
             }

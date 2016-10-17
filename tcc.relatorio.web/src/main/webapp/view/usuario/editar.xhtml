@@ -53,15 +53,15 @@
                 <h:outputLabel value="Adm Sistema:" id="_acessogeral" for="acessogeral" rendered="#{usuarioLogado.isAcessoGeral()}"/>
                 <p:selectBooleanCheckbox id="acessogeral" value="#{usuarioMBean.item.acessoGeral}" rendered="#{usuarioLogado.isAcessoGeral()}"/>
 
-                <h:outputLabel value="Instituição:*" id="_instituicaoOut" for="todas" rendered="#{usuarioMBean.instituicoes.size() gt 1}"/>
-                <p:selectBooleanCheckbox id="todas" value="#{usuarioMBean.todas}" itemLabel="Todas" disabled="#{usuarioMBean.instituicoes.size() lt 2}" rendered="#{usuarioMBean.instituicoes.size() gt 1}">
-                    <p:ajax update="instituicoes" listener="#{usuarioMBean.toggleInstituicoes}" />
+                <h:outputLabel value="Empresa:*" id="_empresaOut" for="todas" rendered="#{usuarioMBean.empresas.size() gt 1}"/>
+                <p:selectBooleanCheckbox id="todas" value="#{usuarioMBean.todas}" itemLabel="Todas" disabled="#{usuarioMBean.empresas.size() lt 2}" rendered="#{usuarioMBean.empresas.size() gt 1}">
+                    <p:ajax update="empresas" listener="#{usuarioMBean.toggleEmpresas}" />
                 </p:selectBooleanCheckbox>
-                <h:outputText rendered="#{usuarioMBean.instituicoes.size() gt 1}"/>
-                <h:panelGroup id="instituicoes" rendered="#{usuarioMBean.instituicoes.size() gt 1}">
-                    <p:selectManyCheckbox value="#{usuarioMBean.instituicoesSelec}" valueChangeListener="#{usuarioMBean.selectedItemsChanged}" layout="pageDirection">
+                <h:outputText rendered="#{usuarioMBean.empresas.size() gt 1}"/>
+                <h:panelGroup id="empresas" rendered="#{usuarioMBean.empresas.size() gt 1}">
+                    <p:selectManyCheckbox value="#{usuarioMBean.empresasSelec}" valueChangeListener="#{usuarioMBean.selectedItemsChanged}" layout="pageDirection">
                         <p:ajax process="@this"/>
-                        <f:selectItems value="#{usuarioMBean.instituicoes}" var="instituicao" itemValue="#{instituicao.id}" itemLabel="#{usuarioMBean.labelInsituicao(instituicao)}" />
+                        <f:selectItems value="#{usuarioMBean.empresas}" var="empresa" itemValue="#{empresa.id}" itemLabel="#{usuarioMBean.labelEmpresa(empresa)}" />
                     </p:selectManyCheckbox>
                 </h:panelGroup>
 
