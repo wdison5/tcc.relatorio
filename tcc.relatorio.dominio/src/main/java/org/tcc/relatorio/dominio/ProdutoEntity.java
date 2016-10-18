@@ -24,7 +24,7 @@ public class ProdutoEntity extends BaseEntity {
     @Column(name = "DESCRICAO")
     private String descricao;
     @Column(name = "DATA_REFERENCIA")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataReferencia;
     @Column(name = "QUANTIDADE")
     private Integer quantidade;
