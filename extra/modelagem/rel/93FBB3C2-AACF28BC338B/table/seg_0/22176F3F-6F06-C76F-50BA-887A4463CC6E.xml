@@ -1,0 +1,199 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="22176F3F-6F06-C76F-50BA-887A4463CC6E" name="PEDIDO">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:24:50 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<ordsAlias>table_9</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="EB39EFF4-9132-C112-A85C-66DA3CEF2739">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:25:03 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MESA_ID" id="3FC996BE-D00B-6502-2DD5-B1FA07C7AF82">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:25:23 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6D29F042-2A6B-49EC-B5A1-912C4A2A40B0" referredColumn="EF515EFF-C852-2CF3-4028-D3258B724163"/>
+</associations>
+</Column>
+<Column name="GARCON_ID" id="CC4B7540-A679-0B9B-6509-E37C3232FA58">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:25:32 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D7C97B28-5091-5A1E-A870-137B895EBD05" referredColumn="83D19664-4360-0B6E-883A-153041F09712"/>
+</associations>
+</Column>
+<Column name="QUANTIDADE" id="A0ECCDBB-C892-6BB1-9249-BB329302990C">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:29:17 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CARDAPIO_ID" id="525246EF-FD3A-D231-5DB6-2B45F6DCD6D8">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:29:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIPO_PAGAMENTO_ID" id="8EF2CFD8-47A9-580C-07DD-4129C2DD0B0D">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:36:14 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="758C90BB-9944-E75D-184B-2A1FA116D466" referredColumn="8B62ECFF-D6D4-6533-0061-6DAB5A5FA025"/>
+</associations>
+</Column>
+<Column name="PERIODO_ID" id="3CF00015-6546-8EF8-44C4-C782C969A3DA">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:41:49 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9A7BD41C-AD64-AF09-9359-04A5E45006B0" referredColumn="84921915-33D2-CBC8-ED19-CF1FCA2AA8EC"/>
+</associations>
+</Column>
+<Column name="QUANTIDADE_CLIENTES" id="7B1EB42C-11F4-22A8-58F6-74B541892540">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:44:12 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UNIDADE_ID" id="48E28AB5-68A1-B786-ABD0-840C628659B0">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:51:37 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="33F4623E-6190-7A90-8D87-00543DB5DCCD" referredColumn="4D07B4D7-9522-8F39-B91E-7EA000B3CEC0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="32CC7052-BD99-F728-2B66-8D4847ED4CBB" name="PEDIDO_PK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:26:19 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EB39EFF4-9132-C112-A85C-66DA3CEF2739"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="22D89B9D-B5CF-28C1-7932-48AD15748581" name="PEDIDO_GARCON_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:27:18 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CC4B7540-A679-0B9B-6509-E37C3232FA58"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7236E4EA-3C57-4D64-4FDD-430ECFF2A970" name="PEDIDO_MESAS_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:28:03 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3FC996BE-D00B-6502-2DD5-B1FA07C7AF82"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ED92A706-BDB2-265D-C191-621498DBCE51" name="PEDIDO_TIPO_PAGAMENTO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:36:28 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8EF2CFD8-47A9-580C-07DD-4129C2DD0B0D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C780672B-22B0-5D75-5F75-E72C29E32392" name="PEDIDO_TIPO_PERIODO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:43:16 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3CF00015-6546-8EF8-44C4-C782C969A3DA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8E62D83F-EFE4-5C08-3BAB-6503DB735105" name="PEDIDO_UNIDADE_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:51:47 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="48E28AB5-68A1-B786-ABD0-840C628659B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

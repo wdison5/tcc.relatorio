@@ -12,13 +12,13 @@
 
     <f:view encoding="utf-8" locale="pt-BR">
         <h:head>
-            <link rel="sortcut icon" href="#{request.contextPath}/img/icon.ico" type="image/x-icon" />
+            <link rel="sortcut icon" href="#{request.contextPath}/imgTcc/icone.ico" type="image/x-icon" />
             <link rel="stylesheet" type="text/css" href="#{request.contextPath}/style/default.css" media="screen" />
             <link rel="stylesheet" type="text/css" href="#{request.contextPath}/style/print.css" media="print" />
             <meta name="author" content="org.tcc.relatorio" />
-            <meta name="description" content="siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos" />
-            <meta name="keywords" content="siPPH, sipph, sistema de informação, pagamento, pensão, hansenianos, saúde, sp" />
-            <title>siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos</title>
+            <meta name="description" content="SISTEMA DE RELATÓRIOS GERENCIAIS PARA UMA CADEIA DE RESTAURANTES" />
+            <meta name="keywords" content="restaurante, relatorios, gerencial" />
+            <title>SISTEMA DE RELATÓRIOS GERENCIAIS PARA UMA CADEIA DE RESTAURANTES</title>
             <h:outputScript name="js/default.js" />
             <ui:insert name="head"/>
         </h:head>
@@ -27,7 +27,7 @@
             <ui:insert name="cabecalho">
                 <div class="header_container">                
                     <div class="header">
-                        <a href="#{request.contextPath}/view/home.jsf" class="logo"></a>
+                        <img src="#{request.contextPath}/imgTcc/apresentacao1.png" class="foto-home" alt="TCC SI - UNIP" style="width: 400px"/>
                         <c:if test="${sessionScope['username'] != null}">
                             <h:form>
                                 <div class="user">
@@ -97,10 +97,8 @@
 
             <div class="footer_container">
                 <div class="footer">
-                    <a href="#" title="siPPH - Sistema de Informação de Pagamento de Pensão a Hansenianos" class="logo">siPPH</a>
+                    <img src="#{request.contextPath}/imgTcc/download.png" class="foto-home" alt="TCC SI - UNIP" style="width: 200px; float: right"/>
                     <ul class="links">
-                        <li><a href="http://www.tcc.relatorio.org" title="org.tcc.relatorio" class="logo-org.tcc.relatorio" target="_blank">org.tcc.relatorio - Tecnologia da Informação</a></li>
-                        <li><a href="http://www.saopaulo.sp.gov.br" title="Portal do Governo de SP" class="logo-governo" target="_blank">Portal do Governo de SP</a></li>
                     </ul>
                 </div>
             </div>

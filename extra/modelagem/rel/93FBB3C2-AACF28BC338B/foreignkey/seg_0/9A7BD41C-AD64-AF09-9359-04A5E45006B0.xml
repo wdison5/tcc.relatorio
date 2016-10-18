@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="9A7BD41C-AD64-AF09-9359-04A5E45006B0" containerWithKeyObject="22176F3F-6F06-C76F-50BA-887A4463CC6E" localFKIndex="C780672B-22B0-5D75-5F75-E72C29E32392" name="PEDIDO_TIPO_PERIODO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:43:16 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>6E72F37E-B52A-37BC-B900-53C2F04E9ABC</referredTableID>
+<keyObject>A6F98B81-E208-1CBA-3CEB-53ED48933D78</keyObject>
+<referredKeyID>A6F98B81-E208-1CBA-3CEB-53ED48933D78</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

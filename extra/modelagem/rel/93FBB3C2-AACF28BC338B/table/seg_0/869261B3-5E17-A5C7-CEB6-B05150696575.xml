@@ -1,0 +1,92 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="869261B3-5E17-A5C7-CEB6-B05150696575" name="GRUPO_USR_FUNC">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>PSAT_GRUPO_USR_PSAT_FUNC</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<ordsAlias>psat_grupo_usr_psat_func</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GRUPOS_ID" id="B42ECDE3-7D2F-647F-8ECF-122D04915969">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_GRUPO_USR_PSAT_FUNC</sourceObjSchema>
+<sourceObjName>GRUPOS_ID</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<ownDataTypeParameters>,19,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D9893AD1-0769-AE73-2ED4-1D14CDD14ACC" referredColumn="7C590541-C4CB-8DC8-12CE-10EBCD544A9B"/>
+</associations>
+</Column>
+<Column name="FUNCIONALIDADES_ID" id="E365909B-795F-4D53-6FC1-A3D68F840F87">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_GRUPO_USR_PSAT_FUNC</sourceObjSchema>
+<sourceObjName>FUNCIONALIDADES_ID</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<ownDataTypeParameters>,19,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="02D2CE28-C736-2EC0-21F8-ABA1AEAB4848" referredColumn="2EAFCADE-C377-94A4-E49B-44EE526DB846"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1BDFC274-88D1-4A78-B697-5A4D64B42C7C" schemaObject="794C3021-34A4-9BC2-9B8D-99B528830A66" name="GRUPO_USR_FUNC_PK">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>SYS_C005209</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B42ECDE3-7D2F-647F-8ECF-122D04915969"/>
+<colUsage columnID="E365909B-795F-4D53-6FC1-A3D68F840F87"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="176093AF-9256-94AC-4F0C-4CCC2155CCBF" name="GRUPO_USR_FUNC_PSAT_FUNC_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:13:19 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E365909B-795F-4D53-6FC1-A3D68F840F87"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DB7C1E5D-B4A2-754C-4871-FA2061A8946E" name="GRUPO_USR_FUNC_GRUPO_USR_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:16:28 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B42ECDE3-7D2F-647F-8ECF-122D04915969"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

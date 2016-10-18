@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1D5DABF3-5CE2-97F4-BD18-1E07EE3D01EB" name="FUNC">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>PSAT_FUNC</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<ordsAlias>psat_func</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="2EAFCADE-C377-94A4-E49B-44EE526DB846">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_FUNC</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NOME" id="65D926CD-4EC3-0DD8-F625-09713CDF4358">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_FUNC</sourceObjSchema>
+<sourceObjName>NOME</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="85B9AE6A-7AFE-6928-0596-69902E9B6F8C" schemaObject="794C3021-34A4-9BC2-9B8D-99B528830A66" name="FUNC_PK">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>SYS_C005189</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2EAFCADE-C377-94A4-E49B-44EE526DB846"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="48246BCB-73FB-6018-D036-B079CBEE15D3" schemaObject="794C3021-34A4-9BC2-9B8D-99B528830A66" name="FUNC_NOME_UN">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>SYS_C005190</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="65D926CD-4EC3-0DD8-F625-09713CDF4358"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

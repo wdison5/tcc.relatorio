@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="758C90BB-9944-E75D-184B-2A1FA116D466" containerWithKeyObject="22176F3F-6F06-C76F-50BA-887A4463CC6E" localFKIndex="ED92A706-BDB2-265D-C191-621498DBCE51" name="PEDIDO_TIPO_PAGAMENTO_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 19:36:28 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E6525146-18FA-DC07-10C5-708E4DEDF9CA</referredTableID>
+<keyObject>95289000-E234-C947-54F5-91D6EB96E69F</keyObject>
+<referredKeyID>95289000-E234-C947-54F5-91D6EB96E69F</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

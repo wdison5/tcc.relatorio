@@ -1,0 +1,179 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="204FFF10-1014-037D-A1FC-31A51B92B346" name="USUARIO">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>PSAT_USUARIO</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<ordsAlias>psat_usuario</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="0647CB69-FB01-B0B0-A6D5-7A0F9A8971D7">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_USUARIO</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NOME" id="F616DD4F-E494-C2D5-0470-8DD00ACF5F4E">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_USUARIO</sourceObjSchema>
+<sourceObjName>NOME</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CPF" id="12818D43-2F6F-0EDF-6092-628C4135A8BE">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_USUARIO</sourceObjSchema>
+<sourceObjName>CPF</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EMAIL" id="EF2D09B2-8D60-3FC0-F842-F8D14043AD83">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_USUARIO</sourceObjSchema>
+<sourceObjName>EMAIL</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RG" id="4CE51F2B-C663-4A1C-2529-9C4DB9CEFEE8">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_USUARIO</sourceObjSchema>
+<sourceObjName>RG</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SENHA" id="D70DF616-2A88-A405-934A-78F3B152FF70">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSAT_USUARIO</sourceObjSchema>
+<sourceObjName>SENHA</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PERFIL_ID" id="FD0EC703-1955-5FA4-D993-1EB73E9601C2">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="566768AA-DB73-1973-9E0F-B0DDA7A301B0" referredColumn="7C590541-C4CB-8DC8-12CE-10EBCD544A9B"/>
+</associations>
+</Column>
+<Column name="UNIDADE_ID" id="95DE9BFD-FD03-CBC1-8C69-5EC918CB8B2D">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:20:22 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="00B074A0-9505-631F-B0F7-24C7526B1E8C" referredColumn="4D07B4D7-9522-8F39-B91E-7EA000B3CEC0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="10BA174C-D8FB-3E3F-07B1-9E529A003BF2" schemaObject="794C3021-34A4-9BC2-9B8D-99B528830A66" name="USUARIO_PK">
+<sourceConnName>psat2</sourceConnName>
+<sourceObjSchema>PSATD</sourceObjSchema>
+<sourceObjName>SYS_C005172</sourceObjName>
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:05:40 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0647CB69-FB01-B0B0-A6D5-7A0F9A8971D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0239CACC-D257-A5B0-A959-200395ECB7EC" name="USUARIO__UN">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:18:27 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="12818D43-2F6F-0EDF-6092-628C4135A8BE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E3C2C54F-A8E8-C11E-286C-2E3267D12580" name="USUARIO_GRUPO_USR_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:19:51 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FD0EC703-1955-5FA4-D993-1EB73E9601C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F5AC50E2-DC3A-9178-D838-57B865B8203F" name="USUARIO_UNIDADE_FK">
+<createdBy>jsacramento</createdBy>
+<createdTime>2016-10-13 20:20:53 UTC</createdTime>
+<generatorID>Gerado pelo usuário</generatorID>
+<ownerDesignName>modelagem</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="95DE9BFD-FD03-CBC1-8C69-5EC918CB8B2D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
