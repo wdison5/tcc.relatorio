@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tcc.relatorio.cap.dominio.UsuarioEntity;
 import org.tcc.relatorio.dominio.ProdutoEntity;
-import org.tcc.relatorio.dominio.TipoProdutoEntity;
 import org.tcc.relatorio.util.ExportarArquivo;
 import org.tcc.relatorio.util.FacesUtil;
 import org.tcc.relatorio.util.jasper.Reports;
@@ -216,10 +215,10 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
             return "Período de " + dataDe + " a " + dataAte;
         } else if (this.dataPeriodoDe != null && this.dataPeriodoAte == null) {
             String dataDe = formatoData.format(getDataPeriodoDe());
-            return "Período de Pagamento maior ou igual a " + dataDe;
+            return "Período de Movimento maior ou igual a " + dataDe;
         } else if (this.dataPeriodoDe == null && this.dataPeriodoAte != null) {
             String dataAte = formatoData.format(getDataPeriodoAte());
-            return "Período de Pagamento menor ou igual a " + dataAte;
+            return "Período de Movimento menor ou igual a " + dataAte;
         } else {
             return "";
         }
@@ -232,42 +231,13 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
     public void processarPDF(Map relatorioPadrao) throws Exception {
         Reports r = new Reports(this);
         r.setRegistros((ArrayList) this.getLista());
-        r.getParametros().put("filtro", compoeFiltro());
+        
+        r.getParametros().put("IMAGEM_CABECALHO", FacesUtil.externalContext().getRealPath("imgTcc") + "/apresentacao1.png");
+        r.getParametros().put("IMAGEM_RODAPE", FacesUtil.externalContext().getRealPath("imgTcc") + "/download.png");
         r.getParametros().put("periodo", compoePeriodo());
 
-        r.getParametros().put("campos", relatorioPadrao.get("campos"));
-        r.getParametros().put("titulos", relatorioPadrao.get("titulos"));
-        r.getParametros().put("larguras", relatorioPadrao.get("larguras"));
-        r.getParametros().put("cabecalho1", relatorioPadrao.get("cabecalho1"));
-        r.getParametros().put("cabecalho2", relatorioPadrao.get("cabecalho2"));
-        r.getParametros().put("cabecalho3", relatorioPadrao.get("cabecalho3"));
-
-        if (this.getComplementoRelatorio().contains("SQL")) {
-              
-            Calendar calendar = new GregorianCalendar();
-            if (dataPeriodoDe == null) {
-                r.getParametros().put("periodoInicial", null);
-            } else {
-                calendar.setTime(dataPeriodoDe);
-                int mes = calendar.get(Calendar.MONTH) + 1;
-                int dia = calendar.get(Calendar.DAY_OF_MONTH);
-                int ano = calendar.get(Calendar.YEAR);
-                r.getParametros().put("periodoInicial", dataPeriodoDe == null ? null : String.format("%02d", dia) + "/" + String.format("%02d", mes) + "/" + ano);
-            }
-
-            if (dataPeriodoAte == null) {
-                r.getParametros().put("periodoFinal", null);
-            } else {
-                calendar.setTime(dataPeriodoAte);
-                int mes = calendar.get(Calendar.MONTH) + 1;
-                int dia = calendar.get(Calendar.DAY_OF_MONTH);
-                int ano = calendar.get(Calendar.YEAR);
-                r.getParametros().put("periodoFinal", dataPeriodoAte == null ? null : String.format("%02d", dia) + "/" + String.format("%02d", mes) + "/" + ano);
-            }
-        }
-
         ExportarArquivo e = new ExportarArquivo();
-        e.processaPDF(r, this.getComplementoRelatorio());
+        e.processaPDF(r, "");
 
     }
     

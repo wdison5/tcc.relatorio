@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2016-10-23T23:57:53 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2d67acac-49fc-43ff-8e40-dd416cff4211">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="IMAGEM_RODAPE" class="java.lang.String"/>
+	<parameter name="IMAGEM_CABECALHO" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="tipoProduto.descricao" class="java.lang.String"/>
+	<field name="dataReferencia" class="java.util.Date"/>
+	<field name="quantidade" class="java.lang.Integer"/>
+	<field name="valorUnitario" class="java.math.BigDecimal"/>
+	<field name="valorCusto" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="72" splitType="Stretch">
+			<image>
+				<reportElement x="140" y="0" width="270" height="50" uuid="550b1936-50f6-4531-96f6-60a100845e04"/>
+				<imageExpression><![CDATA[$P{IMAGEM_CABECALHO}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="50" width="270" height="20" uuid="a615fadf-1c46-4004-a0b6-8326866fdaab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="414" splitType="Stretch">
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="0" width="280" height="190" uuid="c9110fb2-78b1-4794-86b2-63cce1da40c9"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{descricao}]]></keyExpression>
+					<valueExpression><![CDATA[$F{quantidade}]]></valueExpression>
+					<labelExpression><![CDATA[$F{descricao}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<bar3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="280" y="0" width="270" height="190" uuid="3f05d692-eb0a-48f2-958d-484876f81011"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{descricao}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{dataReferencia}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{quantidade}]]></valueExpression>
+						<labelExpression><![CDATA[$F{descricao}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<lineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="190" width="540" height="200" uuid="788a1f5e-984e-4bb8-9e9b-6716c129744f"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{descricao}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{dataReferencia}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{quantidade}]]></valueExpression>
+						<labelExpression><![CDATA[$F{descricao}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+			<staticText>
+				<reportElement x="0" y="390" width="90" height="20" uuid="c901aa1f-2425-4fe3-88d1-2c24728b9657"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DESC. PRODUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="390" width="90" height="20" uuid="c6cfd003-babb-4150-8ee8-05fe924c82a9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CATEGORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="390" width="100" height="20" uuid="e2a4d8a0-60fb-426b-b91a-333d1560e13b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATA MOVIMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="390" width="90" height="20" uuid="95149dbb-ea40-48e9-97d4-015ba3aae738"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="390" width="90" height="20" uuid="6b55ee62-96b9-4c77-8d0a-42786638f89d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VALOR UNIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="390" width="90" height="20" uuid="118afd33-291f-460b-b0ff-223ee9848340"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VALOR CUSTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="90" height="16" uuid="15212ade-2b88-4169-93e3-fed07eefca7d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="90" height="16" uuid="148b9bf5-57e5-4927-8fb4-004a88e09a66">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipoProduto.descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="180" y="0" width="100" height="16" uuid="b56221e2-7bb3-4651-854f-653239dc1a50">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataReferencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="90" height="16" uuid="7f290b19-f810-40f4-aee9-dec98d0797cf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="90" height="16" uuid="e04dfe73-a6cf-4fbb-835c-0ef8f3d80462">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="90" height="16" uuid="1045ff26-7fe1-4798-b500-b11151dcd432">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorCusto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="64" splitType="Stretch">
+			<image>
+				<reportElement x="380" y="0" width="170" height="60" uuid="d2ed48c3-1498-46f1-9231-c3056b9a618d"/>
+				<imageExpression><![CDATA[$P{IMAGEM_RODAPE}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

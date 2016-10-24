@@ -13,3 +13,4 @@
 *hs_err_pid*
 *target/
 !/tcc.relatorio.ear/
+/tcc.relatorio.ear/target/
