@@ -97,6 +97,10 @@ public class UsuarioEntity extends BaseEntity {
      */
     public UsuarioEntity() {
     }
+    
+    public UsuarioEntity(Long id) {
+        setId(id);
+    }
 
     /**
      * @return the userId

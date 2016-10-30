@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,7 @@ import org.tcc.relatorio.util.FacesUtil;
 import org.tcc.relatorio.util.jasper.Reports;
 import org.tcc.relatorio.hammer.persistencia.exception.BCException;
 import org.tcc.relatorio.negocio.TccRelatorioBC;
+import org.tcc.relatorio.util.EmailUtil;
 
 /**
  *
@@ -66,7 +66,7 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
     public void inicializaRelatorio(String complemento) {
         inicializaRelatorio(complemento, true);
     }
-
+    
     public void inicializaRelatorio(String complemento, Boolean periodoDefault) {
         this.setEstadoDefault();
         switch(complemento){
@@ -238,7 +238,7 @@ public class TccRelatorioMBean extends BaseMBean<ProdutoEntity> {
 
         ExportarArquivo e = new ExportarArquivo();
         e.processaPDF(r, "");
-
+        
     }
     
     public String titulo(String titulo) {

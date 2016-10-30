@@ -1,11 +1,12 @@
 package org.tcc.relatorio.util;
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfException;
 import java.io.File;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -33,13 +34,13 @@ import org.tcc.relatorio.util.jasper.Reports;
 
 /**
  * Classe para geracao de relatorios no formato PDF e XLS.
+ *
  * @author eloy
  * @since 07/11/2014
  */
-
 @RequestScoped
 @ManagedBean(name = "exportarArquivo")
-public class ExportarArquivo  {
+public class ExportarArquivo {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportarArquivo.class);
     private String nomeArquivo;
@@ -54,14 +55,15 @@ public class ExportarArquivo  {
 
     /**
      * Faz a validacao da lista de dados, retornando uma mensagem de que nao
-     * existe registros caso esta lista esteja vazia. Se a lista de dados
-     * tiver pelo menos um registro, o agrupador das opcoes de exportacao 
-     * sera exibido.
+     * existe registros caso esta lista esteja vazia. Se a lista de dados tiver
+     * pelo menos um registro, o agrupador das opcoes de exportacao sera
+     * exibido.
+     *
      * @param dados Lista de dados para exportacao.
      */
     public void validarLista(List dados) {
-        if (dados!=null && dados.size()>0) {
-            
+        if (dados != null && dados.size() > 0) {
+
         }
         if (!Validador.isColecao(dados)) {
             FacesUtil.addError("Sem registros para exportar!");
@@ -80,29 +82,29 @@ public class ExportarArquivo  {
 
             File file = new File(arquivo);
 
-            if(file.exists()){
+            if (file.exists()) {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
-                HttpServletRequest  request  = (HttpServletRequest ) fc.getExternalContext().getRequest();
+                HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
 
                 // ParÃ¢metros
                 HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
                 File logoFile = new File(sessao.getServletContext().getRealPath(
-                        System.getProperty("file.separator") + "img" + 
-                        System.getProperty("file.separator") + "logo_report.png"));
+                        System.getProperty("file.separator") + "img"
+                        + System.getProperty("file.separator") + "logo_report.png"));
                 String caminhoLogo = logoFile.getAbsolutePath();
                 LOGGER.info("Caminho Imagem: {}", caminhoLogo);
                 r.getParametros().put("PATH_IMAGE_LOGO", caminhoLogo);
-                r.getParametros().put("funcionario", "Funcionário: " + 
-                        (String) request.getSession().getAttribute("userId") + " - " +
-                        (String) request.getSession().getAttribute("username"));
+                r.getParametros().put("funcionario", "Funcionário: "
+                        + (String) request.getSession().getAttribute("userId") + " - "
+                        + (String) request.getSession().getAttribute("username"));
 
-                // Monta o relatÃ³rio
+                // Monta o relatório
                 JasperPrint print;
                 if (complementoDoNome.contains("SQL")) {
                     Context initContext = new InitialContext();
                     DataSource ds = (DataSource) initContext.lookup("jdbc/sipphDS");
-                    Connection conn = ds.getConnection();                    
+                    Connection conn = ds.getConnection();
                     print = JasperFillManager.fillReport(arquivo, r.getParametros(), conn);
                 } else {
                     print = JasperFillManager.fillReport(arquivo, r.getParametros(), new JRBeanCollectionDataSource(r.getRegistros()));
@@ -128,22 +130,53 @@ public class ExportarArquivo  {
             LoggerUtil.info("Esta mensagem", ex, LOGGER, true);
         }
     }
-    
-    
+
     public void processaXLS(Object document) {
         HSSFWorkbook wb = (HSSFWorkbook) document;
         HSSFSheet sheet = wb.getSheetAt(0);
         HSSFRow header = sheet.getRow(0);
 
-        HSSFCellStyle cellStyle = wb.createCellStyle();  
+        HSSFCellStyle cellStyle = wb.createCellStyle();
         cellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
         cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
-        for(int i=0; i < header.getPhysicalNumberOfCells();i++) {
+        for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
             HSSFCell cell = header.getCell(i);
             cell.setCellStyle(cellStyle);
 
             sheet.setColumnWidth(i, 10000);
         }
+    }
+
+    public byte[] gerarPDF(Reports r) throws DocumentException {
+        byte[] reportpdf = null;
+        LOGGER.info("Classe: {}", r.getClasse().getClass().getSimpleName());
+        try {
+            String caminho = getPathFile("WEB-INF") + "/classes/reports/";
+//            String arquivo = caminho + r.getNomeArquivo() + ".jasper";
+            String arquivo = caminho + "TccRelatorio" + ".jasper";
+            LOGGER.info("Arquivo Report: {}", arquivo);
+
+            File file = new File(arquivo);
+
+            if (file.exists()) {
+                File logoFile = new File(getPathFile("img/logo_report.png"));
+                String caminhoLogo = logoFile.getAbsolutePath();
+                LOGGER.info("Caminho Imagem: {}", caminhoLogo);
+                r.getParametros().put("PATH_IMAGE_LOGO", caminhoLogo);
+                // Monta o relatório
+                JasperPrint print;
+                print = JasperFillManager.fillReport(arquivo, r.getParametros(), new JRBeanCollectionDataSource(r.getRegistros()));
+                reportpdf = JasperExportManager.exportReportToPdf(print);
+            }
+        } catch (Exception ex) {
+            throw new DocumentException("Falha ao processar PDF", ex);
+        }
+        return reportpdf;
+    }
+
+    public static String getPathFile(String descricao) {
+//        return Thread.currentThread().getContextClassLoader().getResource(descricao).getFile();
+        return FacesUtil.externalContext().getRealPath(descricao);
     }
 }

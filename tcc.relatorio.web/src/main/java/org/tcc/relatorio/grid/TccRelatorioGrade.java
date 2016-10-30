@@ -37,13 +37,6 @@ public final class TccRelatorioGrade extends BaseGrade<TccRelatorioMBean, Produt
         super.setActionEditar("");
         super.setActionDetalhar("");
         super.setPossuiGrafico(true);
-
-//        super.getRelatorioPadrao().put("campos", "nrEmpenho;dtEmpenho;pphBeneficiario->pphUnidadePagadora->nmUnidadePagadora;vlEmpenho");
-//        super.getRelatorioPadrao().put("titulos", "Empenho;Data;Unidade Pagadora;Valor");
-//        super.getRelatorioPadrao().put("larguras", "40;40;120;50");
-//        super.getRelatorioPadrao().put("cabecalho1", "Relatório Gerencial");
-//        super.getRelatorioPadrao().put("cabecalho2", "Listagem de Produtos");
-//        super.getRelatorioPadrao().put("cabecalho3", "TCC");
     }
     
     public Object tipoProduto(Object informacao, Tipo tipo){
