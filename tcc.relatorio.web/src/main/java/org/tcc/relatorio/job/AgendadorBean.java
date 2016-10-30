@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class AgendadorBean implements Serializable {
 
-    @Schedule(hour = "*", minute = "*", second = "1", persistent = false)
+    @Schedule(hour = "21", persistent = false)
     public void jobSendEmail() {
         try {
             URL url = new URL("http://localhost:8080/relatorio/public/email.jsf");
